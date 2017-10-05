@@ -17,7 +17,7 @@ $record = DB::update('user', array(
 
 if ($record === TRUE) {
      echo'<p>Updated Course Request Succesfully!</p>';
-    header("Location:http://localhost/ICT3104/account/editProfile.php");
+    header("Location:http://" . $_SERVER["SERVER_NAME"] . "/GymLife/account/editProfile.php");
    
  }
  else{

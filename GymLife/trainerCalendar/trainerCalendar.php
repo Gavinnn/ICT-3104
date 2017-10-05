@@ -52,10 +52,10 @@
         <link rel="stylesheet" type="text/css" href="../asset/css/responsive.css">
 
         <!-- FullCalendar -->
-        <link href='../asset/css/calendar/fullcalendar.css' rel='stylesheet' />
+        <link href='../asset/plugins/fullCalendar/css/fullcalendar.css' rel='stylesheet' />
 
         <!-- Timepicker -->
-        <link href='../asset/css/calendar/jquery.timepicker.css' rel='stylesheet'/>
+        <link href='../asset/plugins/fullCalendar/css/jquery.timepicker.css' rel='stylesheet'/>
 
         <script src="../asset/js/modernizrr.js"></script>
 
@@ -185,11 +185,11 @@
 
 
 		<!-- jQuery Version 1.11.1 -->
-    <script src="../asset/js/calendar/jquery.js"></script>
+    <script src="../asset/plugins/fullCalendar/js/jquery.js"></script>
     
     <!-- FullCalendar -->
-		<script src='../asset/js/calendar/moment.min.js'></script>
-		<script src='../asset/js/calendar/fullcalendar.min.js'></script>
+		<script src='../asset/plugins/fullCalendar/js/moment.min.js'></script>
+		<script src='../asset/plugins/fullCalendar/js/fullcalendar.min.js'></script>
 
 		<script src="initializeCalendar.js" type="text/javascript"></script>
 		<script type="text/javascript">
@@ -197,7 +197,7 @@
 		</script>
 
 		<!-- Timepicker  -->
-		<script src="../asset/js/calendar/jquery.timepicker.js"></script>
+		<script src="../asset/plugins/fullCalendar/js/jquery.timepicker.js"></script>
 
     <!-- Bootstrap -->
     <script src="../asset/bootstrap/js/bootstrap.min.js"></script>

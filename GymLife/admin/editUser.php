@@ -1,5 +1,5 @@
 <?php include '../conn.php'; ?>
-<?php include '../session/managerSession.php'; ?>
+<?php require_once('../session/adminSession.php'); ?>
 <?php
 //Query to select userid
 $id = $_GET['id'];

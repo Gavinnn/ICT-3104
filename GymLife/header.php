@@ -19,7 +19,7 @@
                         <a class="active" href="/<?php echo $path; ?>/index.php">Home</a>
                     </li>
                     <!--Booking Section-->
-                    <li><a href="/<?php echo $path; ?>/booking.php">Booking</a></li>
+                    <li><a href="/<?php echo $path; ?>/trainerCalendar/trainerCalendar.php">Booking</a></li>
                     <!--Account Management Section-->
 					<?php
 					if($_SESSION['role']==1){

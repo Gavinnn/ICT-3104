@@ -20,7 +20,7 @@ if($record)
 		$_SESSION["role"] = "admin";
 	if($record['roleID'] ==2)
 		$_SESSION["role"] = "trainer";
-	if($record['roleID'] ==1)
+	if($record['roleID'] ==3)
 		$_SESSION["role"] = "trainee";
 	//Redirect to page
 	header('Location: index.php');

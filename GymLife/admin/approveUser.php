@@ -25,11 +25,21 @@
         <link rel="stylesheet" type="text/css" href="../asset/css/style.css">
         <!-- Responsive CSS Style -->
         <link rel="stylesheet" type="text/css" href="../asset/css/responsive.css">
-
-
+		<!--Modernizer-->
         <script src="../asset/js/modernizrr.js"></script>
+		<!--JQuery file-->
+		<script src="../asset/js/jquery-2.1.3.min.js"></script>
+		<!--Datatable-->
+        <link rel="stylesheet" href="../assets/plugins/DataTables/css/jquery.dataTables.css">
+        <script src="../assets/plugins/DataTables/js/jquery.dataTables.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
+		<script>
+            $(document).ready(function () {
+                $('#users').DataTable();
+            });
+        </script>
     </head>
-
     <body>
 		<!--Navigation Section-->
 		<?php require_once('../header.php'); ?>
@@ -40,25 +50,50 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>View Profile </h1>
+                            <h1>Approve User </h1>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- End Header Section -->
+		<table id="users" class="display" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th data-sortable="false">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $record = DB::query("SELECT * FROM user WHERE status=%i", 1);
+
+                                foreach ($record as $row) {
+                                    echo "<tr>";
+                                    echo "<td>" . $row['userName'] . "</td>";
+                                    echo "<td>" . $row['name'] . "</td>";
+                                    echo "<td>" . $row['email'] . "</td>";
+                                    echo "<td>" . $row['roleID'] . "</td>";
+                                    echo "<td>";
+                                    echo "<button class='btn btn-primary' onclick=\"location.href='viewUser.php?id=" . $row['userID'] . "'\">Approve</button>";
+                                    echo "<button class='btn btn-success' onclick=\"location.href='edituser.php?id=" . $row['userID'] . "'\">Reject</button>";
+                                    echo "</td>";
+                                    echo "</tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table><!-- /userTable -->
+		
         
         
         <!-- Start About Us Section -->
     <section id="about-section" class="about-section">
         <div class="container">
             <div class="row">
-               <?php
-        //Query to select status
-        $record = DB::query("SELECT * FROM user WHERE status=%i", 1);
-		var_dump($record);
-        ?>
-                
+
             </div>
         </div>
     </section>
@@ -79,7 +114,7 @@
         </div>
         <!-- End Copyright Section -->  
      <!-- Sulfur JS File -->
-        <script src="../asset/js/jquery-2.1.3.min.js"></script>
+        
         <script src="../asset/js/jquery-migrate-1.2.1.min.js"></script>
         <script src="../asset/bootstrap/js/bootstrap.min.js"></script>
         <script src="../asset/js/owl.carousel.min.js"></script>

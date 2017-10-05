@@ -22,7 +22,7 @@
                     <li><a href="/<?php echo $path; ?>/trainerCalendar/trainerCalendar.php">Booking</a></li>
                     <!--Account Management Section-->
 					<?php
-					if($_SESSION['role']==1){
+					if($_SESSION['role']=="admin"){
 					?>
                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Account Management</a>
                         <ul class="dropdown-menu dropdown-menu-right">

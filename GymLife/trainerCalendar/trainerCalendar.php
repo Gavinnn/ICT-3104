@@ -67,18 +67,31 @@
         <!--Navigation Section-->
         <?php require_once('../header.php'); ?>
 
-                    <!-- Page Content -->
-		<div class="container">
-
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h1>Training Calendar</h1>
-                <p class="lead">Add/Modify/Remove trainings</p>
-                <div id="calendar" class="col-centered">
+		<!-- Start Header Section -->
+        <div class="page-header">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>Training Calendar</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- /.row -->
+        <!-- End Header Section -->
+		
+		<div class="container">
+			<div class="row">
+            <div class="col-lg-12 text-center">
+			<br>
+				<br>
+				<br>
+                <div id="calendar" class="col-centered">
+                </div>
+				<br>
+            </div>
+        </div>
 
                 <!-- Add Training Modal -->
                 <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

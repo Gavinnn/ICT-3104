@@ -68,19 +68,36 @@
     
     <?php require_once '../header.php'; ?>
         
-        
-		<div id="fh5co-main">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<table id="users" class="display" cellspacing="0" width="100%">
+<!-- Start Header Section -->
+        <div class="page-header">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>Approve Users</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Section -->
+        <section id="about-section" class="about-section">
+            <div class="container">
+	  <div class="col-md-12 ">
+	  
+	    <div class="panel panel-default panel-table">
+              <div class="panel-heading">
+			  
+              </div>
+              <div class="panel-body">
+						<table id="users" class="table table-striped table-bordered table-list" width="100%">
 							<thead>
 								<tr>
 									<th>Name</th>
 									<th>Username</th>
 									<th>Email</th>
 									<th>Role</th>
-									<th data-sortable="false">Action</th>
+									<th data-sortable="false"><em class="fa fa-cog"></em></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -114,6 +131,7 @@
 							</tbody>
 						</table><!-- /userTable -->
 					</div>
+					
 				</div>
 			</div>
 		</div>

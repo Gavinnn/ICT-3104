@@ -47,6 +47,9 @@
     <!-- jQuery -->
     <script src="../asset/js/jquery-2.1.3.min.js"></script>
 
+	<!-- Table CSS Style -->
+	<link rel="stylesheet" type="text/css" href="../asset/css/table.css">
+
     <!--Datatable-->
     <link rel="stylesheet" href="../asset/plugins/DataTables/css/jquery.dataTables.css">
     <script src="../asset/plugins/DataTables/js/jquery.dataTables.js"></script>
@@ -71,18 +74,37 @@
 		<?php require_once('../header.php'); ?>
 
 
-    <div id="fh5co-main">
-        <div class="container">
+<!-- Start Header Section -->
+        <div class="page-header">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>Account Management</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Section -->
+		
+		  <section id="about-section" class="about-section">
+            <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <table id="users" class="display" cellspacing="0" width="100%">
+				<div class="panel panel-default panel-table">
+				<div class="panel-heading">
+			  
+              </div>
+				<div class="panel-body">
+                    <table id="users" class="table table-striped table-bordered table-list" width="100%">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th data-sortable="false">Action</th>
+                                <th data-sortable="false"><em class="fa fa-cog"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -128,10 +150,32 @@
                             ?>
                         </tbody>
                     </table><!-- /userTable -->
+					</div>
+					
+					<div class="panel-footer">
+                <div class="row">
+                  <div class="col col-xs-4">Page 1 of 5
+                  </div>
+                  <div class="col col-xs-8">
+                    <ul class="pagination hidden-xs pull-right">
+                      <li><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">5</a></li>
+                    </ul>
+                    <ul class="pagination visible-xs pull-right">
+                        <li><a href="#">«</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                  </div>
                 </div>
             </div>
-        </div>
+                </div>
+            </div>
     </div>
+	</div>
+	</div>
 
     <!-- Start Copyright Section -->
     <div id="copyright-section" class="copyright-section">

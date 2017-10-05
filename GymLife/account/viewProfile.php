@@ -39,29 +39,29 @@
         <script src="../asset/js/modernizrr.js"></script>
     </head>
 
-    <body>
+   <body>
 		<!--Navigation Section-->
 		<?php require_once('../header.php'); ?>
         
-        <!-- Start Header Section -->
+		<!-- Start Header Section -->
         <div class="page-header">
             <div class="overlay">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>View Profile </h1>
+                            <h1>View Profile</h1>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- End Header Section -->
-        
-        
-        <!-- Start About Us Section -->
-    <section id="about-section" class="about-section">
-        <div class="container">
-            <div class="row">
+      
+	  
+	   <!-- Start About Us Section -->
+        <section id="about-section" class="about-section">
+            <div class="container">
+                 <div class="row" style="margin-left:10px">
                <?php
         //Query to select username
         $id = $_SESSION["id"];
@@ -71,64 +71,43 @@
         $email = $record["email"];
         $role = $record["roleID"];
         $contact = $record["contactNumber"];
-         
-            if ($record)
-            {
-                                
-                             echo '
-                                 <div class="col-sm-4">
+?><br>
                             <div class="form-group">
                                 <label class="control-label" for="textinput">Username:  </label>
-                                <input type="text" name="userName" class="form-control input-md" readonly value="' . $username . '" />
+								<label><?php echo $username; ?></label>
                             </div>
-                            </div>
-                           <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="control-label" for="textinput">Name: </label>
-                                 <input type="text" name="name" class="form-control input-md" readonly value="' . $name . '" />
-                            </div>
+								<label><?php echo $name; ?></label>
+                               
                             </div> 
-                            <div class="col-sm-3">
                              <div class="form-group">
                                 <label class="control-label" for="textinput">Email: </label>
-                                <input type="text" name="email" class="form-control input-md" readonly value="' . $email . '" />
-                            </div>
-                            </div> 
-                              <div class="col-sm-3">
+                                <label><?php echo $email; ?></label>
+                            </div
                              <div class="form-group">
                                 <label class="control-label" for="textinput">Contact Number: </label>
-                                 <input type="text" name="contactNumber" class="form-control input-md" readonly value="' . $contact . '" />
+                                <label><?php echo $contact; ?></label>
                             </div>
-                            </div> 
-                            ';
-                           
-                            
-                            echo "</div>";
-            }
-            else
-            {
-                echo "error";
-            }		
-        ?>
+							</div>
                 
             </div>
-        </div>
-    </section>
+			</div>
+        </section>
+	  
 
-        
-        
-         <!-- Start Copyright Section -->
-        <div id="copyright-section" class="copyright-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="copyright">
-                            Copyright © 2017. ICT3104 Software Management - Gym Booking System</a>
-                        </div>
+		<!-- Start Copyright Section -->
+    <div id="copyright-section" class="copyright-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="copyright">
+                        Copyright © 2017. ICT3104 Software Management - Gym Booking System</a>
                     </div>
-                </div><!--/.row -->
-            </div><!-- /.container -->
-        </div>
+                </div>
+            </div><!--/.row -->
+        </div><!-- /.container -->
+    </div>
         <!-- End Copyright Section -->  
      <!-- Sulfur JS File -->
         <script src="../asset/js/jquery-2.1.3.min.js"></script>

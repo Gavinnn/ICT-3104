@@ -58,10 +58,10 @@
         <!-- End Header Section -->
 
 
-        <!-- Start About Us Section -->
+     <!-- Start About Us Section -->
         <section id="about-section" class="about-section">
             <div class="container">
-                <div class="row">
+                <div class="row" style="margin-left:10px">
                     <form action='process-updateProfile.php' method='post'  enctype='multipart/form-data' name='createreq-form' id='createreq-form'> 
                         <?php
                         //Query to select username
@@ -70,48 +70,32 @@
                         $username = $record["userName"];
                         $name = $record["name"];
                         $email = $record["email"];
-                        $contact = $record["contactNumber"];
+                        $contact = $record["contactNumber"];?>
 
-
-                        if ($record !== false) {
-                            echo '<div class="col-sm-4">
                             <div class="form-group">
                                 <label class="control-label" for="textinput">Username: </label>
-                                <input type="text" name="userName" class="form-control input-md" required value="' . $username . '" />
+                                <input type="text" name="userName" class="form-control input-md" required value="<?php echo $username; ?>" />
                             </div>
-                            </div>
-                           <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="control-label" for="textinput">Name: </label>
-                                <input type="text" name="name" class="form-control input-md" value="' . $name . '" />
+                                <input type="text" name="name" class="form-control input-md" value="<?php echo $name; ?>" />
                             </div>
-                            </div> 
-                            <div class="col-sm-3">
                              <div class="form-group">
                                 <label class="control-label" for="textinput">Email: </label>
-                                <input type="text" name="email" class="form-control input-md" required value="' . $email . '" />
+                                <input type="text" name="email" class="form-control input-md" required value="<?php echo $email; ?>" />
                             </div>
-                            </div> 
-                              <div class="col-sm-3">
                              <div class="form-group">
                                 <label class="control-label" for="textinput">Contact Number: </label>
-                                <input type="text" name="contactNumber" class="form-control input-md" value="' . $contact . '" />
+                                <input type="text" name="contactNumber" class="form-control input-md" value="<?php echo $contact; ?>" />
                             </div>
-                            </div> 
-                            ';
-                        } else {
-                            echo'<p> no data</p>';
-                        }
-                        ?>
 
                 </div>
             </div>
-             <div class="row">
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
+			<div class="container">
+             <div class="row" style="margin-left:10px">
+			 <input type="submit"  class="btn btn-default" id="btnSubmit" value="Back" />
                     <input type="submit"  class="btn btn-default" id="btnSubmit" value="Submit" />
                 </div>
-            </div>
         </div>
         </section>
        
@@ -130,6 +114,7 @@
             </div><!--/.row -->
         </div><!-- /.container -->
     </div>
+    <!-- End Copyright Section -->  
     <!-- End Copyright Section -->  
     <!-- Sulfur JS File -->
     <script src="../asset/js/jquery-2.1.3.min.js"></script>

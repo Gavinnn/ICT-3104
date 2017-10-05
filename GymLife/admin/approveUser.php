@@ -66,44 +66,7 @@
 
     <body>
     
-        <header class="clearfix">
-        
-            <!-- Start  Logo & Naviagtion  -->
-            <div class="navbar navbar-default navbar-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <!-- Stat Toggle Nav Link For Mobiles -->
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                        <!-- End Toggle Nav Link For Mobiles -->
-                        <a class="navbar-brand" href="index.html">GymLife</a>
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        
-                        <!-- Start Navigation List -->
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a class="active" href="index.html">Home</a>
-                            </li>
-                            <li>
-                                <a href="index.html">About Us</a>
-                            </li>
-                            <li>
-                                <a href="service.html">Services</a>
-                            </li>
-                            <li>
-                                <a href="index.html">Trainers Portfolio</a>
-                            </li>
-                            <li><a href="../login.php">Login</a>
-                            </li>
-                        </ul>
-                        <!-- End Navigation List -->
-                    </div>
-                </div>
-            </div>
-            <!-- End Header Logo & Naviagtion -->
-        </header>
+    <?php require_once '../header.php'; ?>
         
         
 		<div id="fh5co-main">
@@ -142,8 +105,8 @@
 										echo "<td> ERROR </td>";
 									}
 									echo "<td>";
-                                    echo "<button class='btn btn-primary' onclick=\"location.href='approveUserProcess.php?id=" . $row['userID'] . "' \">Approve</button>";
-                                    echo "<button class='btn btn-success' onclick=\"location.href='rejectUserProcess.php?id=" . $row['userID'] . "' \">Reject</button>";
+                                    echo "<button class='btn btn-success' onclick=\"location.href='approveUserProcess.php?id=" . $row['userID'] . "&email=" . $row['email']. "' \">Approve</button>";
+                                    echo "<button class='btn btn-danger' onclick=\"location.href='rejectUserProcess.php?id=" . $row['userID'] . "&email=" . $row['email']. "' \">Reject</button>";
 									echo "</td>";
 									echo "</tr>";
 								}

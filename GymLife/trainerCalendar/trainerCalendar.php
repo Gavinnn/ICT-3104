@@ -2,7 +2,7 @@
     require_once('../session/session.php');
 
     // HARDCODED USER DATA
-    $trainerID = 2;
+    $trainerID = $_SESSION['id'];
     
     include 'getTrainings.php';
     $events = getTrainings($trainerID);

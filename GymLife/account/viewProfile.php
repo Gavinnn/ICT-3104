@@ -66,12 +66,30 @@
         //Query to select username
         $id = $_SESSION["id"];
         $record = DB::queryFirstRow("SELECT * FROM user WHERE userID=%s", $id);
-		$username = $record["userName"];
+        $username = $record["userName"];
         $name = $record["name"];
         $email = $record["email"];
         $role = $record["roleID"];
         $contact = $record["contactNumber"];
-		var_dump($record);
+         
+            if ($record)
+            {
+                            echo "<div align=\"left\">";           
+                            echo "<br /><b>User Name: </b> " . $username;
+                             echo "<br /><b>Name: </b> " . $name ;
+                            echo "<br /><b>Email: </b> " . $email;
+                            echo "<br /><b>Contact:</b> " . $contact;
+                           
+                            
+                            echo "</div>";
+            }
+            else
+            {
+                echo "error";
+            }		
+		
+                
+                
         ?>
                 
             </div>

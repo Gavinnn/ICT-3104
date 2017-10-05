@@ -74,11 +74,33 @@
          
             if ($record)
             {
-                            echo "<div align=\"left\">";           
-                            echo "<br /><b>User Name: </b> " . $username;
-                             echo "<br /><b>Name: </b> " . $name ;
-                            echo "<br /><b>Email: </b> " . $email;
-                            echo "<br /><b>Contact:</b> " . $contact;
+                                
+                             echo '
+                                 <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="textinput">Username:  </label>
+                                <input type="text" name="userName" class="form-control input-md" readonly value="' . $username . '" />
+                            </div>
+                            </div>
+                           <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="textinput">Name: </label>
+                                 <input type="text" name="name" class="form-control input-md" readonly value="' . $name . '" />
+                            </div>
+                            </div> 
+                            <div class="col-sm-3">
+                             <div class="form-group">
+                                <label class="control-label" for="textinput">Email: </label>
+                                <input type="text" name="email" class="form-control input-md" readonly value="' . $email . '" />
+                            </div>
+                            </div> 
+                              <div class="col-sm-3">
+                             <div class="form-group">
+                                <label class="control-label" for="textinput">Contact Number: </label>
+                                 <input type="text" name="contactNumber" class="form-control input-md" readonly value="' . $contact . '" />
+                            </div>
+                            </div> 
+                            ';
                            
                             
                             echo "</div>";
@@ -87,9 +109,6 @@
             {
                 echo "error";
             }		
-		
-                
-                
         ?>
                 
             </div>

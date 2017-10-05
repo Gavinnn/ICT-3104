@@ -118,8 +118,8 @@
                         </div>
                         <div class="field-wrap">
                             <select id="role" name="role"> 
-                                <option value = '1' >trainee</option>
                                 <option value = '2'>trainer</option>
+								<option value = '3' >trainee</option>
                             </select>
                         </div>
                         <div class="field-wrap">

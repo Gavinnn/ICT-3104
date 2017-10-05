@@ -105,7 +105,7 @@ label.highlight {
   color: #ffffff;
 }
 
-input, textarea {
+input, select, textarea {
   font-size: 22px;
   display: block;
   width: 100%;

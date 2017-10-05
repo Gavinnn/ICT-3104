@@ -10,9 +10,9 @@ if (!$record) {
 $username = $record["username"];
 $name = $record["name"];
 $email = $record["email"];
-$role = $record["role"];
-$address = $record["address"];
-$cardNo = $record["accessCardNo"];
+$role = $record["roleID"];
+$contact = $record["contact"];
+$status = $record["status"];
 if ($cardNo == NULL)
     $cardNo = "Not Available";
 ?>
@@ -86,16 +86,43 @@ if ($cardNo == NULL)
                                     </tr>
                                     <tr>
                                         <td><b>Role</b></td>
-                                        <td><?php echo $role; ?></td>
+                                        <td>
+                                        <?php 
+                                        if ($role == '1') {
+                                                echo "Admin";
+                                            }
+                                            elseif ($role=='2'){
+                                                echo "Trainer ";
+                                            }
+                                            elseif ($role=='3'){
+                                                echo "Trainee";
+                                            }
+                                            else{
+                                                echo "ERROR";
+                                            }
+                                         ?>
+                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><b>Address</b></td>
-                                        <td><?php echo $address; ?></td>
+                                        <td><b>Contact</b></td>
+                                        <td><?php echo $contact; ?></td>
                                     </tr> 
+                                        <td><b>Status</b></td>
+                                        <td>
+                                        <?php 
+                                        if ($status == '1') {
+                                                echo "Unverified";
+                                            }
+                                            elseif ($status=='2'){
+                                                echo "Verified ";
+                                            }
+                                            else{
+                                                echo "ERROR";
+                                            }
+                                         ?>
+                                         </td>
                                     <tr>
-                                        <td><b>Access Card No</b></td>
-                                        <td><?php echo $cardNo; ?></td>
-                                    </tr> 								
+                                    </tr>		
                                 </tbody>
                             </table>
                         </div>

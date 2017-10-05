@@ -106,7 +106,7 @@
 									}
 									echo "<td>";
                                     echo "<button class='btn btn-success' onclick=\"location.href='approveUserProcess.php?id=" . $row['userID'] . "&email=" . $row['email']. "' \">Approve</button>";
-                                    echo "<button class='btn btn-danger' onclick=\"location.href='rejectUserProcess.php?id=" . $row['userID'] . "&email=" . $row['email']. "' \">Reject</button>";
+                                    echo "<button class='btn btn-danger' onclick=\"location.href='deleteUser.php?id=" . $row['userID'] . "&email=" . $row['email']. "' \">Reject</button>";
 									echo "</td>";
 									echo "</tr>";
 								}

@@ -119,7 +119,7 @@
                                 <td>
                                     ";
                                     echo "<button class='btn btn-default' onclick=\"location.href ='viewUser.php?id=" . $row['userID'] . "' \">View</button>";
-                                    echo "<button class='btn btn-default' onclick=\"location.href ='edituser.php?id=" . $row['userID'] . "' \">Delete</button>";
+                                    echo "<button class='btn btn-default' onclick=\"location.href ='deleteUser.php?id=" . $row['userID'] . "' \">Delete</button>";
                                     echo "
                                 </td>";
                                 echo "

@@ -15,7 +15,13 @@ if($record)
 	session_start();
 	$_SESSION["id"] = $record['userID'];
 	$_SESSION["name"] = $record['name'];
-	$_SESSION["role"] = $record['roleID'];
+	//Store role of user
+	if($record['roleID'] ==1)
+		$_SESSION["role"] = "admin";
+	if($record['roleID'] ==2)
+		$_SESSION["role"] = "trainer";
+	if($record['roleID'] ==1)
+		$_SESSION["role"] = "trainee";
 	//Redirect to page
 	header('Location: index.php');
 }

@@ -99,11 +99,11 @@ if ($status == '1') {
                     <div class="form-group">
                         <label class="control-label" for="textinput">Email: </label>
                         <label><?php echo $email; ?></label>
-                    </div
+                    </div>
                     <div class="form-group">
                         <label class="control-label" for="textinput">Role: </label>
                         <label><?php echo $role; ?></label>
-                    </div
+                    </div>
                     <div class="form-group">
                         <label class="control-label" for="textinput">Contact Number: </label>
                         <label><?php echo $contact; ?></label>

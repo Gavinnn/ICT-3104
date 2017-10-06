@@ -11,7 +11,7 @@ $record = DB::queryFirstRow("SELECT userID FROM user WHERE userID=%s AND passwor
 if ($record) {
     $update = DB::update('user', array(
                 'password' => $newPassword
-                    ), "username=%s", $id);
+                    ), "userID=%s", $id);
     if ($update)
         echo "success";
 } else

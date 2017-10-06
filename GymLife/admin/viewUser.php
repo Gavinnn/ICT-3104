@@ -11,138 +11,137 @@ $username = $record["userName"];
 $name = $record["name"];
 $email = $record["email"];
 $role = $record["roleID"];
+if ($role == '1') {
+    $role = "Admin";
+} elseif ($role == '2') {
+    $role = "Trainer ";
+} elseif ($role == '3') {
+    $role = "Trainee";
+}
+
 $contact = $record["contactNumber"];
 $status = $record["status"];
+if ($status == '1') {
+    $status = "Unverified";
+} elseif ($status == '2') {
+    $status = "Verified ";
+}
 ?>
-<!DOCTYPE html>
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!doctype html>
+<html lang="en">
     <head>
+        <!-- Basic -->
+        <title>GymLife | Home</title>
+
+        <!-- Define Charset -->
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Factornator</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Google Webfonts -->
-        <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        <!-- Responsive Metatag -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-        <!-- Animate.css -->
-        <link rel="stylesheet" href="../assets/css/animate.css">
-        <!-- Icomoon Icon Fonts-->
-        <link rel="stylesheet" href="../assets/css/icomoon.css">
-        <!-- Owl Carousel -->
-        <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
-        <!-- Magnific Popup -->
-        <link rel="stylesheet" href="../assets/css/magnific-popup.css">
-        <!-- Theme Style -->
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <!-- Modernizr JS -->
+        <!-- Bootstrap CSS  -->
+        <link rel="stylesheet" href="../asset/bootstrap/css/bootstrap.min.css" type="text/css">
 
-        <!--SweetAlert-->
-        <link rel="stylesheet" href="../assets/plugins/sweetalert-master/sweet-alert.css">
+        <!-- Font Awesome CSS -->
+        <link rel="stylesheet" href="../asset/font-awesome/css/font-awesome.min.css" type="text/css">
 
-        <script src="../assets/js/modernizr-2.6.2.min.js"></script>
-        <script src="../assets/js/custom.js"></script>
+        <!-- Owl Carousel CSS -->
+        <link rel="stylesheet" href="../asset/css/owl.carousel.css" type="text/css">
+        <link rel="stylesheet" href="../asset/css/owl.theme.css" type="text/css">
+        <link rel="stylesheet" href="../asset/css/owl.transitions.css" type="text/css">
+
+        <!-- Css3 Transitions Styles  -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/animate.css">
+
+        <!-- Lightbox CSS -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/lightbox.css">
+
+        <!-- Sulfur CSS Styles  -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/style.css">
+
+        <!-- Responsive CSS Style -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/responsive.css">
+
+
+        <script src="../asset/js/modernizrr.js"></script>
     </head>
+
     <body>
-        <?php require_once '../header.php'; ?>
-        <!-- END .header -->
+        <!--Navigation Section-->
+<?php require_once('../header.php'); ?>
 
-        <aside class="fh5co-page-heading">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="fh5co-page-heading-lead">
-                            View User Detail
-                            <span class="fh5co-border"></span>
-                        </h1>
-
-                    </div>
-                </div>
-            </div>
-        </aside>
-        <div id="fh5co-main">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">&nbsp;</div>
-                    <div class="col-md-6">
-                        <div class="table table-responsive">
-                            <table class="table table-striped">                    
-                                <tbody>
-                                    <tr>
-                                        <td><b>Username</b></td>
-                                        <td><?php echo $username; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Name</b></td>
-                                        <td><?php echo $name; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Email</b></td>
-                                        <td><?php echo $email; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Role</b></td>
-                                        <td>
-                                        <?php 
-                                        if ($role == '1') {
-                                                echo "Admin";
-                                            }
-                                            elseif ($role=='2'){
-                                                echo "Trainer ";
-                                            }
-                                            elseif ($role=='3'){
-                                                echo "Trainee";
-                                            }
-                                            else{
-                                                echo "ERROR";
-                                            }
-                                         ?>
-                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Contact</b></td>
-                                        <td><?php echo $contact; ?></td>
-                                    </tr> 
-                                        <td><b>Status</b></td>
-                                        <td>
-                                        <?php 
-                                        if ($status == '1') {
-                                                echo "Unverified";
-                                            }
-                                            elseif ($status=='2'){
-                                                echo "Verified ";
-                                            }
-                                            else{
-                                                echo "ERROR";
-                                            }
-                                         ?>
-                                         </td>
-                                    <tr>
-                                    </tr>		
-                                </tbody>
-                            </table>
+        <!-- Start Header Section -->
+        <div class="page-header">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>View User Detail</h1>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- End Header Section -->
+        <!-- Start About Us Section -->
+        <section id="about-section" class="about-section">
+            <div class="container">
+                <div class="row" style="margin-left:10px">
+                    <div class="form-group">
+                        <label class="control-label" for="textinput">Username:  </label>
+                        <label><?php echo $username; ?></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="textinput">Name: </label>
+                        <label><?php echo $name; ?></label>
 
-            <!-- jQuery -->
-            <script src="../assets/js/jquery.min.js"></script>
-            <!-- jQuery Easing -->
-            <script src="../assets/js/jquery.easing.1.3.js"></script>
-            <!-- Bootstrap -->
-            <script src="../assets/js/bootstrap.min.js"></script>
-            <!-- Owl carousel -->
-            <script src="../assets/js/owl.carousel.min.js"></script>
-            <!-- Waypoints -->
-            <script src="../assets/js/jquery.waypoints.min.js"></script>
-            <!-- Magnific Popup -->
-            <script src="../assets/js/jquery.magnific-popup.min.js"></script>
-            <!-- Main JS -->
-            <script src="../assets/js/main.js"></script>
-            <!--SweetAlert-->
-            <script src="../assets/plugins/sweetalert-master/sweet-alert.js"></script>
-    </body>
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label" for="textinput">Email: </label>
+                        <label><?php echo $email; ?></label>
+                    </div
+                    <div class="form-group">
+                        <label class="control-label" for="textinput">Role: </label>
+                        <label><?php echo $role; ?></label>
+                    </div
+                    <div class="form-group">
+                        <label class="control-label" for="textinput">Contact Number: </label>
+                        <label><?php echo $contact; ?></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="textinput">Status: </label>
+                        <label><?php echo $status; ?></label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Start Copyright Section -->
+    <div id="copyright-section" class="copyright-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="copyright">
+                        Copyright © 2017. ICT3104 Software Management - Gym Booking System</a>
+                    </div>
+                </div>
+            </div><!--/.row -->
+        </div><!-- /.container -->
+    </div>
+    <!-- End Copyright Section -->  
+    <!-- Sulfur JS File -->
+    <script src="../asset/js/jquery-2.1.3.min.js"></script>
+    <script src="../asset/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../asset/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../asset/js/owl.carousel.min.js"></script>
+    <script src="../asset/js/jquery.appear.js"></script>
+    <script src="../asset/js/jquery.fitvids.js"></script>
+    <script src="../asset/js/jquery.nicescroll.min.js"></script>
+    <script src="../asset/js/lightbox.min.js"></script>
+    <script src="../asset/js/count-to.js"></script>
+    <script src="../asset/js/styleswitcher.js"></script>
+</body>
 </html>

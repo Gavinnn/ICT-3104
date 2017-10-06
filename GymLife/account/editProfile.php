@@ -93,7 +93,7 @@
             </div>
 			<div class="container">
              <div class="row" style="margin-left:10px">
-			 <input type="submit"  class="btn btn-default" id="btnSubmit" value="Back" />
+			 <input type="button" onclick="history.back()" class="btn btn-default " value="Back"></input>
                     <input type="submit"  class="btn btn-default" id="btnSubmit" value="Submit" />
                 </div>
         </div>

@@ -88,10 +88,30 @@
     <body>
         <div class="form">
             <ul class="tab-group">
-                <li class="tab active"><a href="#signup">Sign Up</a></li>
-                <li class="tab"><a href="#login">Log In</a></li>
+                <li class="tab active"><a href="#login">Log In</a></li>
+                <li class="tab"><a href="#signup">Sign Up</a></li>
             </ul>
             <div class="tab-content">
+
+
+            <div id="login">   
+                    <h1>Welcome to GymLife!</h1>
+                    <form name="login" id="login" class="form-horizontal" action="loginProcess.php" enctype="multipart/form-data" method="POST" onSubmit="return check();">
+                        <div class="field-wrap">
+                            <label>
+                                Username<span class="req">*</span>
+                            </label>
+                            <input type="text" id="user" name="user"required/>
+                        </div>
+                        <div class="field-wrap">
+                            <label>Password<span class="req">*</span></label>
+                            <input type="password" id="password" name="password"required autocomplete="off"/>
+                        </div>
+                        <button type="submit" class="button button-block">Log In</button>
+
+                    </form>
+                </div>
+
                 <div id="signup">   
                     <h1>Sign Up for Free</h1>
                     <form action="#" method="post">
@@ -121,7 +141,7 @@
                         </div>
                         <div class="field-wrap">
                             <select id="role" name="role"> 
-                                <option value = '2'>trainer</option>
+                                <option value = '2'>Trainer</option>
 								<option value = '3' >trainee</option>
                             </select>
                         </div>
@@ -138,24 +158,6 @@
                             <input id="cfmpass" type="password"required autocomplete="off"/>
                         </div>
                         <button onClick="register();" type="button" class="button button-block">Get Started</button>
-                    </form>
-                </div>
-
-                <div id="login">   
-                    <h1>Welcome to GymLife!</h1>
-                    <form name="login" id="login" class="form-horizontal" action="loginProcess.php" enctype="multipart/form-data" method="POST" onSubmit="return check();">
-                        <div class="field-wrap">
-                            <label>
-                                Username<span class="req">*</span>
-                            </label>
-                            <input type="email" id="user" name="user"required/>
-                        </div>
-                        <div class="field-wrap">
-                            <label>Password<span class="req">*</span></label>
-                            <input type="password" id="password" name="password"required autocomplete="off"/>
-                        </div>
-                        <button type="submit" class="button button-block">Log In</button>
-
                     </form>
                 </div>
             </div><!-- tab-content -->

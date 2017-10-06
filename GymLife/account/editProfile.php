@@ -107,7 +107,7 @@ if ($record) {
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="textinput">Email: </label>
-                            <input type="text" id="email" name="email" class="form-control input-md" value="<?php echo $email; ?>" />
+                            <input type="email" id="email" name="email" class="form-control input-md" value="<?php echo $email; ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="textinput">Contact Number: </label>

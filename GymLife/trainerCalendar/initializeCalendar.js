@@ -23,7 +23,9 @@ function initializeCalendar(trainingSessions){
             $('#ModalAdd #startTime').timepicker({
                 disableTextInput: true,
                 orientation: "bl",	
-                timeFormat: "H:i"
+                timeFormat: "H:i",
+                minTime: '10:00am',
+                maxTime: '10:00pm',
             });
 
             // add one hour to the selected time

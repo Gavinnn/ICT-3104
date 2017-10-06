@@ -1,44 +1,82 @@
 <?php require_once('../conn.php'); ?>
 <?php require_once('../session/session.php'); ?>
+<?php
+//Query to select username
+$id = $_SESSION["id"];
+$record = DB::queryFirstRow("SELECT * FROM user WHERE userID=%s", $id);
+if ($record) {
+    $username = $record["userName"];
+    $name = $record["name"];
+    $email = $record["email"];
+    $contact = $record["contactNumber"];
+}
+?>
 <!doctype html>
 <html lang="en">
     <head>
         <!-- Basic -->
         <title>GymLife | Home</title>
-
         <!-- Define Charset -->
         <meta charset="utf-8">
-
         <!-- Responsive Metatag -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
         <!-- Bootstrap CSS  -->
         <link rel="stylesheet" href="../asset/bootstrap/css/bootstrap.min.css" type="text/css">
-
         <!-- Font Awesome CSS -->
         <link rel="stylesheet" href="../asset/font-awesome/css/font-awesome.min.css" type="text/css">
-
         <!-- Owl Carousel CSS -->
         <link rel="stylesheet" href="../asset/css/owl.carousel.css" type="text/css">
         <link rel="stylesheet" href="../asset/css/owl.theme.css" type="text/css">
         <link rel="stylesheet" href="../asset/css/owl.transitions.css" type="text/css">
-
         <!-- Css3 Transitions Styles  -->
         <link rel="stylesheet" type="text/css" href="../asset/css/animate.css">
-
         <!-- Lightbox CSS -->
         <link rel="stylesheet" type="text/css" href="../asset/css/lightbox.css">
-
         <!-- Sulfur CSS Styles  -->
         <link rel="stylesheet" type="text/css" href="../asset/css/style.css">
-
         <!-- Responsive CSS Style -->
         <link rel="stylesheet" type="text/css" href="../asset/css/responsive.css">
-
-
         <script src="../asset/js/modernizrr.js"></script>
-    </head>
+		<!--SweetAlert-->
+        <link rel="stylesheet" href="../asset/plugins/sweetalert-master/sweet-alert.css">
+        <script src="../asset/plugins/sweetalert-master/sweet-alert.js"></script>
+        <!--Custom Javascript-->
+        <script src="../asset/js/custom.js"></script>
+		<script>
+            function check() {
+                var confirm = false;
+                var oldpassword = $("#oldPass").val();
+                var newPassword = $("#newPass").val();
+                var confirmPassword = $("#cfmPass").val();
 
+                if (newPassword == confirmPassword && newPassword.length >= 8) {
+                    $.ajax({
+                        url: "changePasswordProcess.php",
+                        data: {'oldpass': oldpassword, 'newPassword': newPassword},
+                        type: 'POST',
+                        async: false,
+                        success: function (data) {
+                            if (data == "success") {
+                                confirm = true;
+                                successModal("Password changed successfully", "changePassword.php");
+
+                            } else if (data == "wrongOldPassword") {
+                                confirm = false;
+                                displayErrorMsg("Old password is wrong. Please try again.");
+                            } else {
+                                confirm = false;
+                            }
+                        }
+                    });
+                } else if (newPassword != confirmPassword)
+                    displayErrorMsg("Passwords mismatched.");
+                else if (newPassword.length < 8)
+                    displayErrorMsg("New password should contain at least 8 characters.");
+
+                return confirm;
+            }
+        </script>
+    </head>
     <body>
         <!--Navigation Section-->
         <?php require_once('../header.php'); ?>
@@ -56,35 +94,36 @@
             </div>
         </div>
         <!-- End Header Section -->
-
-
-     <!-- Start About Us Section -->
+        <!-- Start About Us Section -->
         <section id="about-section" class="about-section">
             <div class="container">
                 <div class="row" style="margin-left:10px">
-                    <form action='changePasswordProcess.php' method='post' enctype='multipart/form-data' name='createreq-form' id='createreq-form'> 
-                            <div class="form-group">
+                    <form action='changePasswordProcess.php' method='post'  enctype='multipart/form-data' name='createreq-form' id='createreq-form'> 
+                        <div class="form-group">
                                 <label class="control-label" for="textinput">Old Password: </label>
-                                <input type="password" name="oldPass" class="form-control input-md" required />
+                                <input type="password" id="oldPass" name="oldPass" class="form-control input-md" required />
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="textinput">New Password: </label>
-                                <input type="password" name="newPas" class="form-control input-md" required />
+                                <input type="password" id="newPass" name="newPass" class="form-control input-md" required />
                             </div>
 							<div class="form-group">
                                 <label class="control-label" for="textinput">Confirm Password: </label>
-                                <input type="password" name="cfmPass" class="form-control input-md" required />
+                                <input type="password" id="cfmPass" name="cfmPass" class="form-control input-md" required />
                             </div>
+						<div class="form-group">
+                <!--Error Message-->
+                <label id="msg" class="text-danger"></label>
+            </div>
                 </div>
             </div>
-			<div class="container">
-             <div class="row" style="margin-left:10px">
-			 <input type="button" onclick="history.back()" class="btn btn-default " value="Back"></input>
-                    <input type="submit"  class="btn btn-default" id="btnSubmit" value="Submit" />
+            <div class="container">
+                <div class="row" style="margin-left:10px">
+                    <input type="button" onclick="history.back()" class="btn btn-default " value="Back"></input>
+					<button onClick="check();" type="button" class="btn btn-default">Save</button>
                 </div>
-        </div>
+            </div>
         </section>
-       
     </form>
     <!-- Start Copyright Section -->
     <div id="copyright-section" class="copyright-section">

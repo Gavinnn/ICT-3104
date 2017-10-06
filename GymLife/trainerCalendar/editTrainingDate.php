@@ -19,7 +19,6 @@ if (isset($_POST['Event'][0]) && isset($_POST['Event'][1]) && isset($_POST['Even
 	
 	// error handling
 	if (!$status){
-		print_r("Error in query");
 		die ('Error in preventing query');
 	}
 	else{

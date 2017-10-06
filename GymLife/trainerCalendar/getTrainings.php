@@ -9,8 +9,7 @@
 
         // error handling
         if (!$record){
-            print_r("Error in query");
-            $record = [];
+            $record = [];  
         }
         else {
             // if there are no trainings, return empty array instead of null

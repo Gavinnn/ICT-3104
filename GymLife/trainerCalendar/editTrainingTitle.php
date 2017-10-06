@@ -27,11 +27,6 @@ elseif (isset($_POST['title']) && isset($_POST['sessionID'])){
 
 	// UPDATE query
 	$status = DB::query("UPDATE trainersessions SET  title = %s WHERE sessionID = %d", $title, $id);
-
-	// error handling
-	if (!$status){
-		print_r("Error in query");
-	}
 }
 
 

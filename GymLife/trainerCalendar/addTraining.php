@@ -22,11 +22,6 @@ if (isset($_POST['title']) && isset($_POST['startTime']) && isset($_POST['endTim
 	// INSERT query
 	$status = DB::query("INSERT INTO trainersessions(title, startSession, endSession, trainerID)
 	 values (%s, %s, %s, %d)", $title, $startDate, $endDate, $trainerID);
-	
-	// error handling
-	if (!$status){
-		print_r("Error in query");
-	}
 }
 //Redirect to trainerCalendar page
 header('Location: trainerCalendar.php');

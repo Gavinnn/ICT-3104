@@ -49,7 +49,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Edit My Particulars</h1>
+                            <h1>Change Password</h1>
                         </div>
                     </div>
                 </div>
@@ -62,33 +62,19 @@
         <section id="about-section" class="about-section">
             <div class="container">
                 <div class="row" style="margin-left:10px">
-                    <form action='process-updateProfile.php' method='post'  enctype='multipart/form-data' name='createreq-form' id='createreq-form'> 
-                        <?php
-                        //Query to select username
-                        $id = $_SESSION["id"];
-                        $record = DB::queryFirstRow("SELECT * FROM user WHERE userID=%s", $id);
-                        $username = $record["userName"];
-                        $name = $record["name"];
-                        $email = $record["email"];
-                        $contact = $record["contactNumber"];?>
-
+                    <form action='changePasswordProcess.php' method='post' enctype='multipart/form-data' name='createreq-form' id='createreq-form'> 
                             <div class="form-group">
-                                <label class="control-label" for="textinput">Username: </label>
-                                <input type="text" name="userName" class="form-control input-md" required value="<?php echo $username; ?>" />
+                                <label class="control-label" for="textinput">Old Password: </label>
+                                <input type="password" name="oldPass" class="form-control input-md" required />
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="textinput">Name: </label>
-                                <input type="text" name="name" class="form-control input-md" value="<?php echo $name; ?>" />
+                                <label class="control-label" for="textinput">New Password: </label>
+                                <input type="password" name="newPas" class="form-control input-md" required />
                             </div>
-                             <div class="form-group">
-                                <label class="control-label" for="textinput">Email: </label>
-                                <input type="text" name="email" class="form-control input-md" required value="<?php echo $email; ?>" />
+							<div class="form-group">
+                                <label class="control-label" for="textinput">Confirm Password: </label>
+                                <input type="password" name="cfmPass" class="form-control input-md" required />
                             </div>
-                             <div class="form-group">
-                                <label class="control-label" for="textinput">Contact Number: </label>
-                                <input type="text" name="contactNumber" class="form-control input-md" value="<?php echo $contact; ?>" />
-                            </div>
-
                 </div>
             </div>
 			<div class="container">
@@ -98,6 +84,7 @@
                 </div>
         </div>
         </section>
+       
     </form>
     <!-- Start Copyright Section -->
     <div id="copyright-section" class="copyright-section">

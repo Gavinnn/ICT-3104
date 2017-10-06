@@ -146,7 +146,7 @@
                     <form name="login" id="login" class="form-horizontal" action="loginProcess.php" enctype="multipart/form-data" method="POST" onSubmit="return check();">
                         <div class="field-wrap">
                             <label>
-                                Email Address<span class="req">*</span>
+                                Username<span class="req">*</span>
                             </label>
                             <input type="email" id="user" name="user"required/>
                         </div>

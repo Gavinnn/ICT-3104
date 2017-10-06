@@ -7,7 +7,7 @@ $id=htmlspecialchars(post("id"), ENT_QUOTES);
 $pass=hashPassword(post("pass"));
 
 //Query to select username
-$record = DB::queryFirstRow("SELECT userID FROM user WHERE email=%s AND password=%s AND status=2", $id, $pass);
+$record = DB::queryFirstRow("SELECT userID FROM user WHERE userName=%s AND password=%s AND status=2", $id, $pass);
 
 
 //Check if account is valid

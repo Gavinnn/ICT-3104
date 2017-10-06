@@ -6,7 +6,7 @@ require_once('conn.php');
 $id=post("user");
 
 //Retrieve user info
-$record = DB::queryFirstRow("SELECT * FROM user WHERE email=%s", $id);
+$record = DB::queryFirstRow("SELECT * FROM user WHERE userName=%s", $id);
 
 //Check if record exist
 if($record)

@@ -7,12 +7,12 @@ $record = DB::queryFirstRow("SELECT * FROM user WHERE userid=%s", $id);
 if (!$record) {
     header('Location: index.php');
 }
-$username = $record["username"];
+$username = $record["userName"];
 $name = $record["name"];
 $email = $record["email"];
-$role = $record["role"];
-$address = $record["address"];
-$cardNo = $record["accessCardNo"];
+$role = $record["roleID"];
+$contact = $record["contactNumber"];
+$status = $record["status"];
 ?>
 <!DOCTYPE html>
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
@@ -81,6 +81,9 @@ $cardNo = $record["accessCardNo"];
                 return confirm;
             }
         </script>
+		<script>
+			
+		</script>
     </head>
     <body>
         <?php include '../header.php'; ?>
@@ -134,18 +137,47 @@ $cardNo = $record["accessCardNo"];
                             <div class="col-md-4">
                                 <div class="form-group">
 									<select class="form-control input-lg" id="role" name="role"> 
-                                            <option value = 'employee' <?php echo ($role == 'employee') ? 'selected="selected"' : ''; ?>>employee</option>
-                                            <option value = 'manager' <?php echo ($role == 'manager') ? 'selected="selected"' : ''; ?>>manager</option>
-                                        </select>
+											<?php
+												$record = DB::query("SELECT * FROM roles");
+
+												foreach ($record as $row) {
+												echo "<option value = \"".$row['roleID']."\"";
+												if($role == $row['roleID']){
+													echo "selected=\"selected\"";
+												}
+												echo ">" .$row['roleName']. "</option>";
+												}
+											?>
+                                    </select>
                                 </div>	
                             </div>
                             <div class="col-md-12">&nbsp;</div>
 							<div class="col-md-3">&nbsp;</div>
-							<div class="col-md-2"><label class="input-lg">Address</label></div>
+							<div class="col-md-2"><label class="input-lg">Contact</label></div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input placeholder="address" id="address" type="text" class="form-control input-lg" name="address" value="<?php echo $address; ?>">
+                                    <input placeholder="contact" id="contact" type="text" class="form-control input-lg" name="address" value="<?php echo $contact; ?>">
                                 </div>	
+                            </div>
+							<div class="col-md-12">&nbsp;</div>
+							<div class="col-md-3">&nbsp;</div>
+							<div class="col-md-2"><label class="input-lg">Status</label></div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+									<select class="form-control input-lg" id="status" name="status"> 
+											<?php
+												$record = DB::query("SELECT * FROM status");
+
+												foreach ($record as $row) {
+												echo "<option value = \"".$row['statusID']."\"";
+												if($role == $row['statusID']){
+													echo "selected=\"selected\"";
+												}
+												echo ">" .$row['statusName']. "</option>";
+												}
+											?>
+                                    </select>
+                                </div>		
                             </div>
                             <div class="col-md-12">&nbsp;</div>
                             <div class="col-md-3">&nbsp;</div>

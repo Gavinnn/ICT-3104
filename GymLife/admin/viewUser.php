@@ -7,14 +7,12 @@ $record = DB::queryFirstRow("SELECT * FROM user WHERE userid=%s", $id);
 if (!$record) {
     header('Location: index.php');
 }
-$username = $record["username"];
+$username = $record["userName"];
 $name = $record["name"];
 $email = $record["email"];
 $role = $record["roleID"];
-$contact = $record["contact"];
+$contact = $record["contactNumber"];
 $status = $record["status"];
-if ($cardNo == NULL)
-    $cardNo = "Not Available";
 ?>
 <!DOCTYPE html>
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->

@@ -21,6 +21,7 @@
                 var contact = $("#contact").val();
                 var role = $("#role").val();
                 var password = $("#pass").val();
+				var cfmPassword = $("#cfmpass").val();
 
                 if (username == "")
                     displayErrorMsg("Please fill in the \"username\"field.");
@@ -34,7 +35,7 @@
                     displayErrorMsg("Please fill in the \"Role\" field.");
                 else if (password == "" || password.length < 8)
                     displayErrorMsg("\"Password\" field is too short.");
-                else if (password.length >= 8) {
+                else if (password==cfmPassword && password.length >= 8) {
                     $.ajax({
                         url: "registerProcess.php",
                         data: {'username': username, 'name': name, 'email': email, 'contact': contact, 'role': role, 'password': password},
@@ -53,6 +54,8 @@
                         }
                     });
                 }
+				else
+					displayErrorMsg("The password section is incorrect.");
 
                 return confirm;
             }
@@ -127,6 +130,12 @@
                                 Set A Password<span class="req">*</span>
                             </label>
                             <input id="pass" type="password"required autocomplete="off"/>
+                        </div>
+						<div class="field-wrap">
+                            <label>
+                                Confirm Password<span class="req">*</span>
+                            </label>
+                            <input id="cfmpass" type="password"required autocomplete="off"/>
                         </div>
                         <button onClick="register();" type="button" class="button button-block">Get Started</button>
                     </form>

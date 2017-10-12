@@ -34,6 +34,7 @@
 		<script>
             function check() {
                 var check = false;
+				var username = $('#username').val();
                 var name = $('#name').val();
 				var email = $('#email').val();
                 var contact = $('#contactNumber').val();
@@ -88,7 +89,7 @@
                     <form action='addUserProcess.php' method='post'  enctype='multipart/form-data' name='createreq-form' id='createreq-form'> 
                         <div class="form-group">
                             <label class="control-label" for="textinput">Username: </label>
-                            <input type="text" name="userName" class="form-control input-md"/>
+                            <input type="text" id="username" name="username" class="form-control input-md"/>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="textinput">Name: </label>
@@ -103,9 +104,16 @@
                             <input type="text" id="contactNumber" name="contactNumber" class="form-control input-md"/>
                         </div>
 						<div class="form-group">
-                <!--Error Message-->
-                <label id="msg" class="text-danger"></label>
-            </div>
+                            <label class="control-label" for="textinput">Role: </label>
+							<select id="role" name="role" class="form-control input-md" > 
+								<option value="1" label="Trainer"/>
+								<option value="1" label="Trainee"/>
+                            </select>
+                        </div>
+						<div class="form-group">
+						<!--Error Message-->
+						<label id="msg" class="text-danger"></label>
+					</div>
                 </div>
             </div>
             <div class="container">

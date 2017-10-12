@@ -1,5 +1,15 @@
 <?php require_once('../conn.php'); ?>
 <?php require_once('../session/session.php'); ?>
+<?php
+//Query to select username
+$id = $_SESSION["id"];
+$record = DB::queryFirstRow("SELECT * FROM user WHERE userID=%s", $id);
+$username = $record["userName"];
+$name = $record["name"];
+$email = $record["email"];
+$role = $record["roleID"];
+$contact = $record["contactNumber"];
+?>
 <!doctype html>
 <html lang="en">
     <head>
@@ -22,10 +32,10 @@
         <link rel="stylesheet" href="../asset/css/owl.carousel.css" type="text/css">
         <link rel="stylesheet" href="../asset/css/owl.theme.css" type="text/css">
         <link rel="stylesheet" href="../asset/css/owl.transitions.css" type="text/css">
-        
+
         <!-- Css3 Transitions Styles  -->
         <link rel="stylesheet" type="text/css" href="../asset/css/animate.css">
-        
+
         <!-- Lightbox CSS -->
         <link rel="stylesheet" type="text/css" href="../asset/css/lightbox.css">
 
@@ -39,11 +49,11 @@
         <script src="../asset/js/modernizrr.js"></script>
     </head>
 
-   <body>
-		<!--Navigation Section-->
-		<?php require_once('../header.php'); ?>
-        
-		<!-- Start Header Section -->
+    <body>
+        <!--Navigation Section-->
+        <?php require_once('../header.php'); ?>
+
+        <!-- Start Header Section -->
         <div class="page-header">
             <div class="overlay">
                 <div class="container">
@@ -56,47 +66,36 @@
             </div>
         </div>
         <!-- End Header Section -->
-      
-	  
-	   <!-- Start About Us Section -->
+
+
+        <!-- Start About Us Section -->
         <section id="about-section" class="about-section">
             <div class="container">
-                 <div class="row" style="margin-left:10px">
-               <?php
-        //Query to select username
-        $id = $_SESSION["id"];
-        $record = DB::queryFirstRow("SELECT * FROM user WHERE userID=%s", $id);
-        $username = $record["userName"];
-        $name = $record["name"];
-        $email = $record["email"];
-        $role = $record["roleID"];
-        $contact = $record["contactNumber"];
-?><br>
-                            <div class="form-group">
-                                <label class="control-label" for="textinput">Username:  </label>
-								<label><?php echo $username; ?></label>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="textinput">Name: </label>
-								<label><?php echo $name; ?></label>
-                               
-                            </div> 
-                             <div class="form-group">
-                                <label class="control-label" for="textinput">Email: </label>
-                                <label><?php echo $email; ?></label>
-                            </div
-                             <div class="form-group">
-                                <label class="control-label" for="textinput">Contact Number: </label>
-                                <label><?php echo $contact; ?></label>
-                            </div>
-							</div>
-                
-            </div>
-			</div>
-        </section>
-	  
+                <div class="row" style="margin-left:10px">
 
-		<!-- Start Copyright Section -->
+                    <div class="form-group">
+                        <label class="control-label" for="textinput">Username:  </label>
+                        <label><?php echo $username; ?></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="textinput">Name: </label>
+                        <label><?php echo $name; ?></label>
+
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label" for="textinput">Email: </label>
+                        <label><?php echo $email; ?></label>
+                    </div
+                    <div class="form-group">
+                        <label class="control-label" for="textinput">Contact Number: </label>
+                        <label><?php echo $contact; ?></label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Start Copyright Section -->
     <div id="copyright-section" class="copyright-section">
         <div class="container">
             <div class="row">
@@ -108,21 +107,18 @@
             </div><!--/.row -->
         </div><!-- /.container -->
     </div>
-        <!-- End Copyright Section -->  
-     <!-- Sulfur JS File -->
-        <script src="../asset/js/jquery-2.1.3.min.js"></script>
-        <script src="../asset/js/jquery-migrate-1.2.1.min.js"></script>
-        <script src="../asset/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../asset/js/owl.carousel.min.js"></script>
-        <script src="../asset/js/jquery.appear.js"></script>
-        <script src="../asset/js/jquery.fitvids.js"></script>
-        <script src="../asset/js/jquery.nicescroll.min.js"></script>
-        <script src="../asset/js/lightbox.min.js"></script>
-        <script src="../asset/js/count-to.js"></script>
-        <script src="../asset/js/styleswitcher.js"></script>
-        
-        <script src="../asset/js/map.js"></script>
-        <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-        <script src="../asset/js/script.js"></script>
-    </body>
+    <!-- End Copyright Section -->  
+    <!-- Sulfur JS File -->
+    <script src="../asset/js/jquery-2.1.3.min.js"></script>
+    <script src="../asset/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../asset/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../asset/js/owl.carousel.min.js"></script>
+    <script src="../asset/js/jquery.appear.js"></script>
+    <script src="../asset/js/jquery.fitvids.js"></script>
+    <script src="../asset/js/jquery.nicescroll.min.js"></script>
+    <script src="../asset/js/lightbox.min.js"></script>
+    <script src="../asset/js/count-to.js"></script>
+    <script src="../asset/js/styleswitcher.js"></script>
+
+</body>
 </html>

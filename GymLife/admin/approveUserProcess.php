@@ -10,10 +10,10 @@ $record = DB::update('user', array(
 
 
 if ($record) {
-
+	//Mail Function
     include 'sendEmail.php';
     sendApproveEmail($email);
-
-   header("Location:approveUser.php");
+	//Redirection
+	header("Location:approveUser.php");
 }
 ?>

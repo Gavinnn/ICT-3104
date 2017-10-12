@@ -7,7 +7,9 @@ $id = $_GET['id'];
 $email = $_GET['email'];
 
 //Query to remove User
-$record = DB::delete('user',"userid=%s", $id);
+$record = DB::update('user', array(
+  'status' => 4,
+), "userid=%s", $id);
 
 if ($record) {
     include "sendEmail.php";

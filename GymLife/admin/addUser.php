@@ -26,35 +26,45 @@
         <!-- Responsive CSS Style -->
         <link rel="stylesheet" type="text/css" href="../asset/css/responsive.css">
         <script src="../asset/js/modernizrr.js"></script>
-		<!--SweetAlert-->
+        <!--SweetAlert-->
         <link rel="stylesheet" href="../asset/plugins/sweetalert-master/sweet-alert.css">
         <script src="../asset/plugins/sweetalert-master/sweet-alert.js"></script>
         <!--Custom Javascript-->
         <script src="../asset/js/custom.js"></script>
-		<script>
+        <script>
             function check() {
                 var check = false;
-				var username = $('#username').val();
+                var username = $('#username').val();
                 var name = $('#name').val();
-				var email = $('#email').val();
+                var email = $('#email').val();
                 var contact = $('#contactNumber').val();
+                var role = $('#role').val();
 
-				if (name == "" || name == null)
+                if (username == "" || username == null)
+                    displayErrorMsg("Please fill in the \"Username\" field.");
+                else if (name == "" || name == null)
                     displayErrorMsg("Please fill in the \"Name\" field.");
-				else if (email == "" || email == null)
-                    displayErrorMsg("Please fill in the \"Cluster\" field.");
+                else if (email == "" || email == null)
+                    displayErrorMsg("Please fill in the \"Email\" field.");
+                else if (contact == "" || contact == null)
+                    displayErrorMsg("Please fill in the \"Contact\" field.");
+                else if (role == "" || name == null)
+                    displayErrorMsg("Please fill in the \"Role\" field.");
                 else {
                     $.ajax({
-                        url: "editProfileProcess.php",
-                        data: {'name': name,'email': email, 'contact': contact},
+                        url: "addUserProcess.php",
+                        data: {'username': username, 'name': name, 'email': email, 'contact': contact, 'role': role},
                         type: 'POST',
                         async: false,
                         success: function (data) {
-                            if (data == "success") {
+                            if (data == "Message has been sent.success") {
                                 check = true;
-                                successModal("Updated Successfully", "editProfile.php");
+                                successModal("Updated Successfully", "user.php");
                             } else if (data == "email") {
                                 displayErrorMsg("The email has been used.");
+                                check = false;
+                            } else if (data == "username") {
+                                displayErrorMsg("The username has been used.");
                                 check = false;
                             }
                         }
@@ -103,23 +113,23 @@
                             <label class="control-label" for="textinput">Contact Number: </label>
                             <input type="text" id="contactNumber" name="contactNumber" class="form-control input-md"/>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label class="control-label" for="textinput">Role: </label>
-							<select id="role" name="role" class="form-control input-md" > 
-								<option value="1" label="Trainer"/>
-								<option value="1" label="Trainee"/>
+                            <select id="role" name="role" class="form-control input-md" > 
+                                <option value="2" label="Trainer"/>
+                                <option value="3" label="Trainee"/>
                             </select>
                         </div>
-						<div class="form-group">
-						<!--Error Message-->
-						<label id="msg" class="text-danger"></label>
-					</div>
+                        <div class="form-group">
+                            <!--Error Message-->
+                            <label id="msg" class="text-danger"></label>
+                        </div>
                 </div>
             </div>
             <div class="container">
                 <div class="row" style="margin-left:10px">
                     <input type="button" onclick="history.back()" class="btn btn-default " value="Back"></input>
-					<button onClick="check();" type="button" class="btn btn-default">Add</button>
+                    <button onClick="check();" type="button" class="btn btn-default">Add</button>
                 </div>
             </div>
         </section>

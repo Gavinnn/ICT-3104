@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2017 at 10:22 AM
+-- Generation Time: Oct 12, 2017 at 10:49 AM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `rooms` (
 CREATE TABLE IF NOT EXISTS `status` (
   `statusID` int(11) NOT NULL,
   `statusName` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `status`
@@ -98,7 +98,9 @@ CREATE TABLE IF NOT EXISTS `status` (
 
 INSERT INTO `status` (`statusID`, `statusName`) VALUES
 (1, 'Unverified'),
-(2, 'Verified');
+(2, 'Verified'),
+(3, 'Rejected'),
+(4, 'Inactive');
 
 -- --------------------------------------------------------
 
@@ -140,15 +142,19 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(255) NOT NULL,
   `contactNumber` int(11) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `status` int(11) NOT NULL,
+  `passwordChange` bit(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`userID`, `roleID`, `name`, `userName`, `email`, `contactNumber`, `password`, `status`) VALUES
-(1, 1, 'Dylan', 'Dylan', 'deeeeeeeeeeelan@hotmail.com', 99999999, '123123123', 1);
+INSERT INTO `user` (`userID`, `roleID`, `name`, `userName`, `email`, `contactNumber`, `password`, `status`, `passwordChange`) VALUES
+(1, 1, 'Dylan', 'Dylan', 'deeeeeeeeeeelan@hotmail.com', 99999999, '123123123', 2, b'0'),
+(2, 2, 'Test 1', 'test1', 'test1@gmail.com', 11111111, '11111111', 1, b'0'),
+(3, 3, 'Test 2', 'test2', 'test2@gmail.com', 22222222, '222222222', 2, b'0'),
+(5, 3, 'Test 4', 'test4', 'test4@hotmail.com', 44444444, '44444444', 2, b'0');
 
 --
 -- Indexes for dumped tables
@@ -248,7 +254,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
-  MODIFY `statusID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `statusID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `trainersessions`
 --
@@ -258,7 +264,7 @@ ALTER TABLE `trainersessions`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --

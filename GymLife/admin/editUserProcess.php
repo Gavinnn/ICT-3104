@@ -12,7 +12,7 @@ $status = post("status");
 $role = post("role");
 
 //Query to select username
-$record = DB::queryFirstRow("SELECT userID FROM user WHERE userName=%s and userID!=%s", $username, $userid);
+$record = DB::queryFirstRow("SELECT userID FROM user WHERE email=%s AND userID!=%s", $email,$id);
 
 //Check if username exist
 if ($record) {

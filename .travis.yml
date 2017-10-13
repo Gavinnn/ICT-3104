@@ -1,7 +1,17 @@
 # Travis CI Configuration File
 
+<<<<<<< HEAD
 # Tell Travis CI we're using PHP
 language: php
+=======
+# Commands to be run before your environment runs.
+before_script:
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
+
+# Commands you want to run that will verify your build.
+script: phpunit
+>>>>>>> 44d53ed8b45f5a114a71d89b890f72cf062c484d
 
 # Build matrix options
 matrix:

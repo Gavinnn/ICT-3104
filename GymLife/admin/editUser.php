@@ -1,4 +1,4 @@
-<?php include '../conn.php'; ?>
+<?php require_once('../conn.php'); ?>
 <?php require_once('../session/adminSession.php'); ?>
 <?php
 //Query to select userid
@@ -14,157 +14,132 @@ $role = $record["roleID"];
 $contact = $record["contactNumber"];
 $status = $record["status"];
 ?>
-<!DOCTYPE html>
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!doctype html>
+<html lang="en">
     <head>
+        <!-- Basic -->
+        <title>GymLife | Home</title>
+        <!-- Define Charset -->
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Factornator</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="shortcut icon" href="favicon.ico">
-
-        <!-- Google Webfonts -->
-        <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-
-        <!-- Animate.css -->
-        <link rel="stylesheet" href="../assets/css/animate.css">
-        <!-- Icomoon Icon Fonts-->
-        <link rel="stylesheet" href="../assets/css/icomoon.css">
-        <!-- Owl Carousel -->
-        <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
-        <!-- Magnific Popup -->
-        <link rel="stylesheet" href="../assets/css/magnific-popup.css">
-        <!-- Theme Style -->
-        <link rel="stylesheet" href="../assets/css/style.css">
-        <!-- Modernizr JS -->
-
-        <!--SweetAlert-->
-        <link rel="stylesheet" href="../assets/plugins/sweetalert-master/sweet-alert.css">
-
-        <script src="../assets/js/modernizr-2.6.2.min.js"></script>
-        <script src="../assets/js/custom.js"></script>
-        <script>
+        <!-- Responsive Metatag -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- Bootstrap CSS  -->
+        <link rel="stylesheet" href="../asset/bootstrap/css/bootstrap.min.css" type="text/css">
+        <!-- Font Awesome CSS -->
+        <link rel="stylesheet" href="../asset/font-awesome/css/font-awesome.min.css" type="text/css">
+        <!-- Owl Carousel CSS -->
+        <link rel="stylesheet" href="../asset/css/owl.carousel.css" type="text/css">
+        <link rel="stylesheet" href="../asset/css/owl.theme.css" type="text/css">
+        <link rel="stylesheet" href="../asset/css/owl.transitions.css" type="text/css">
+        <!-- Css3 Transitions Styles  -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/animate.css">
+        <!-- Lightbox CSS -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/lightbox.css">
+        <!-- Sulfur CSS Styles  -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/style.css">
+        <!-- Responsive CSS Style -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/responsive.css">
+        <script src="../asset/js/modernizrr.js"></script>
+		<!--SweetAlert-->
+        <link rel="stylesheet" href="../asset/plugins/sweetalert-master/sweet-alert.css">
+        <script src="../asset/plugins/sweetalert-master/sweet-alert.js"></script>
+        <!--Custom Javascript-->
+        <script src="../asset/js/custom.js"></script>
+		<script>
             function check() {
-                var confirm = false;
-                var oldpassword = $("#oldPassword").val();
-                var newPassword = $("#newPassword").val();
-                var confirmPassword = $("#confirmPassword").val();
+                var check = false;
+				var userid = $('#account').val();
+				var username = $('#username').val();
+                var name = $('#name').val();
+				var email = $('#email').val();
+                var contact = $('#contactNumber').val();
+				var status = $('#status').val();
+				var role = $('#role').val();
 
-                if (newPassword == confirmPassword && newPassword.length >= 8) {
+				if (name == "" || name == null)
+                    displayErrorMsg("Please fill in the \"Name\" field.");
+				else if (email == "" || email == null)
+                    displayErrorMsg("Please fill in the \"Cluster\" field.");
+                else {
                     $.ajax({
-                        url: "changePasswordProcess.php",
-                        data: {'oldpass': oldpassword, 'newPassword': newPassword},
+                        url: "editUserProcess.php",
+                        data: {'userid':userid,'username':username,'name': name,'email': email,'contact': contact,'status': status,'role':role},
                         type: 'POST',
                         async: false,
                         success: function (data) {
                             if (data == "success") {
-                                confirm = true;
-                                successModal("Password changed successfully", "index.php");
-
-                            } else if (data == "wrongOldPassword") {
-                                confirm = false;
-                                displayErrorMsg("Old password is wrong. Please try again.");
-                            } else {
-                                confirm = false;
+                                check = true;
+                                successModal("Updated Successfully", "editUser.php");
+                            } else if (data == "email") {
+                                displayErrorMsg("The email has been used.");
+                                check = false;
                             }
                         }
                     });
-                } else if (newPassword != confirmPassword)
-                    displayErrorMsg("Passwords mismatched.");
-                else if (newPassword.length < 8)
-                    displayErrorMsg("New password should contain at least 8 characters.");
+                }//end else
 
-                return confirm;
+                return check;
             }
-        </script>
-		<script>
-			
-		</script>
+        </script>  
     </head>
     <body>
-        <?php include '../header.php'; ?>
-        <!-- END .header -->
+        <!--Navigation Section-->
+        <?php require_once('../header.php'); ?>
 
-        <aside class="fh5co-page-heading">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="fh5co-page-heading-lead">
-                            Edit User
-                            <span class="fh5co-border"></span>
-                        </h1>
-
+        <!-- Start Header Section -->
+        <div class="page-header">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>Edit My Particulars</h1>
+                        </div>
                     </div>
                 </div>
             </div>
-        </aside>
-
-        <div id="fh5co-main">
+        </div>
+        <!-- End Header Section -->
+        <!-- Start About Us Section -->
+        <section id="about-section" class="about-section">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form name="editUser" class="form-horizontal" role="form" action="#" method="POST" ENCTYPE="multipart/form-data">
-                            <div class="col-md-3">&nbsp;</div>
-							<div class="col-md-2"><label class="input-lg">Username</label></div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input placeholder="username" id="username" type="text" class="form-control input-lg" name="username" value="<?php echo $username; ?>" disabled>
-                                </div>	
-                            </div>
-                            <div class="col-md-12">&nbsp;</div>
-                            <div class="col-md-3">&nbsp;</div>
-							<div class="col-md-2"><label class="input-lg">Name</label></div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input placeholder="name" id="name" type="text" class="form-control input-lg" name="name" value="<?php echo $name; ?>" >
-                                </div>	
-                            </div>
-                            <div class="col-md-12">&nbsp;</div>
-							<div class="col-md-3">&nbsp;</div>
-							<div class="col-md-2"><label class="input-lg">Email</label></div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input placeholder="email" id="email" type="text" class="form-control input-lg" name="email"value="<?php echo $email; ?>" >
-                                </div>	
-                            </div>
-                            <div class="col-md-12">&nbsp;</div>
-							<div class="col-md-3">&nbsp;</div>
-							<div class="col-md-2"><label class="input-lg">Role</label></div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-									<select class="form-control input-lg" id="role" name="role"> 
-											<?php
-												$record = DB::query("SELECT * FROM roles");
+                <div class="row" style="margin-left:10px">
+                    <form action='editUserProcess.php' method='post'  enctype='multipart/form-data' name='createreq-form' id='createreq-form'> 
+					<input type="hidden" id="account" name="account" value="<?php print $id; ?>"/>
+                        <div class="form-group">
+                            <label class="control-label" for="textinput">Username: </label>
+                            <input type="text" id="userName" name="userName" class="form-control input-md" value="<?php echo $username; ?>"  readonly/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="textinput">Name: </label>
+                            <input type="text" id="name" name="name" class="form-control input-md" value="<?php echo $name; ?>" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="textinput">Email: </label>
+                            <input type="email" id="email" name="email" class="form-control input-md" value="<?php echo $email; ?>" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="textinput">Contact Number: </label>
+                            <input type="text" id="contactNumber" name="contactNumber" class="form-control input-md" value="<?php echo $contact; ?>" />
+                        </div>
+						<div class="form-group">
+                            <label class="control-label" for="textinput">Role: </label>
+							<select class="form-control input-lg" id="role" name="role"> 
+									<?php
+										$record = DB::query("SELECT * FROM roles");
 
-												foreach ($record as $row) {
-												echo "<option value = \"".$row['roleID']."\"";
-												if($role == $row['roleID']){
-													echo "selected=\"selected\"";
-												}
-												echo ">" .$row['roleName']. "</option>";
-												}
-											?>
-                                    </select>
-                                </div>	
-                            </div>
-                            <div class="col-md-12">&nbsp;</div>
-							<div class="col-md-3">&nbsp;</div>
-							<div class="col-md-2"><label class="input-lg">Contact</label></div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input placeholder="contact" id="contact" type="text" class="form-control input-lg" name="address" value="<?php echo $contact; ?>">
-                                </div>	
-                            </div>
-							<div class="col-md-12">&nbsp;</div>
-							<div class="col-md-3">&nbsp;</div>
-							<div class="col-md-2"><label class="input-lg">Status</label></div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-									<select class="form-control input-lg" id="status" name="status"> 
+										foreach ($record as $row) {
+										echo "<option value = \"".$row['roleID']."\"";
+										if($role == $row['roleID']){
+											echo "selected=\"selected\"";
+										}
+										echo ">" .$row['roleName']. "</option>";
+										}
+									?>
+							</select>
+                        </div>
+						<div class="form-group">
+                            <label class="control-label" for="textinput">Status: </label>
+                            <select class="form-control input-lg" id="status" name="status"> 
 											<?php
 												$record = DB::query("SELECT * FROM status");
 
@@ -177,40 +152,45 @@ $status = $record["status"];
 												}
 											?>
                                     </select>
-                                </div>		
-                            </div>
-                            <div class="col-md-12">&nbsp;</div>
-                            <div class="col-md-3">&nbsp;</div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="button" onclick="history.back()" class="btn btn-outline " value="Back"></input>
-                                    <button onClick="check();" type="button" class="btn btn-primary">Save</button>
-                                    <label id="msg" class="text-danger"></label>
-                                </div>	
-                            </div>
-                            <div class="col-md-3">&nbsp;</div>
-                        </form>	
-                    </div>
+                        </div>
+						<div class="form-group">
+                <!--Error Message-->
+							<label id="msg" class="text-danger"></label>
+						</div>
                 </div>
             </div>
-        </div>
-
-        <!-- jQuery -->
-        <script src="../assets/js/jquery.min.js"></script>
-        <!-- jQuery Easing -->
-        <script src="../assets/js/jquery.easing.1.3.js"></script>
-        <!-- Bootstrap -->
-        <script src="../assets/js/bootstrap.min.js"></script>
-        <!-- Owl carousel -->
-        <script src="../assets/js/owl.carousel.min.js"></script>
-        <!-- Waypoints -->
-        <script src="../assets/js/jquery.waypoints.min.js"></script>
-        <!-- Magnific Popup -->
-        <script src="../assets/js/jquery.magnific-popup.min.js"></script>
-        <!-- Main JS -->
-        <script src="../assets/js/main.js"></script>
-        <!--SweetAlert-->
-        <script src="../assets/plugins/sweetalert-master/sweet-alert.js"></script>
-
-    </body>
+            <div class="container">
+                <div class="row" style="margin-left:10px">
+                    <input type="button" onclick="history.back()" class="btn btn-default " value="Back"></input>
+					<button onClick="check();" type="button" class="btn btn-default">Save</button>
+                </div>
+            </div>
+        </section>
+    </form>
+    <!-- Start Copyright Section -->
+    <div id="copyright-section" class="copyright-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="copyright">
+                        Copyright © 2017. ICT3104 Software Management - Gym Booking System</a>
+                    </div>
+                </div>
+            </div><!--/.row -->
+        </div><!-- /.container -->
+    </div>
+    <!-- End Copyright Section -->  
+    <!-- End Copyright Section -->  
+    <!-- Sulfur JS File -->
+    <script src="../asset/js/jquery-2.1.3.min.js"></script>
+    <script src="../asset/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../asset/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../asset/js/owl.carousel.min.js"></script>
+    <script src="../asset/js/jquery.appear.js"></script>
+    <script src="../asset/js/jquery.fitvids.js"></script>
+    <script src="../asset/js/jquery.nicescroll.min.js"></script>
+    <script src="../asset/js/lightbox.min.js"></script>
+    <script src="../asset/js/count-to.js"></script>
+    <script src="../asset/js/styleswitcher.js"></script>
+</body>
 </html>

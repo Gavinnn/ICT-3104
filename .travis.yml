@@ -17,5 +17,7 @@ before_script:
 # configure apache virtual hosts
 - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/000-default.conf
 - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/000-default.conf
+# Set ServerName Globally
+- sudo cp build/servername.tpl /etc/apache2/conf-available/servername.conf
 - sudo service apache2 restart
 

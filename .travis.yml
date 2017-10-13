@@ -11,8 +11,8 @@ addons:
     - local.dev
 cache:
   - apt
-install:
-  - sudo install-apache.sh
+before_install:
+  - install-apache.sh
 script:
   # Do a lookup on local.dev hostname set above 
   - nslookup local.dev

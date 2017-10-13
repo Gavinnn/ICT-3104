@@ -9,7 +9,7 @@ require_once('../conn.php');
 if (isset($_POST['title']) && isset($_POST['startTime']) && isset($_POST['endTime']) && isset($_POST['date']) && isset($_POST['trainerID'])){
 
 	// retrieve the data
-	$title = $_POST['title']
+	$title = $_POST['title'];
 	$startTime = $_POST['startTime'];
 	$endTime = $_POST['endTime'];
 	$trainerID = $_POST['trainerID'];

@@ -40,30 +40,40 @@ $status = $record["status"];
         <!-- Responsive CSS Style -->
         <link rel="stylesheet" type="text/css" href="../asset/css/responsive.css">
         <script src="../asset/js/modernizrr.js"></script>
-		<!--SweetAlert-->
+        <!--SweetAlert-->
         <link rel="stylesheet" href="../asset/plugins/sweetalert-master/sweet-alert.css">
         <script src="../asset/plugins/sweetalert-master/sweet-alert.js"></script>
         <!--Custom Javascript-->
         <script src="../asset/js/custom.js"></script>
-		<script>
+        <script>
+            function ValidateEmail(mail)
+            {
+                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+                {
+                    return (true);
+                }
+                return (false);
+            }
             function check() {
                 var check = false;
-				var userid = $('#account').val();
-				var username = $('#username').val();
+                var userid = $('#account').val();
+                var username = $('#username').val();
                 var name = $('#name').val();
-				var email = $('#email').val();
+                var email = $('#email').val();
                 var contact = $('#contactNumber').val();
-				var status = $('#status').val();
-				var role = $('#role').val();
+                var status = $('#status').val();
+                var role = $('#role').val();
 
-				if (name == "" || name == null)
+                if (name == "" || name == null)
                     displayErrorMsg("Please fill in the \"Name\" field.");
-				else if (email == "" || email == null)
-                    displayErrorMsg("Please fill in the \"Cluster\" field.");
+                else if (email == "" || email == null)
+                    displayErrorMsg("Please fill in the \"Email\" field.");
+                else if (!ValidateEmail(email))
+                    displayErrorMsg("Please fill in a valid email");
                 else {
                     $.ajax({
                         url: "editUserProcess.php",
-                        data: {'userid':userid,'username':username,'name': name,'email': email,'contact': contact,'status': status,'role':role},
+                        data: {'userid': userid, 'username': username, 'name': name, 'email': email, 'contact': contact, 'status': status, 'role': role},
                         type: 'POST',
                         async: false,
                         success: function (data) {
@@ -104,7 +114,7 @@ $status = $record["status"];
             <div class="container">
                 <div class="row" style="margin-left:10px">
                     <form action='editUserProcess.php' method='post'  enctype='multipart/form-data' name='createreq-form' id='createreq-form'> 
-					<input type="hidden" id="account" name="account" value="<?php print $id; ?>"/>
+                        <input type="hidden" id="account" name="account" value="<?php print $id; ?>"/>
                         <div class="form-group">
                             <label class="control-label" for="textinput">Username: </label>
                             <input type="text" id="userName" name="userName" class="form-control input-md" value="<?php echo $username; ?>"  readonly/>
@@ -121,48 +131,48 @@ $status = $record["status"];
                             <label class="control-label" for="textinput">Contact Number: </label>
                             <input type="text" id="contactNumber" name="contactNumber" class="form-control input-md" value="<?php echo $contact; ?>" />
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label class="control-label" for="textinput">Role: </label>
-							<select class="form-control input-lg" id="role" name="role"> 
-									<?php
-										$record = DB::query("SELECT * FROM roles");
+                            <select class="form-control input-lg" id="role" name="role"> 
+                                <?php
+                                $record = DB::query("SELECT * FROM roles");
 
-										foreach ($record as $row) {
-										echo "<option value = \"".$row['roleID']."\"";
-										if($role == $row['roleID']){
-											echo "selected=\"selected\"";
-										}
-										echo ">" .$row['roleName']. "</option>";
-										}
-									?>
-							</select>
+                                foreach ($record as $row) {
+                                    echo "<option value = \"" . $row['roleID'] . "\"";
+                                    if ($role == $row['roleID']) {
+                                        echo "selected=\"selected\"";
+                                    }
+                                    echo ">" . $row['roleName'] . "</option>";
+                                }
+                                ?>
+                            </select>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label class="control-label" for="textinput">Status: </label>
                             <select class="form-control input-lg" id="status" name="status"> 
-											<?php
-												$record = DB::query("SELECT * FROM status");
+                                <?php
+                                $record = DB::query("SELECT * FROM status");
 
-												foreach ($record as $row) {
-												echo "<option value = \"".$row['statusID']."\"";
-												if($role == $row['statusID']){
-													echo "selected=\"selected\"";
-												}
-												echo ">" .$row['statusName']. "</option>";
-												}
-											?>
-                                    </select>
+                                foreach ($record as $row) {
+                                    echo "<option value = \"" . $row['statusID'] . "\"";
+                                    if ($role == $row['statusID']) {
+                                        echo "selected=\"selected\"";
+                                    }
+                                    echo ">" . $row['statusName'] . "</option>";
+                                }
+                                ?>
+                            </select>
                         </div>
-						<div class="form-group">
-                <!--Error Message-->
-							<label id="msg" class="text-danger"></label>
-						</div>
+                        <div class="form-group">
+                            <!--Error Message-->
+                            <label id="msg" class="text-danger"></label>
+                        </div>
                 </div>
             </div>
             <div class="container">
                 <div class="row" style="margin-left:10px">
                     <input type="button" onclick="history.back()" class="btn btn-default " value="Back"></input>
-					<button onClick="check();" type="button" class="btn btn-default">Save</button>
+                    <button onClick="check();" type="button" class="btn btn-default">Save</button>
                 </div>
             </div>
         </section>

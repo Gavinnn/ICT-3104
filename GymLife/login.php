@@ -13,6 +13,14 @@
         <!--Custom Javascript-->
         <script src="asset/js/custom.js"></script>
         <script>
+			function ValidateEmail(mail)
+            {
+                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+                {
+                    return (true);
+                }
+                return (false);
+            }
             function register() {
                 var confirm = false;
                 var username = $("#username").val();
@@ -35,6 +43,8 @@
                     displayErrorMsg("Please fill in the \"Role\" field.");
                 else if (password == "" || password.length < 8)
                     displayErrorMsg("\"Password\" field is too short.");
+				else if (!ValidateEmail(email))
+                    displayErrorMsg("Please fill in a valid email");
                 else if (password==cfmPassword && password.length >= 8) {
                     $.ajax({
                         url: "registerProcess.php",

@@ -3,7 +3,7 @@
 // To add a Training to DB
 
 // Connect to DB
-require_once('../conn.php');
+require_once('../../conn.php');
 
 // ensure all variables are set
 if (isset($_POST['title']) && isset($_POST['startTime']) && isset($_POST['endTime']) && isset($_POST['date']) && isset($_POST['trainerID'])){

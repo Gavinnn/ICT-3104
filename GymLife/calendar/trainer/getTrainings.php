@@ -3,7 +3,7 @@
 
     function getTrainings($trainerID){
 
-        require_once('../conn.php');
+        require_once('../../conn.php');
 
         $record = DB::query("SELECT * FROM trainersessions WHERE trainerID = %d", $trainerID);
 

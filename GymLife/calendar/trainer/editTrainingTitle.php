@@ -4,7 +4,7 @@
 
 
 // connect to DB
-require_once('../conn.php');
+require_once('../../conn.php');
 
 // DELETE: ensure that the required variables are set
 if (isset($_POST['delete']) && isset($_POST['sessionID'])){

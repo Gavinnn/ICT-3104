@@ -18,8 +18,19 @@
                     <li>
                         <a class="active" href="/<?php echo $path; ?>/index.php">Home</a>
                     </li>
-                    <!--Booking Section-->
-                    <li><a href="/<?php echo $path; ?>/trainerCalendar/trainerCalendar.php">Booking</a></li>
+
+                    <!--Training Calendar Section-->
+                    <?php
+                    if($_SESSION['role']=="trainer"){
+					?>
+                    <li><a href="/<?php echo $path; ?>/calendar/trainer/trainerCalendar.php">Training Calendar</a></li>
+                    <?php } ?>
+                    <?php
+                    if($_SESSION['role']=="trainee"){
+					?>
+                    <li><a href="/<?php echo $path; ?>/calendar/trainee/traineeCalendar.php">Training Calendar</a></li>
+                    <?php } ?>
+
                     <!--Account Management Section-->
 					<?php
 					if($_SESSION['role']=="admin"){

@@ -1,4 +1,4 @@
-function initializeCalendar(trainingSessions){
+function initializeTrainerCalendar(trainingSessions){
 
     
     // initialize calendar

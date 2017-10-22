@@ -2,7 +2,7 @@
 // Update training date and save changes to DB
 
 // Connect to DB
-require_once('../conn.php');
+require_once('../../conn.php');
 
 // ensure that all required variables are set
 if (isset($_POST['Event'][0]) && isset($_POST['Event'][1]) && isset($_POST['Event'][2])){

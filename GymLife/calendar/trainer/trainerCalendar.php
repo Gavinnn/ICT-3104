@@ -1,5 +1,5 @@
 <?php
-    require_once('../session/session.php');
+    require_once('../../session/session.php');
 
     // HARDCODED USER DATA
     $trainerID = $_SESSION['id'];
@@ -29,35 +29,35 @@
         <meta name="author" content="Shahriyar Ahmed">
 
         <!-- Bootstrap CSS  -->
-        <link rel="stylesheet" href="../asset/bootstrap/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="../../asset/bootstrap/css/bootstrap.min.css" type="text/css">
 
         <!-- Font Awesome CSS -->
-        <link rel="stylesheet" href="../asset/font-awesome/css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="../../asset/font-awesome/css/font-awesome.min.css" type="text/css">
 
         <!-- Owl Carousel CSS -->
-        <link rel="stylesheet" href="../asset/css/owl.carousel.css" type="text/css">
-        <link rel="stylesheet" href="../asset/css/owl.theme.css" type="text/css">
-        <link rel="stylesheet" href="../asset/css/owl.transitions.css" type="text/css">
+        <link rel="stylesheet" href="../../asset/css/owl.carousel.css" type="text/css">
+        <link rel="stylesheet" href="../../asset/css/owl.theme.css" type="text/css">
+        <link rel="stylesheet" href="../../asset/css/owl.transitions.css" type="text/css">
 
         <!-- Css3 Transitions Styles  -->
-        <link rel="stylesheet" type="text/css" href="../asset/css/animate.css">
+        <link rel="stylesheet" type="text/css" href="../../asset/css/animate.css">
 
         <!-- Lightbox CSS -->
-        <link rel="stylesheet" type="text/css" href="../asset/css/lightbox.css">
+        <link rel="stylesheet" type="text/css" href="../../asset/css/lightbox.css">
 
         <!-- Sulfur CSS Styles  -->
-        <link rel="stylesheet" type="text/css" href="../asset/css/style.css">
+        <link rel="stylesheet" type="text/css" href="../../asset/css/style.css">
 
         <!-- Responsive CSS Style -->
-        <link rel="stylesheet" type="text/css" href="../asset/css/responsive.css">
+        <link rel="stylesheet" type="text/css" href="../../asset/css/responsive.css">
 
         <!-- FullCalendar -->
-        <link href='../asset/plugins/fullCalendar/css/fullcalendar.css' rel='stylesheet' />
+        <link href='../../asset/plugins/fullCalendar/css/fullcalendar.css' rel='stylesheet' />
 
         <!-- Timepicker -->
-        <link href='../asset/plugins/fullCalendar/css/jquery.timepicker.css' rel='stylesheet'/>
+        <link href='../../asset/plugins/fullCalendar/css/jquery.timepicker.css' rel='stylesheet'/>
 
-        <script src="../asset/js/modernizrr.js"></script>
+        <script src="../../asset/js/modernizrr.js"></script>
 
 
     </head>
@@ -65,7 +65,7 @@
     <body>
 
         <!--Navigation Section-->
-        <?php require_once('../header.php'); ?>
+        <?php require_once('../../header.php'); ?>
 
 		<!-- Start Header Section -->
         <div class="page-header">
@@ -198,34 +198,34 @@
 
 
 		<!-- jQuery Version 1.11.1 -->
-    <script src="../asset/plugins/fullCalendar/js/jquery.js"></script>
+    <script src="../../asset/plugins/fullCalendar/js/jquery.js"></script>
     
     <!-- FullCalendar -->
-		<script src='../asset/plugins/fullCalendar/js/moment.min.js'></script>
-		<script src='../asset/plugins/fullCalendar/js/fullcalendar.min.js'></script>
+		<script src='../../asset/plugins/fullCalendar/js/moment.min.js'></script>
+		<script src='../../asset/plugins/fullCalendar/js/fullcalendar.min.js'></script>
 
-		<script src="initializeCalendar.js" type="text/javascript"></script>
+		<script src="initializeTrainerCalendar.js" type="text/javascript"></script>
 		<script type="text/javascript">
-			$(document).ready(initializeCalendar(<?php echo json_encode($events) ?> ));
+			$(document).ready(initializeTrainerCalendar(<?php echo json_encode($events) ?> ));
 		</script>
 
 		<!-- Timepicker  -->
-		<script src="../asset/plugins/fullCalendar/js/jquery.timepicker.js"></script>
+		<script src="../../asset/plugins/fullCalendar/js/jquery.timepicker.js"></script>
 
     <!-- Bootstrap -->
-    <script src="../asset/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../asset/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Sulfur JS File -->
     <!-- <script src="../asset/js/jquery-2.1.3.min.js"></script> -->
-    <script src="../asset/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../asset/js/jquery-migrate-1.2.1.min.js"></script>
 
-    <script src="../asset/js/owl.carousel.min.js"></script>
-    <script src="../asset/js/jquery.appear.js"></script>
-    <script src="../asset/js/jquery.fitvids.js"></script>
-    <script src="../asset/js/jquery.nicescroll.min.js"></script>
-    <script src="../asset/js/lightbox.min.js"></script>
-    <script src="../asset/js/count-to.js"></script>
-    <script src="../asset/js/styleswitcher.js"></script>
+    <script src="../../asset/js/owl.carousel.min.js"></script>
+    <script src="../../asset/js/jquery.appear.js"></script>
+    <script src="../../asset/js/jquery.fitvids.js"></script>
+    <script src="../../asset/js/jquery.nicescroll.min.js"></script>
+    <script src="../../asset/js/lightbox.min.js"></script>
+    <script src="../../asset/js/count-to.js"></script>
+    <script src="../../asset/js/styleswitcher.js"></script>
 
         </body>
 </html>

@@ -132,8 +132,9 @@
                           </div>
 
                           <input type="hidden" name="sessionID" class="form-control" id="sessionID">
+                          <input type="hidden" name="traineeID" class="form-control" id="traineeID" value=<?php echo $traineeID ?>>
 
-                          <input type="hidden" name="traineeID" class="form-control" id="traineeID">
+                          <input type="hidden" name="confirmedTraineeID" class="form-control" id="confirmedTraineeID">
 
 
                       </div>
@@ -183,7 +184,7 @@
     <script>
         // display a confirm button if the training is available. Else, do not display it
         $('#ModalConfirm').on('shown.bs.modal', function () {
-            if ($("#traineeID").val() != ""){
+            if ($("#confirmedTraineeID").val() != ""){
                 $("#confirmButton").hide();
             }
         });

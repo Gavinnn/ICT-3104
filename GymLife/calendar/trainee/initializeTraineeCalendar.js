@@ -21,7 +21,7 @@ function initializeTraineeCalendar(trainingSessions){
                 $('#ModalConfirm #trainerName').val(event.trainerName);	// pump the title into the Confirm Training modal
                 $('#ModalConfirm #startTime').val(event.start._i);	// pump the start time into the Confirm Training modal
                 $('#ModalConfirm #endTime').val(event.end._i);	// pump the end time into the Confirm Training modal
-                $('#ModalConfirm #traineeID').val(event.traineeID);	// pump the traineeID into the Confirm Training modal, if any
+                $('#ModalConfirm #confirmedTraineeID').val(event.traineeID);	// pump the confirmed traineeID into the Confirm Training modal, if any
                 $('#ModalConfirm').modal('show'); // inflate the modal
             });
         },

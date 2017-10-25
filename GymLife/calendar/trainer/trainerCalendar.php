@@ -1,11 +1,10 @@
 <?php
-    require_once('../../session/session.php');
+require_once('../../session/session.php');
+// HARDCODED USER DATA
+$trainerID = $_SESSION['id'];
 
-    // HARDCODED USER DATA
-    $trainerID = $_SESSION['id'];
-    
-    include 'getTrainings.php';
-    $events = getTrainings($trainerID);
+include 'getTrainings.php';
+$events = getTrainings($trainerID);
 ?>
 
 <!doctype html>
@@ -67,199 +66,196 @@
         <!--Navigation Section-->
         <?php require_once('../../header.php'); ?>
 
-		<!-- Start Header Section -->
+        <!-- Start Header Section -->
         <div class="page-header">
             <div class="overlay">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Trainer Calendar</h1>
+                            <h1>Training Calendar</h1>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- End Header Section -->
-		
-		<div class="container">
-			<div class="row">
-            <div class="col-lg-12 text-center">
-			<br>
-				<br>
-				<br>
-                <div id="calendar" class="col-centered">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <br>
+                    <br>
+                    <br>
+                    <div id="calendar" class="col-centered">
+                    </div>
+                    <br>
                 </div>
-				<br>
             </div>
-        </div>
-                        <div>
-                            <button type=" button">View Booked Trainings </button>
-                        </div>
-                <!-- Add Training Modal -->
-                <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                  <div class="modal-dialog" role="document">
+
+            <!-- Add Training Modal -->
+            <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                    <form class="form-horizontal" method="POST" action="addTraining.php">
+                        <form class="form-horizontal" method="POST" action="addTraining.php">
 
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Add Training Session</h4>
-                      </div>
-                      <div class="modal-body">
-
-                          <div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">Title</label>
-                            <div class="col-sm-10">
-                              <input type="text" name="title" class="form-control" id="title" placeholder="Title" required>
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Add Training Session</h4>
                             </div>
-                          </div>
-						  
-						  <div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">Training Category</label>
-						  <div class="dropdown col-sm-6">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-									Category
-									<span class="caret"></span>
-								  </button>
-								  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-									<li><a href="#">Circuit Training</a></li>
-									<li><a href="#">Personal Training</a></li>
-									<!--To populate from database -->
-								  </ul>
-                          </div>
-							</div>
-						  
-							<div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">Cost</label>
-                            <div class="col-sm-3">
-                              <input type="text" name="title" class="form-control" id="title" placeholder="Cost" readonly>
-                            </div>
-                          </div>
-						  						  
-                          
+                            <div class="modal-body">
 
-						  <div class="form-group">
-                            <label for="start" class="col-sm-2 control-label">Date</label>
-                            <div class="col-sm-3">
-                                <input type="text" name="date" class="form-control" id="date" readonly>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="start" class="col-sm-2 control-label">Start Time</label>
-                            <div class="col-sm-3">
-                              <input type="text" name="startTime" class="form-control timepicker" id="startTime" required>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="start" class="col-sm-2 control-label">End Time</label>
-                            <div class="col-sm-3">
-                              <input type="text" name="endTime" class="form-control" id="endTime" readonly>
-                            </div>
-                          </div>
-
-                            
-
-                            <input type="hidden" name="trainerID" class="form-control" id="trainerID" value=<?php echo $trainerID?>>
-
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                      </div>
-                    </form>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Edit Training Modal -->
-                <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <form class="form-horizontal" method="POST" action="editTrainingTitle.php">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Edit Event</h4>
-                      </div>
-                      <div class="modal-body">
-
-                          <div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">Training Title</label>
-                            <div class="col-sm-10">
-                              <input type="text" name="title" class="form-control" id="title" placeholder="Title">
-                            </div>
-                          </div>
-                          
-                             <div class="form-group">
-                            <label for="traineeName" class="col-sm-2 control-label">Trainee Name</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="traineeName" class="form-control" id="traineeName" readonly>
-                            </div>
-                          </div>
-                          
-
-                            <div class="form-group">
-                            <label for="start" class="col-sm-2 control-label">Date</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="date" class="form-control" id="date" readonly>
-                            </div>
-                          </div>
-
-                        
-                        <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                  <div class="checkbox">
-                                    <label class="text-danger"><input type="checkbox"  name="delete"> Delete event</label>
-                                  </div>
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Title</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="title" class="form-control" id="title" placeholder="Title" required>
+                                    </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Training Category</label>
+                                    <div class="dropdown col-sm-6">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Category
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="#">Circuit Training</a></li>
+                                            <li><a href="#">Personal Training</a></li>
+                                            <!--To populate from database -->
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Cost</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" name="title" class="form-control" id="title" placeholder="Cost" readonly>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label for="start" class="col-sm-2 control-label">Date</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" name="date" class="form-control" id="date" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="start" class="col-sm-2 control-label">Start Time</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" name="startTime" class="form-control timepicker" id="startTime" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="start" class="col-sm-2 control-label">End Time</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" name="endTime" class="form-control" id="endTime" readonly>
+                                    </div>
+                                </div>
+
+
+
+                                <input type="hidden" name="trainerID" class="form-control" id="trainerID" value=<?php echo $trainerID ?>>
+
                             </div>
-
-                          <input type="hidden" name="sessionID" class="form-control" id="sessionID">
-
-
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                      </div>
-                    </form>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
                     </div>
-                  </div>
                 </div>
+            </div>
 
-    </div>
+            <!-- Edit Training Modal -->
+            <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form class="form-horizontal" method="POST" action="editTrainingTitle.php">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Edit Event</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Training Title</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="traineeName" class="col-sm-2 control-label">Trainee Name</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="traineeName" class="form-control" id="traineeName" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="start" class="col-sm-2 control-label">Date</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="date" class="form-control" id="date" readonly>
+                                    </div>
+                                </div>
 
 
-		<!-- jQuery Version 1.11.1 -->
-    <script src="../../asset/plugins/fullCalendar/js/jquery.js"></script>
-    
-    <!-- FullCalendar -->
-		<script src='../../asset/plugins/fullCalendar/js/moment.min.js'></script>
-		<script src='../../asset/plugins/fullCalendar/js/fullcalendar.min.js'></script>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div class="checkbox">
+                                            <label class="text-danger"><input type="checkbox"  name="delete"> Delete event</label>
+                                        </div>
+                                    </div>
+                                </div>
 
-		<script src="initializeTrainerCalendar.js" type="text/javascript"></script>
-		<script type="text/javascript">
-			$(document).ready(initializeTrainerCalendar(<?php echo json_encode($events) ?> ));
-		</script>
+                                <input type="hidden" name="sessionID" class="form-control" id="sessionID">
 
-		<!-- Timepicker  -->
-		<script src="../../asset/plugins/fullCalendar/js/jquery.timepicker.js"></script>
 
-    <!-- Bootstrap -->
-    <script src="../../asset/bootstrap/js/bootstrap.min.js"></script>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Sulfur JS File -->
-    <!-- <script src="../asset/js/jquery-2.1.3.min.js"></script> -->
-    <script src="../../asset/js/jquery-migrate-1.2.1.min.js"></script>
+        </div>
 
-    <script src="../../asset/js/owl.carousel.min.js"></script>
-    <script src="../../asset/js/jquery.appear.js"></script>
-    <script src="../../asset/js/jquery.fitvids.js"></script>
-    <script src="../../asset/js/jquery.nicescroll.min.js"></script>
-    <script src="../../asset/js/lightbox.min.js"></script>
-    <script src="../../asset/js/count-to.js"></script>
-    <script src="../../asset/js/styleswitcher.js"></script>
 
-        </body>
+        <!-- jQuery Version 1.11.1 -->
+        <script src="../../asset/plugins/fullCalendar/js/jquery.js"></script>
+
+        <!-- FullCalendar -->
+        <script src='../../asset/plugins/fullCalendar/js/moment.min.js'></script>
+        <script src='../../asset/plugins/fullCalendar/js/fullcalendar.min.js'></script>
+
+        <script src="initializeTrainerCalendar.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(initializeTrainerCalendar(<?php echo json_encode($events) ?>));
+        </script>
+
+        <!-- Timepicker  -->
+        <script src="../../asset/plugins/fullCalendar/js/jquery.timepicker.js"></script>
+
+        <!-- Bootstrap -->
+        <script src="../../asset/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- Sulfur JS File -->
+        <!-- <script src="../asset/js/jquery-2.1.3.min.js"></script> -->
+        <script src="../../asset/js/jquery-migrate-1.2.1.min.js"></script>
+
+        <script src="../../asset/js/owl.carousel.min.js"></script>
+        <script src="../../asset/js/jquery.appear.js"></script>
+        <script src="../../asset/js/jquery.fitvids.js"></script>
+        <script src="../../asset/js/jquery.nicescroll.min.js"></script>
+        <script src="../../asset/js/lightbox.min.js"></script>
+        <script src="../../asset/js/count-to.js"></script>
+        <script src="../../asset/js/styleswitcher.js"></script>
+
+    </body>
 </html>

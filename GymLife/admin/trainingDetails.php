@@ -43,7 +43,7 @@
         <script src="../asset/js/modernizrr.js"></script>
         <script>
             $(document).ready(function () {
-                $('#users').DataTable();
+                $('#trainings').DataTable();
             });
             function dlt(id)
             {
@@ -57,7 +57,7 @@
                     closeOnCancel: true},
                         function (isConfirm) {
                             if (isConfirm) {
-                                location.href = 'deleteUser.php?id=' + id;
+                                location.href = 'deleteDetails.php?id=' + id;
                             }
                         });
             }
@@ -74,7 +74,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Account Management</h1>
+                            <h1>Training Management</h1>
                         </div>
                     </div>
                 </div>
@@ -94,35 +94,24 @@
                                 <table id="users" class="table table-striped table-bordered table-list" width="100%">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Username</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                            <th data-sortable="false"><em class="fa fa-cog"></th>
+                                            <th class="col-md-2">Type of Training</th>
+                                            <th class="col-md-7">Description</th>
+                                            <th class="col-md-1">Cost of Training</th>
+                                            <th class="col-md-2" data-sortable="false"><em class="fa fa-cog"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $record = DB::query("SELECT * FROM user WHERE status='2'");
+                                        $record = DB::query("SELECT * FROM trainings");
 
                                         foreach ($record as $row) {
                                             echo "<tr>";
-                                            echo "<td>" . $row['name'] . "</td>";
-                                            echo "<td>" . $row['userName'] . "</td>";
-                                            echo "<td>" . $row['email'] . "</td>";
-                                            if ($row['roleID'] == '1') {
-                                                echo " <td> Admin </td>";
-                                            } elseif ($row['roleID'] == '2') {
-                                                echo "<td> Trainer </td>";
-                                            } elseif ($row['roleID'] == '3') {
-                                                echo "<td> Trainee </td>";
-                                            } else {
-                                                echo "<td> ERROR </td>";
-                                            }
-                                            echo "<td>";
-                                            echo "<button class='btn btn-success' onclick=\"location.href ='viewUser.php?id=" . $row['userID'] . "' \">View</button> &nbsp;";
-                                            echo "<button class='btn btn-warning' onclick=\"location.href ='editUser.php?id=" . $row['userID'] . "' \">Edit</button> &nbsp;";
-                                            echo "<button class='btn btn-danger' onclick='dlt(\"" . $row['userID'] . "\")'>Delete</button>";
+                                            echo "<td>" . $row['trainingType'] . "</td>";
+                                            echo "<td>" . $row['description'] . "</td>";
+                                            echo "<td>" . $row['cost'] . "</td>";
+                                                                                        echo "<td>";
+                                            echo "<button class='btn btn-warning' onclick=\"location.href ='editUser.php?id=" . $row['trainingID'] . "' \">Edit</button> &nbsp;";
+                                            echo "<button class='btn btn-danger' onclick='dlt(\"" . $row['trainingID'] . "\")'>Delete</button>";
                                             echo "</td>";
                                             echo "</tr>";
                                         }

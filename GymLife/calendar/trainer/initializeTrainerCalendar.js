@@ -38,7 +38,8 @@ function initializeTrainerCalendar(trainingSessions){
         eventRender: function(event, element) {
             element.bind('dblclick', function() {
                 $('#ModalEdit #sessionID').val(event.id);	// pump the id into the Edit modal
-                $('#ModalEdit #title').val(event.title);	// pump the title into the Edit modal
+                $('#ModalEdit #title').val(event.title);
+                $('#ModalEdit #traineeName').val(event.traineeName === undefined? "None" : event.traineeName);// pump the title into the Edit modal
                 $('#ModalEdit #date').val(event.start._i);	// pump the date into the Edit modal
                 $('#ModalEdit').modal('show'); // inflate the modal
             });
@@ -58,10 +59,13 @@ function initializeTrainerCalendar(trainingSessions){
         events: 
 
             trainingSessions.map(function(oneTraining) {
+                
                 return {
                     id: oneTraining.sessionID,
                     title: oneTraining.title,
                     start: oneTraining.startSession,
+                    traineeName: oneTraining.traineeName,
+                    color:oneTraining.color,
                     end: oneTraining.endSession
                         }
             })

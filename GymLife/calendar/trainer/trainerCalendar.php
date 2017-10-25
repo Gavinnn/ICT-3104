@@ -73,7 +73,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Training Calendar</h1>
+                            <h1>Trainer Calendar</h1>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,9 @@
 				<br>
             </div>
         </div>
-
+                        <div>
+                            <button type=" button">View Booked Trainings </button>
+                        </div>
                 <!-- Add Training Modal -->
                 <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                   <div class="modal-dialog" role="document">
@@ -164,6 +166,14 @@
                               <input type="text" name="title" class="form-control" id="title" placeholder="Title">
                             </div>
                           </div>
+                          
+                             <div class="form-group">
+                            <label for="traineeName" class="col-sm-2 control-label">Trainee Name</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="traineeName" class="form-control" id="traineeName" readonly>
+                            </div>
+                          </div>
+                          
 
                             <div class="form-group">
                             <label for="start" class="col-sm-2 control-label">Date</label>

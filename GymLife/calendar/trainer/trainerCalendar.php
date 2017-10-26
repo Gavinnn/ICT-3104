@@ -58,6 +58,12 @@ $events = getTrainings($trainerID);
 
         <script src="../../asset/js/modernizrr.js"></script>
 
+	<script>
+					function setCostValue() {
+				var x = document.getElementById("catSelect").value;
+				document.getElementById("cost").innerHTML = x;
+			}
+		</script>
 
     </head>
 
@@ -111,28 +117,29 @@ $events = getTrainings($trainerID);
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="title" class="col-sm-2 control-label">Training Category</label>
-                                    <div class="dropdown col-sm-6">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            Category
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li><a href="#">Circuit Training</a></li>
-                                            <li><a href="#">Personal Training</a></li>
-                                            <!--To populate from database -->
-                                        </ul>
-                                    </div>
-                                </div>
+                               <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">Training Category</label>
+						  <div class="dropdown col-sm-6" style="padding-top:10px;">
+                            <select id="catSelect" class="dropdown" onchange="setCostValue()">
+							<?php 
+								   
+								   $record = DB::query("SELECT * FROM trainings");
 
-                                <div class="form-group">
-                                    <label for="title" class="col-sm-2 control-label">Cost</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" name="title" class="form-control" id="title" placeholder="Cost" readonly>
-                                    </div>
-                                </div>
-
+                                        foreach ($record as $row) {
+											echo "<option>" . $row['trainingType'] . "</option>";
+                                        }
+										?>
+								</select>
+                          </div>
+							</div>
+						  
+							<div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">Cost</label>
+                            <div class="col-sm-3">
+                              <input type="text" id="cost" class="form-control" id="title" readonly>
+                            </div>
+                          </div>
+						  			
 
 
                                 <div class="form-group">

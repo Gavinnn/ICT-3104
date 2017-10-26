@@ -23,10 +23,6 @@ $events = getTrainings($trainerID);
         <!-- Responsive Metatag -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-        <!-- Page Description and Author -->
-        <meta name="description" content="Sulfur - Responsive HTML5 Template">
-        <meta name="author" content="Shahriyar Ahmed">
-
         <!-- Bootstrap CSS  -->
         <link rel="stylesheet" href="../../asset/bootstrap/css/bootstrap.min.css" type="text/css">
 
@@ -58,17 +54,15 @@ $events = getTrainings($trainerID);
 
         <script src="../../asset/js/modernizrr.js"></script>
 
-	<script>
-					function setCostValue() {
-				var x = document.getElementById("catSelect").value;
-				document.getElementById("cost").innerHTML = x;
-			}
-		</script>
-
+        <script>
+            function setCostValue() {
+                var cost = $("#category").children('option:selected').data('cost');
+                $("#cost").val(cost);
+            }
+        </script>
     </head>
 
     <body>
-
         <!--Navigation Section-->
         <?php require_once('../../header.php'); ?>
 
@@ -117,30 +111,27 @@ $events = getTrainings($trainerID);
                                     </div>
                                 </div>
 
-                               <div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">Training Category</label>
-						  <div class="dropdown col-sm-6" style="padding-top:10px;">
-                            <select id="catSelect" class="dropdown" onchange="setCostValue()">
-							<?php 
-								   
-								   $record = DB::query("SELECT * FROM trainings");
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Training Category</label>
+                                    <div class="dropdown col-sm-6" style="padding-top:10px;">
+                                        <select id="category" class="dropdown" onchange="setCostValue()">
+                                            <?php
+                                            $record = DB::query("SELECT * FROM trainings");
 
-                                        foreach ($record as $row) {
-											echo "<option>" . $row['trainingType'] . "</option>";
-                                        }
-										?>
-								</select>
-                          </div>
-							</div>
-						  
-							<div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">Cost</label>
-                            <div class="col-sm-3">
-                              <input type="text" id="cost" class="form-control" id="title" readonly>
-                            </div>
-                          </div>
-						  			
+                                            foreach ($record as $row) {
+                                                echo "<option data-cost='" . $row['cost'] . "'>" . $row['trainingType'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
 
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Cost</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" id="cost" class="form-control" id="title" readonly>
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     <label for="start" class="col-sm-2 control-label">Date</label>
@@ -162,11 +153,7 @@ $events = getTrainings($trainerID);
                                         <input type="text" name="endTime" class="form-control" id="endTime" readonly>
                                     </div>
                                 </div>
-
-
-
                                 <input type="hidden" name="trainerID" class="form-control" id="trainerID" value=<?php echo $trainerID ?>>
-
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -194,7 +181,7 @@ $events = getTrainings($trainerID);
                                         <input type="text" name="title" class="form-control" id="title" placeholder="Title">
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="traineeName" class="col-sm-2 control-label">Trainee Name</label>
                                     <div class="col-sm-4">
@@ -209,7 +196,6 @@ $events = getTrainings($trainerID);
                                     </div>
                                 </div>
 
-
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <div class="checkbox">
@@ -217,10 +203,7 @@ $events = getTrainings($trainerID);
                                         </div>
                                     </div>
                                 </div>
-
                                 <input type="hidden" name="sessionID" class="form-control" id="sessionID">
-
-
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -230,9 +213,7 @@ $events = getTrainings($trainerID);
                     </div>
                 </div>
             </div>
-
         </div>
-
 
         <!-- jQuery Version 1.11.1 -->
         <script src="../../asset/plugins/fullCalendar/js/jquery.js"></script>
@@ -242,9 +223,7 @@ $events = getTrainings($trainerID);
         <script src='../../asset/plugins/fullCalendar/js/fullcalendar.min.js'></script>
 
         <script src="initializeTrainerCalendar.js" type="text/javascript"></script>
-        <script type="text/javascript">
-            $(document).ready(initializeTrainerCalendar(<?php echo json_encode($events) ?>));
-        </script>
+        <script type="text/javascript">$(document).ready(initializeTrainerCalendar(<?php echo json_encode($events) ?>));</script>
 
         <!-- Timepicker  -->
         <script src="../../asset/plugins/fullCalendar/js/jquery.timepicker.js"></script>

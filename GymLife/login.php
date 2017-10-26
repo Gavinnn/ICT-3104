@@ -13,7 +13,7 @@
         <!--Custom Javascript-->
         <script src="asset/js/custom.js"></script>
         <script>
-			function ValidateEmail(mail)
+            function ValidateEmail(mail)
             {
                 if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
                 {
@@ -29,7 +29,7 @@
                 var contact = $("#contact").val();
                 var role = $("#role").val();
                 var password = $("#pass").val();
-				var cfmPassword = $("#cfmpass").val();
+                var cfmPassword = $("#cfmpass").val();
 
                 if (username == "")
                     displayErrorMsg("Please fill in the \"username\"field.");
@@ -43,9 +43,9 @@
                     displayErrorMsg("Please fill in the \"Role\" field.");
                 else if (password == "" || password.length < 8)
                     displayErrorMsg("\"Password\" field is too short.");
-				else if (!ValidateEmail(email))
+                else if (!ValidateEmail(email))
                     displayErrorMsg("Please fill in a valid email");
-                else if (password==cfmPassword && password.length >= 8) {
+                else if (password == cfmPassword && password.length >= 8) {
                     $.ajax({
                         url: "registerProcess.php",
                         data: {'username': username, 'name': name, 'email': email, 'contact': contact, 'role': role, 'password': password},
@@ -63,9 +63,8 @@
                             }
                         }
                     });
-                }
-				else
-					displayErrorMsg("The password section is incorrect.");
+                } else
+                    displayErrorMsg("The password section is incorrect.");
 
                 return confirm;
             }
@@ -104,7 +103,7 @@
             <div class="tab-content">
 
 
-            <div id="login">   
+                <div id="login">   
                     <h1>Welcome to GymLife!</h1>
                     <form name="login" id="login" class="form-horizontal" action="loginProcess.php" enctype="multipart/form-data" method="POST" onSubmit="return check();">
                         <div class="field-wrap">
@@ -152,7 +151,7 @@
                         <div class="field-wrap">
                             <select id="role" name="role"> 
                                 <option value = '2'>Trainer</option>
-								<option value = '3' >trainee</option>
+                                <option value = '3' >trainee</option>
                             </select>
                         </div>
                         <div class="field-wrap">
@@ -161,7 +160,7 @@
                             </label>
                             <input id="pass" type="password"required autocomplete="off"/>
                         </div>
-						<div class="field-wrap">
+                        <div class="field-wrap">
                             <label>
                                 Confirm Password<span class="req">*</span>
                             </label>

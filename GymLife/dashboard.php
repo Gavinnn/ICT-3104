@@ -1,3 +1,4 @@
+<?php require_once('conn.php'); ?>
 <?php require_once('session/session.php'); ?>
 <!doctype html>
 <html lang="en">
@@ -30,6 +31,13 @@
         <script src="asset/js/modernizrr.js"></script>
     </head>
     <body>
+		<?php
+		$id = $_SESSION["id"];
+		$record = DB::queryFirstRow("SELECT * FROM user WHERE userID=%s", $id);
+		$change = $record["passwordChange"];
+		if($change==1)
+			echo "<script>alert('Password change required');</script>";
+		?>
 		<!--Navigation Section-->
 		<?php require_once('header.php'); ?>
         <!-- Start Header Section -->
@@ -45,6 +53,7 @@
             </div>
         </div>
         <!-- End Header Section -->
+		
 
        <!-- Sulfur JS File -->
         <script src="asset/js/jquery-2.1.3.min.js"></script>

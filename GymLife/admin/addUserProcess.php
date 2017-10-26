@@ -8,7 +8,7 @@ $name = post("name");
 $email = post("email");
 $contact = post("contact");
 $role = post("role");
-$pass = "Password1";
+$pass = "password";
 $hashedpass = hashPassword($pass);
 
 //Query to select username

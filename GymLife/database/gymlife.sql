@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2017 at 10:49 AM
+-- Generation Time: Oct 25, 2017 at 11:05 AM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `groupsessions` (
   `groupSessionID` int(11) NOT NULL,
   `trainerID` int(11) NOT NULL,
+  `trainingID` int(11) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `numberOfParticipants` int(11) NOT NULL,
   `startSession` datetime NOT NULL,
@@ -125,7 +126,23 @@ CREATE TABLE IF NOT EXISTS `trainersessions` (
   `title` varchar(255) DEFAULT NULL,
   `startSession` datetime NOT NULL,
   `endSession` datetime NOT NULL,
-  `traineeID` int(11) DEFAULT NULL
+  `traineeID` int(11) DEFAULT NULL,
+  `locationID` int(11) NOT NULL,
+  `roomID` int(11) NOT NULL,
+  `description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trainings`
+--
+
+CREATE TABLE IF NOT EXISTS `trainings` (
+  `trainingID` int(11) NOT NULL,
+  `trainingType` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `cost` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -151,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`userID`, `roleID`, `name`, `userName`, `email`, `contactNumber`, `password`, `status`, `passwordChange`) VALUES
-(1, 1, 'Dylan', 'Dylan', 'deeeeeeeeeeelan@hotmail.com', 99999999, '123123123', 2, b'0'),
+(1, 1, 'Dylan', 'Dylan', 'deeeeeeeeeeelan@hotmail.com', 99999998, '123123123', 1, b'0'),
 (2, 2, 'Test 1', 'test1', 'test1@gmail.com', 11111111, '11111111', 1, b'0'),
 (3, 3, 'Test 2', 'test2', 'test2@gmail.com', 22222222, '222222222', 2, b'0'),
 (5, 3, 'Test 4', 'test4', 'test4@hotmail.com', 44444444, '44444444', 2, b'0');
@@ -166,7 +183,8 @@ INSERT INTO `user` (`userID`, `roleID`, `name`, `userName`, `email`, `contactNum
 ALTER TABLE `groupsessions`
   ADD PRIMARY KEY (`groupSessionID`),
   ADD KEY `trainerID` (`trainerID`),
-  ADD KEY `roomID` (`roomID`);
+  ADD KEY `roomID` (`roomID`),
+  ADD KEY `trainingID` (`trainingID`);
 
 --
 -- Indexes for table `gyms`
@@ -211,7 +229,15 @@ ALTER TABLE `trainersessions`
   ADD KEY `traineeID` (`traineeID`),
   ADD KEY `trainerID_2` (`trainerID`),
   ADD KEY `trainerID_3` (`trainerID`),
-  ADD KEY `trainerID_4` (`trainerID`);
+  ADD KEY `trainerID_4` (`trainerID`),
+  ADD KEY `locationID` (`locationID`),
+  ADD KEY `roomID` (`roomID`);
+
+--
+-- Indexes for table `trainings`
+--
+ALTER TABLE `trainings`
+  ADD PRIMARY KEY (`trainingID`);
 
 --
 -- Indexes for table `user`
@@ -261,6 +287,11 @@ ALTER TABLE `status`
 ALTER TABLE `trainersessions`
   MODIFY `sessionID` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `trainings`
+--
+ALTER TABLE `trainings`
+  MODIFY `trainingID` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
@@ -274,7 +305,8 @@ ALTER TABLE `user`
 --
 ALTER TABLE `groupsessions`
   ADD CONSTRAINT `roomIDFK` FOREIGN KEY (`roomID`) REFERENCES `rooms` (`roomID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `trainerIDForeignKey` FOREIGN KEY (`trainerID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `trainerIDForeignKey` FOREIGN KEY (`trainerID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `trainingID` FOREIGN KEY (`trainingID`) REFERENCES `trainings` (`trainingID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `rooms`
@@ -293,8 +325,10 @@ ALTER TABLE `traineegroupsession`
 -- Constraints for table `trainersessions`
 --
 ALTER TABLE `trainersessions`
-  ADD CONSTRAINT `traineeIDFK` FOREIGN KEY (`traineeID`) REFERENCES `user` (`userID`) ON DELETE SET NULL ON UPDATE NO ACTION,
-  ADD CONSTRAINT `trainerIDFK` FOREIGN KEY (`trainerID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `locationConstraint` FOREIGN KEY (`locationID`) REFERENCES `gyms` (`locationID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `roomConstraint` FOREIGN KEY (`roomID`) REFERENCES `rooms` (`roomID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `traineeIDFK` FOREIGN KEY (`traineeID`) REFERENCES `user` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `trainerIDFK` FOREIGN KEY (`trainerID`) REFERENCES `user` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `user`

@@ -1,5 +1,5 @@
 function initializeTraineeCalendar(trainingSessions){
-    
+
     // initialize calendar
     $('#calendar').fullCalendar({
         // define buttons at the header
@@ -18,9 +18,14 @@ function initializeTraineeCalendar(trainingSessions){
             element.bind('dblclick', function() {
                 $('#ModalConfirm #sessionID').val(event.id);	// pump the id into the Confirm Training modal
                 $('#ModalConfirm #title').val(event.title);	// pump the title into the Confirm Training modal
-                $('#ModalConfirm #trainerName').val(event.trainerName);	// pump the title into the Confirm Training modal
+                $('#ModalConfirm #trainerName').val(event.trainerName);	// pump the trainerName into the Confirm Training modal
+                $('#ModalConfirm #trainingType').val(event.trainingType);	// pump the trainingName into the Confirm Training modal
+                $('#ModalConfirm #cost').val(event.cost);	// pump the cost into the Confirm Training modal
                 $('#ModalConfirm #startTime').val(event.start._i);	// pump the start time into the Confirm Training modal
-                $('#ModalConfirm #endTime').val(event.end._i);	// pump the end time into the Confirm Training modal
+                $('#ModalConfirm #endTime').val(event.end._i);	// pump the end time into the Confir
+                $('#ModalConfirm #gym').val(event.locationName);	// pump the locationName into the Confirm Training modal
+                $('#ModalConfirm #room').val(event.roomName);	// pump the roomName into the Confirm Training modal
+                $('#ModalConfirm #trainingDesc').val(event.description);	// pump the description into the Confirm Training modal
                 $('#ModalConfirm #confirmedTraineeID').val(event.traineeID);	// pump the confirmed traineeID into the Confirm Training modal, if any
                 $('#ModalConfirm').modal('show'); // inflate the modal
             });
@@ -32,10 +37,15 @@ function initializeTraineeCalendar(trainingSessions){
             trainingSessions.map(function(oneTraining) {
                 return {
                     id: oneTraining.sessionID,
-                    title: oneTraining.trainerName + " - \n" + oneTraining.title,
+                    title: oneTraining.title,
+                    trainerName: oneTraining.trainerName,
+                    trainingType: oneTraining.trainingType,
+                    cost: oneTraining.cost,
                     start: oneTraining.startSession,
                     end: oneTraining.endSession,
-                    trainerName: oneTraining.trainerName,
+                    locationName: oneTraining.locationName,
+                    roomName: oneTraining.roomName,
+                    description: oneTraining.description,
                     color:oneTraining.color,
                     traineeID: oneTraining.traineeID
                     }

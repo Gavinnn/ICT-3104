@@ -25,7 +25,7 @@ function initializeTrainerCalendar(trainingSessions){
                 orientation: "bl",	
                 timeFormat: "H:i",
                 minTime: '10:00am',
-                maxTime: '10:00pm',
+                maxTime: '9:00pm',
             });
 
             // add one hour to the selected time

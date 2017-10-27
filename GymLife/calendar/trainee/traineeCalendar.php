@@ -5,6 +5,7 @@
     
     include 'getTrainings.php';
     $events = getTrainings($traineeID);
+    $userEvents = getUserTrainings($traineeID);
 ?>
 
 <!doctype html>
@@ -84,6 +85,7 @@
             <div class="row">
             <div class="col-lg-12 text-center">
             <br>
+            <button type="button" id="viewUserTrainingsBtn" class="btn btn-success" onclick="viewOnlyUserTrainings()">View your trainings only</button>
                 <br>
                 <br>
                 <div id="calendar" class="col-centered">
@@ -122,6 +124,20 @@
                           </div>
 
                           <div class="form-group">
+                            <label for="trainingType" class="col-sm-2 control-label">Training Category</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="trainingType" class="form-control" id="trainingType" readonly>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="cost" class="col-sm-2 control-label">Cost</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="cost" class="form-control" id="cost" readonly>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
                             <label for="start" class="col-sm-2 control-label">Start Time</label>
                             <div class="col-sm-4">
                                 <input type="text" name="date" class="form-control" id="startTime" readonly>
@@ -132,6 +148,27 @@
                             <label for="end" class="col-sm-2 control-label">End Time</label>
                             <div class="col-sm-4">
                                 <input type="text" name="date" class="form-control" id="endTime" readonly>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="gym" class="col-sm-2 control-label">Gym</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="gym" class="form-control" id="gym" readonly>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="room" class="col-sm-2 control-label">Room</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="room" class="form-control" id="room" readonly>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="trainingDesc" class="col-sm-2 control-label">Training Description</label>
+                            <div class="col-sm-10">
+                                <textarea placeholder="Max characters are 255" maxlength="255" name="trainingDesc" id="trainingDesc" readonly></textarea>
                             </div>
                           </div>
 
@@ -239,6 +276,36 @@
                     }
                 }
             });
+        }
+
+        //---------------------------------------------------------------------------------------
+        // desc: retrieve trainings that the trainee has only booked and display on calendar
+        //---------------------------------------------------------------------------------------
+        function viewOnlyUserTrainings(){
+
+            // clear calendar
+            $('#calendar').fullCalendar('removeEvents');    
+
+            // add trainee-only trainings to calendar
+            $('#calendar').fullCalendar('addEventSource',            
+                <?php echo json_encode($userEvents) ?>.map(function(oneTraining) {
+
+                return {
+                    id: oneTraining.sessionID,
+                    title: oneTraining.title,
+                    trainerName: oneTraining.trainerName,
+                    trainingType: oneTraining.trainingType,
+                    cost: oneTraining.cost,
+                    start: oneTraining.startSession,
+                    end: oneTraining.endSession,
+                    locationName: oneTraining.locationName,
+                    roomName: oneTraining.roomName,
+                    description: oneTraining.description,
+                    color:oneTraining.color,
+                    traineeID: oneTraining.traineeID
+                    }
+                })    
+            );
         }
     </script>
         </body>

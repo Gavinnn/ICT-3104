@@ -114,12 +114,13 @@ $events = getTrainings($trainerID);
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Training Category</label>
                                     <div class="dropdown col-sm-6" style="padding-top:10px;">
-                                        <select id="category" class="dropdown" onchange="setCostValue()">
+                                        <select id="category" name="category" class="dropdown" onchange="setCostValue()">
+                                        <option selected disabled hidden>Select a Training</option>
                                             <?php
                                             $record = DB::query("SELECT * FROM trainings");
 
                                             foreach ($record as $row) {
-                                                echo "<option data-cost='" . $row['cost'] . "'>" . $row['trainingType'] . "</option>";
+                                                echo "<option value='" . $row['trainingID'] . "' data-cost='" . $row['cost'] . "'>" . $row['trainingType'] . "</option>";
                                             }
                                             ?>
                                         </select>
@@ -134,7 +135,33 @@ $events = getTrainings($trainerID);
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="start" class="col-sm-2 control-label">Date</label>
+                                    <label for="gym" class="col-sm-2 control-label">Gym</label>
+                                    <div class="dropdown col-sm-6" style="padding-top:10px;">
+                                        <!--  Since each Gym has their own unique rooms, once gym is selected, show only those rooms  -->
+                                        <select id="gym" name="gym" class="dropdown" onchange="setRoomsValue()">
+                                            <option selected disabled hidden>Select a gym</option>
+                                            <?php
+                                            $record = DB::query("SELECT * FROM gyms");
+
+                                            foreach ($record as $row) {
+                                                echo "<option value='" . $row['locationID'] . "' data-locationid='" . $row['locationID'] . "'>" . $row['locationName'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="room" class="col-sm-2 control-label">Room</label>
+                                    <div class="dropdown col-sm-6" style="padding-top:10px;">
+                                        <select id="roomDropdown" name="rooms" class="dropdown">
+                                            <option selected disabled>Select a gym first</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="date" class="col-sm-2 control-label">Date</label>
                                     <div class="col-sm-3">
                                         <input type="text" name="date" class="form-control" id="date" readonly>
                                     </div>
@@ -148,11 +175,19 @@ $events = getTrainings($trainerID);
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="start" class="col-sm-2 control-label">End Time</label>
+                                    <label for="end" class="col-sm-2 control-label">End Time</label>
                                     <div class="col-sm-3">
                                         <input type="text" name="endTime" class="form-control" id="endTime" readonly>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="trainingDesc" class="col-sm-2 control-label">Training Description</label>
+                                    <div class="col-sm-10">
+                                        <textarea placeholder="Max characters are 255" maxlength="255" name="description"></textarea>
+                                    </div>
+                                </div>
+
                                 <input type="hidden" name="trainerID" class="form-control" id="trainerID" value=<?php echo $trainerID ?>>
                             </div>
                             <div class="modal-footer">
@@ -242,6 +277,33 @@ $events = getTrainings($trainerID);
         <script src="../../asset/js/lightbox.min.js"></script>
         <script src="../../asset/js/count-to.js"></script>
         <script src="../../asset/js/styleswitcher.js"></script>
+
+        <script>
+            // dynamically add rooms to the dropdown based on the selected gym
+            function setRoomsValue(){
+
+                $("#roomDropdown").empty();
+
+                var gymID = $("#gym").children('option:selected').data('locationid');
+                    
+                // ajax call to retrive all the rooms of the gym
+                $.ajax({
+                    url: "getGymRooms.php",
+                    data: {'locationID' : gymID},
+                    type: 'POST',
+                    async: false,
+                    success: function (results) {
+
+                        // if there are rooms
+                        if (results){
+                            
+                            $("#roomDropdown").append(results);
+                        }
+                    }
+                });
+            }
+
+        </script>
 
     </body>
 </html>

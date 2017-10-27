@@ -16,11 +16,107 @@
 
         // add in trainer names into the record
         $record = includeTrainerNameInRecord($record);
+
+        // add in room names into the record
+        $record = includeRoomNameInRecord($record);
+
+        // add in location names into the record
+        $record = includeGymNameInRecord($record);
+
+        // add in training types and cost into the record
+        $record = includeTrainingTypeAndCostInRecord($record); 
         
         // add in colors for the trainings based on whether it is available or not
         $record = includeColorsInRecord($record);
 
         return $record;
+    }
+
+    //---------------------------------------------------------------------------------------
+    // desc: add room name into the record and returns it
+    // params: $record (array)
+    // returns: $newRecord (array)
+    //---------------------------------------------------------------------------------------
+    function includeRoomNameInRecord($record){
+        $rooms = getRoomNames();
+        $newRecord = [];
+
+        // for each record, retreive the roomID
+        foreach($record as $training){
+            $roomID = $training['roomID'];
+            
+            // determine the roomName from the roomID
+            foreach($rooms as $room){
+
+                // match is found, append the room name into the $training array,
+                // and push the $training array into $newRecord
+                if ($roomID == $room['roomID']){
+                    $training['roomName'] = $room['roomName'];
+                    array_push($newRecord, $training);
+                    break;
+                }
+            }
+        }
+        return $newRecord;
+    }
+
+    //---------------------------------------------------------------------------------------
+    // desc: add gym name into the record and returns it
+    // params: $record (array)
+    // returns: $newRecord (array)
+    //---------------------------------------------------------------------------------------
+    function includeGymNameInRecord($record){
+
+        $gyms = getGymNames();
+        $newRecord = [];
+
+        // for each record, retreive the locationID
+        foreach($record as $training){
+            $locationID = $training['locationID'];
+            
+            // determine the locationName from the locationID
+            foreach($gyms as $gym){
+
+                // match is found, append the locationName into the $training array,
+                // and push the $training array into $newRecord
+                if ($locationID == $gym['locationID']){
+                    $training['locationName'] = $gym['locationName'];
+                    array_push($newRecord, $training);
+                    break;
+                }
+            }
+        }
+        return $newRecord;
+    }
+
+    //---------------------------------------------------------------------------------------
+    // desc: add training type and cost into the record and returns it
+    // params: $record (array)
+    // returns: $newRecord (array)
+    //---------------------------------------------------------------------------------------
+    function includeTrainingTypeAndCostInRecord($record){
+
+        $trainingInfos = getTrainingTypesAndCost();
+        $newRecord = [];
+
+        // for each record, retreive the trainingID
+        foreach($record as $training){
+            $trainingID = $training['trainingID'];
+            
+            // determine the trainingType and cost from the locationID
+            foreach($trainingInfos as $info){
+
+                // match is found, append the trainingType and cost into the $training array,
+                // and push the $training array into $newRecord
+                if ($trainingID == $info['trainingID']){
+                    $training['trainingType'] = $info['trainingType'];
+                    $training['cost'] = $info['cost'];
+                    array_push($newRecord, $training);
+                    break;
+                }
+            }
+        }
+        return $newRecord;
     }
 
     //---------------------------------------------------------------------------------------
@@ -87,6 +183,37 @@
     function getTrainersNames(){
         $record = DB::query("SELECT userID, name from user where roleID = 2");
 
+        return errorHandlingForRecords($record);
+    }
+
+    //---------------------------------------------------------------------------------------
+    // desc: retrieve all roomIDs and roomNames of rooms in database and returns them
+    // returns: $record (array)
+    //---------------------------------------------------------------------------------------
+    function getRoomNames(){
+        $record = DB::query("SELECT roomID, roomName from rooms");
+        
+        return errorHandlingForRecords($record);
+    }
+
+    //---------------------------------------------------------------------------------------
+    // desc: retrieve all locationIDs and locationNames of gyms in database and returns them
+    // returns: $record (array)
+    //---------------------------------------------------------------------------------------
+    function getGymNames(){
+        $record = DB::query("SELECT locationID, locationName from gyms");
+        
+        return errorHandlingForRecords($record);
+    }
+
+    //---------------------------------------------------------------------------------------
+    // desc: retrieve all trainingIDs, trainingTypes and costs of trainigs in database
+    // and returns them
+    // returns: $record (array)
+    //---------------------------------------------------------------------------------------
+    function getTrainingTypesAndCost(){
+        $record = DB::query("SELECT trainingID, trainingType, cost from trainings");
+        
         return errorHandlingForRecords($record);
     }
 

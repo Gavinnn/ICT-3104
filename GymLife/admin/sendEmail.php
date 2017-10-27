@@ -99,6 +99,6 @@ class EmailContents
     public function getPasswordEmailBody($id)
     {
         $url = 'http://' . $_SERVER["SERVER_NAME"] . '/GymLife/';
-        return "Hey! You are now an esteemed and honorable member of GymLife! Get stared in the link here:<a href='$url'>$url</a>		<br>Username:$id<br>Password: Password1<br>Kindly change your password once you have login";
+        return "Hey! You are now an esteemed and honorable member of GymLife! Get stared in the link here:<a href='$url'>$url</a>		<br>Username:$id<br>Password: password<br>Kindly change your password once you have login";
     }
 }

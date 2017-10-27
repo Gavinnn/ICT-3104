@@ -116,8 +116,8 @@
                         <div class="form-group">
                             <label class="control-label" for="textinput">Role: </label>
                             <select id="role" name="role" class="form-control input-md" > 
-                                <option value="2" label="Trainer"/>
-                                <option value="3" label="Trainee"/>
+                                <option value="2" label="Trainer">Trainer</option>
+                                <option value="3" label="Trainee">Trainee</option>
                             </select>
                         </div>
                         <div class="form-group">

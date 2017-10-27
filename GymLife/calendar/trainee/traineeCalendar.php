@@ -5,6 +5,7 @@
     
     include 'getTrainings.php';
     $events = getTrainings($traineeID);
+    $userEvents = getUserTrainings($traineeID);
 ?>
 
 <!doctype html>
@@ -84,6 +85,7 @@
             <div class="row">
             <div class="col-lg-12 text-center">
             <br>
+            <button type="button" id="viewUserTrainingsBtn" class="btn btn-success" onclick="viewOnlyUserTrainings()">View your trainings only</button>
                 <br>
                 <br>
                 <div id="calendar" class="col-centered">
@@ -274,6 +276,36 @@
                     }
                 }
             });
+        }
+
+        //---------------------------------------------------------------------------------------
+        // desc: retrieve trainings that the trainee has only booked and display on calendar
+        //---------------------------------------------------------------------------------------
+        function viewOnlyUserTrainings(){
+
+            // clear calendar
+            $('#calendar').fullCalendar('removeEvents');    
+
+            // add trainee-only trainings to calendar
+            $('#calendar').fullCalendar('addEventSource',            
+                <?php echo json_encode($userEvents) ?>.map(function(oneTraining) {
+
+                return {
+                    id: oneTraining.sessionID,
+                    title: oneTraining.title,
+                    trainerName: oneTraining.trainerName,
+                    trainingType: oneTraining.trainingType,
+                    cost: oneTraining.cost,
+                    start: oneTraining.startSession,
+                    end: oneTraining.endSession,
+                    locationName: oneTraining.locationName,
+                    roomName: oneTraining.roomName,
+                    description: oneTraining.description,
+                    color:oneTraining.color,
+                    traineeID: oneTraining.traineeID
+                    }
+                })    
+            );
         }
     </script>
         </body>

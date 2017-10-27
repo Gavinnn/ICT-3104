@@ -3,7 +3,8 @@
     require_once('../../conn.php');
 
     //---------------------------------------------------------------------------------------
-    // desc: retrieve all trainings that are available and returns them
+    // desc: retrieve all trainings that are available and the trainings that the Trainee
+    // has booked and returns them
     // params: $traineeID (string)
     // returns: $record (array)
     //---------------------------------------------------------------------------------------
@@ -11,9 +12,30 @@
 
         $record = DB::query("SELECT * FROM trainersessions WHERE traineeID IS NULL OR traineeID = %s", $traineeID);
 
+        return buildRecord($record);
+    }
+
+    //---------------------------------------------------------------------------------------
+    // desc: retrieve only the trainings that the Trainee has booked and returns them
+    // params: $traineeID (string)
+    // returns: $record (array)
+    //---------------------------------------------------------------------------------------
+    function getUserTrainings($traineeID){
+        
+        $record = DB::query("SELECT * FROM trainersessions WHERE traineeID = %s", $traineeID);
+
+        return buildRecord($record);
+    }
+
+    //---------------------------------------------------------------------------------------
+    // desc: include the necessary information into the record to be dispalyed on the calendar
+    // params: $record (array)
+    // returns: $record (array)
+    //---------------------------------------------------------------------------------------
+    function buildRecord($record){
         // ensure that $record is an array
         $record = errorHandlingForRecords($record);
-
+        
         // add in trainer names into the record
         $record = includeTrainerNameInRecord($record);
 

@@ -1,5 +1,5 @@
 function initializeTraineeCalendar(trainingSessions){
-    
+
     // initialize calendar
     $('#calendar').fullCalendar({
         // define buttons at the header

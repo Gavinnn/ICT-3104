@@ -43,7 +43,7 @@
                     displayErrorMsg("Please fill in the \"Description\" field.");
                 else if (cost == "" || cost == null)
                     displayErrorMsg("Please fill in the \"Cost\" field.");
-             
+
                 else {
                     $.ajax({
                         url: "addTrainingDetailsProcess.php",
@@ -51,7 +51,11 @@
                         type: 'POST',
                         async: false,
                         success: function (data) {
-                            if (data == "Message has been sent.success") {
+                            //data refers to message echo from addTrainingDetailsProcess.php
+                            if (data == "trainingType") {
+                                displayErrorMsg("There is an existing training type.");
+                            }
+                            if (data == "success") {
                                 check = true;
                                 successModal("Added Successfully", "trainingDetails.php");
                             }

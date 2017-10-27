@@ -7,23 +7,21 @@ $trainingType = post("trainingType");
 $description = post("description");
 $cost = post("cost");
 
-//Query to select username
+//Query to select training type
 $record = DB::queryFirstRow("SELECT trainingID FROM trainings WHERE trainingType=%s", $trainingType);
 
-//Check if username exist
+//Check if training type exist
 if ($record)
+//return training type exist
     echo "trainingType";
 else {
-    //Query to select email
-    $record = DB::queryFirstRow("SELECT trainingID FROM trainings WHERE trainingType=%s", $trainingType);
-    if ($record) {
-        echo "email";
-    } else {
-        $record = DB::insert('trainings', array(
-                    'trainingType' => $trainingType,
-                    'description' => $description,
-                    'cost' => $cost
-        ));
-    }
+    //add the record into db
+    $record = DB::insert('trainings', array(
+                'trainingType' => $trainingType,
+                'description' => $description,
+                'cost' => $cost
+    ));
+    //return message
+    echo "success";
 }
 ?>

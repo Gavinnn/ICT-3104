@@ -44,6 +44,7 @@
                     </li>
 					<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Training Management</a>
                         <ul class="dropdown-menu dropdown-menu-right">
+							<li><a href="/<?php echo $path; ?>/groupSession/viewGroupSession.php">View Pending Group Sessions</a></li>
                             <li><a href="/<?php echo $path; ?>/admin/trainingDetails.php">View All Training Details</a></li>
                             <li><a href="/<?php echo $path; ?>/admin/addTrainingDetails.php">Add Training Details</a></li>
                         </ul> 

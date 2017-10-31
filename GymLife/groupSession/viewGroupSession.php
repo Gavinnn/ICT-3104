@@ -43,24 +43,8 @@
         <script src="../asset/js/modernizrr.js"></script>
         <script>
             $(document).ready(function () {
-                $('#trainings').DataTable();
+                $('#groupSession').DataTable();
             });
-            function dlt(id)
-            {
-                swal({
-                    title: "Do you want to delete ?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "Ok",
-                    cancelButtonText: "Cancel",
-                    closeOnConfirm: false,
-                    closeOnCancel: true},
-                        function (isConfirm) {
-                            if (isConfirm) {
-                                location.href = 'deleteDetails.php?id=' + id;
-                            }
-                        });
-            }
         </script>
     </head>
 
@@ -74,7 +58,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Training Management</h1>
+                            <h1>View Pending Group Sessions</h1>
                         </div>
                     </div>
                 </div>
@@ -91,27 +75,44 @@
 
                             </div>
                             <div class="panel-body">
-                                <table id="trainings" class="table table-striped table-bordered table-list" width="100%">
+                                <table id="groupSession" class="table table-striped table-bordered table-list" width="100%">
                                     <thead>
                                         <tr>
-                                            <th class="col-md-2">Type of Training</th>
-                                            <th class="col-md-7">Description</th>
-                                            <th class="col-md-1">Cost of Training</th>
-                                            <th class="col-md-2" data-sortable="false"><em class="fa fa-cog"></th>
+                                            <th>Session Date</th>
+                                            <th>Trainer</th>
+                                            <th>Training Type</th>
+                                            <th>Title</th>
+                                            <th>Location</th>
+                                            <th>Max Capacity</th>
+                                            <th data-sortable="false"><em class="fa fa-cog"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $record = DB::query("SELECT * FROM trainings");
+                                        $record = DB::query("SELECT * FROM `groupsessions` INNER JOIN user ON groupsessions.trainerID = user.userID
+                                                            INNER JOIN trainings ON groupsessions.trainingID = trainings.trainingID
+                                                            INNER JOIN rooms ON groupsessions.roomID = rooms.roomID
+                                                            INNER JOIN gyms ON rooms.locationID = gyms.locationID WHERE `sessionStatus` =%i", 1);
 
                                         foreach ($record as $row) {
+                                            $startSession = $row['startSession'];
+                                            $trainerName = $row['name'];
+                                            $trainingType = $row['trainingType'];
+                                            $title = $row['title'];
+                                            $location = $row['locationName'];
+                                            $max = $row['maxCapacity'];
+
                                             echo "<tr>";
-                                            echo "<td>" . $row['trainingType'] . "</td>";
-                                            echo "<td>" . $row['description'] . "</td>";
-                                            echo "<td>" . $row['cost'] . "</td>";
+                                            echo "<td>" . $startSession . "</td>";
+                                            echo "<td>" . $trainerName . "</td>";
+                                            echo "<td>" . $trainingType . "</td>";
+                                            echo "<td>" . $title . "</td>";
+                                            echo "<td>" . $location . "</td>";
+                                            echo "<td>" . $max . "</td>";
                                             echo "<td>";
-                                            echo "<button class='btn btn-warning' onclick=\"location.href ='editUser.php?id=" . $row['trainingID'] . "' \">Edit</button> &nbsp;";
-                                            echo "<button class='btn btn-danger' onclick='dlt(\"" . $row['trainingID'] . "\")'>Delete</button>";
+                                            echo "<button class='btn btn-warning' onclick=\"location.href ='viewGroupSessionDetail.php?id=" . $row['trainingID'] . "' \">View</button> &nbsp;";
+                                            echo "<button class='btn btn-success' onclick=\"location.href ='approveSession.php?id=" . $row['trainingID'] . "&approve=2' \">Approve</button> &nbsp;";
+                                            echo "<button class='btn btn-danger' onclick=\"location.href ='approveSession.php?id=" . $row['trainingID'] . "&approve=3' \">Reject</button>";
                                             echo "</td>";
                                             echo "</tr>";
                                         }

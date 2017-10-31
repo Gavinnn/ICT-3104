@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.4.14
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2017 at 03:11 AM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- Generation Time: Oct 31, 2017 at 06:19 AM
+-- Server version: 5.6.26
+-- PHP Version: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -28,7 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `groupsessions`
 --
 
-CREATE TABLE `groupsessions` (
+CREATE TABLE IF NOT EXISTS `groupsessions` (
   `groupSessionID` int(11) NOT NULL,
   `trainerID` int(11) NOT NULL,
   `trainingID` int(11) NOT NULL,
@@ -36,8 +34,29 @@ CREATE TABLE `groupsessions` (
   `numberOfParticipants` int(11) NOT NULL,
   `startSession` datetime NOT NULL,
   `roomID` int(11) NOT NULL,
-  `maxCapacity` int(11) NOT NULL
+  `maxCapacity` int(11) NOT NULL,
+  `sessionStatus` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `groupsessionstatus`
+--
+
+CREATE TABLE IF NOT EXISTS `groupsessionstatus` (
+  `statusID` int(11) NOT NULL,
+  `statusName` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `groupsessionstatus`
+--
+
+INSERT INTO `groupsessionstatus` (`statusID`, `statusName`) VALUES
+(1, 'Pending'),
+(2, 'Approved'),
+(3, 'Rejected');
 
 -- --------------------------------------------------------
 
@@ -45,11 +64,11 @@ CREATE TABLE `groupsessions` (
 -- Table structure for table `gyms`
 --
 
-CREATE TABLE `gyms` (
+CREATE TABLE IF NOT EXISTS `gyms` (
   `locationID` int(11) NOT NULL,
   `locationName` varchar(255) NOT NULL,
   `locationCapacity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `gyms`
@@ -65,10 +84,10 @@ INSERT INTO `gyms` (`locationID`, `locationName`, `locationCapacity`) VALUES
 -- Table structure for table `roles`
 --
 
-CREATE TABLE `roles` (
+CREATE TABLE IF NOT EXISTS `roles` (
   `roleID` int(11) NOT NULL,
   `roleName` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `roles`
@@ -85,12 +104,12 @@ INSERT INTO `roles` (`roleID`, `roleName`) VALUES
 -- Table structure for table `rooms`
 --
 
-CREATE TABLE `rooms` (
+CREATE TABLE IF NOT EXISTS `rooms` (
   `roomID` int(11) NOT NULL,
   `locationID` int(11) NOT NULL,
   `roomName` varchar(255) NOT NULL,
   `roomCapacity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rooms`
@@ -109,10 +128,10 @@ INSERT INTO `rooms` (`roomID`, `locationID`, `roomName`, `roomCapacity`) VALUES
 -- Table structure for table `status`
 --
 
-CREATE TABLE `status` (
+CREATE TABLE IF NOT EXISTS `status` (
   `statusID` int(11) NOT NULL,
   `statusName` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `status`
@@ -130,7 +149,7 @@ INSERT INTO `status` (`statusID`, `statusName`) VALUES
 -- Table structure for table `traineegroupsession`
 --
 
-CREATE TABLE `traineegroupsession` (
+CREATE TABLE IF NOT EXISTS `traineegroupsession` (
   `groupSessionID` int(11) NOT NULL,
   `traineeID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -141,7 +160,7 @@ CREATE TABLE `traineegroupsession` (
 -- Table structure for table `trainersessions`
 --
 
-CREATE TABLE `trainersessions` (
+CREATE TABLE IF NOT EXISTS `trainersessions` (
   `sessionID` int(11) NOT NULL,
   `trainerID` int(11) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
@@ -152,7 +171,7 @@ CREATE TABLE `trainersessions` (
   `roomID` int(11) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `trainingID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `trainersessions`
@@ -167,12 +186,12 @@ INSERT INTO `trainersessions` (`sessionID`, `trainerID`, `title`, `startSession`
 -- Table structure for table `trainings`
 --
 
-CREATE TABLE `trainings` (
+CREATE TABLE IF NOT EXISTS `trainings` (
   `trainingID` int(11) NOT NULL,
   `trainingType` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `cost` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `trainings`
@@ -187,7 +206,7 @@ INSERT INTO `trainings` (`trainingID`, `trainingType`, `description`, `cost`) VA
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `userID` int(11) NOT NULL,
   `roleID` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -197,18 +216,18 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `status` int(11) NOT NULL,
   `passwordChange` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`userID`, `roleID`, `name`, `userName`, `email`, `contactNumber`, `password`, `status`, `passwordChange`) VALUES
-(1, 1, 'Dylan', 'Dylan', 'deeeeeeeeeeelan@hotmail.com', 99999999, '123123123', 2, b'1111111111111111111111111111111'),
-(2, 2, 'Bob', 'trainer', 'test1@gmail.com', 11111111, '61775b8dba79b3c9ed889786b97508bd', 2, b'1111111111111111111111111111111'),
-(3, 3, 'Muhammad', 'trainee', 'muhammadbna@gmail.com', 22222222, '61775b8dba79b3c9ed889786b97508bd', 2, b'1111111111111111111111111111111'),
-(5, 2, 'Jamie', 'trainer1', 'test4@hotmail.com', 44444444, '61775b8dba79b3c9ed889786b97508bd', 2, b'1111111111111111111111111111111'),
-(6, 3, 'Max', 'trainee1', 'test2@gmail.com', 22222222, '61775b8dba79b3c9ed889786b97508bd', 2, b'1111111111111111111111111111111');
+(1, 1, 'Dylan', 'Dylan', 'deeeeeeeeeeelan@hotmail.com', 99999999, '123123123', 2, b'1'),
+(2, 2, 'Bob', 'trainer', 'test1@gmail.com', 11111111, '61775b8dba79b3c9ed889786b97508bd', 2, b'1'),
+(3, 3, 'Muhammad', 'trainee', 'muhammadbna@gmail.com', 22222222, '61775b8dba79b3c9ed889786b97508bd', 2, b'1'),
+(5, 2, 'Jamie', 'trainer1', 'test4@hotmail.com', 44444444, '61775b8dba79b3c9ed889786b97508bd', 2, b'1'),
+(6, 3, 'Max', 'trainee1', 'test2@gmail.com', 22222222, '61775b8dba79b3c9ed889786b97508bd', 2, b'1');
 
 --
 -- Indexes for dumped tables
@@ -221,7 +240,15 @@ ALTER TABLE `groupsessions`
   ADD PRIMARY KEY (`groupSessionID`),
   ADD KEY `trainerID` (`trainerID`),
   ADD KEY `roomID` (`roomID`),
-  ADD KEY `trainingID` (`trainingID`);
+  ADD KEY `trainingID` (`trainingID`),
+  ADD KEY `FK` (`sessionStatus`),
+  ADD KEY `sessionStatus` (`sessionStatus`);
+
+--
+-- Indexes for table `groupsessionstatus`
+--
+ALTER TABLE `groupsessionstatus`
+  ADD PRIMARY KEY (`statusID`);
 
 --
 -- Indexes for table `gyms`
@@ -299,49 +326,46 @@ ALTER TABLE `user`
 --
 ALTER TABLE `groupsessions`
   MODIFY `groupSessionID` int(11) NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT for table `groupsessionstatus`
+--
+ALTER TABLE `groupsessionstatus`
+  MODIFY `statusID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `gyms`
 --
 ALTER TABLE `gyms`
-  MODIFY `locationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `locationID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `roleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `roleID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `roomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
+  MODIFY `roomID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
-  MODIFY `statusID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
+  MODIFY `statusID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `trainersessions`
 --
 ALTER TABLE `trainersessions`
-  MODIFY `sessionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+  MODIFY `sessionID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `trainings`
 --
 ALTER TABLE `trainings`
-  MODIFY `trainingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `trainingID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- Constraints for dumped tables
 --
@@ -351,6 +375,7 @@ ALTER TABLE `user`
 --
 ALTER TABLE `groupsessions`
   ADD CONSTRAINT `roomIDFK` FOREIGN KEY (`roomID`) REFERENCES `rooms` (`roomID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `statusFK` FOREIGN KEY (`sessionStatus`) REFERENCES `groupsessionstatus` (`statusID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `trainerIDForeignKey` FOREIGN KEY (`trainerID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `trainingID` FOREIGN KEY (`trainingID`) REFERENCES `trainings` (`trainingID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
@@ -383,7 +408,6 @@ ALTER TABLE `trainersessions`
 ALTER TABLE `user`
   ADD CONSTRAINT `roleIDForeignKey` FOREIGN KEY (`roleID`) REFERENCES `roles` (`roleID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `statusIDForeignKey` FOREIGN KEY (`status`) REFERENCES `status` (`statusID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

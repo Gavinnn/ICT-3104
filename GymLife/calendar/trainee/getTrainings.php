@@ -3,15 +3,15 @@
     require_once('../../conn.php');
 
     //---------------------------------------------------------------------------------------
-    // desc: retrieve all trainings that are available and the trainings that the Trainee
-    // has booked and returns them
+    // desc: retrieve all trainings that are (available AND are equal to or beyond the current date) OR
+    // the trainings that the Trainee has booked.
     // params: $traineeID (string)
     // returns: $record (array)
     //---------------------------------------------------------------------------------------
     function getTrainings($traineeID){
 
-        $record = DB::query("SELECT * FROM trainersessions WHERE traineeID IS NULL OR traineeID = %s", $traineeID);
-
+        $record = DB::query("SELECT * FROM trainersessions WHERE (traineeID IS NULL AND startSession >= %s) OR traineeID = %s", date("Y/m/d"), $traineeID);
+        
         return buildRecord($record);
     }
 

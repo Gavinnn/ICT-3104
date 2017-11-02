@@ -117,7 +117,7 @@ $events = getTrainings($trainerID);
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Training Category</label>
                                     <div class="dropdown col-sm-6" style="padding-top:10px;">
-                                        <select id="category" name="category" class="dropdown" onchange="setCostValue()">
+                                        <select id="category" name="category" class="dropdown" onchange="setCostValue()" required>
                                         <option selected disabled hidden>Select a Training</option>
                                             <?php
                                             $record = DB::query("SELECT * FROM trainings");
@@ -133,7 +133,7 @@ $events = getTrainings($trainerID);
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Cost</label>
                                     <div class="col-sm-3">
-                                        <input type="text" id="cost" class="form-control" id="title" readonly>
+                                        <input type="text" id="cost" class="form-control" id="title" readonly required>
                                     </div>
                                 </div>
 
@@ -141,7 +141,7 @@ $events = getTrainings($trainerID);
                                     <label for="gym" class="col-sm-2 control-label">Gym</label>
                                     <div class="dropdown col-sm-6" style="padding-top:10px;">
                                         <!--  Since each Gym has their own unique rooms, once gym is selected, show only those rooms  -->
-                                        <select id="gym" name="gym" class="dropdown" onchange="setRoomsValue()">
+                                        <select id="gym" name="gym" class="dropdown" onchange="setRoomsValue()" required>
                                             <option selected disabled hidden>Select a gym</option>
                                             <?php
                                             $record = DB::query("SELECT * FROM gyms");
@@ -157,7 +157,7 @@ $events = getTrainings($trainerID);
                                 <div class="form-group">
                                     <label for="room" class="col-sm-2 control-label">Room</label>
                                     <div class="dropdown col-sm-6" style="padding-top:10px;">
-                                        <select id="roomDropdown" name="rooms" class="dropdown">
+                                        <select id="roomDropdown" name="rooms" class="dropdown" required>
                                             <option selected disabled>Select a gym first</option>
                                         </select>
                                     </div>
@@ -166,7 +166,7 @@ $events = getTrainings($trainerID);
                                 <div class="form-group">
                                     <label for="date" class="col-sm-2 control-label">Date</label>
                                     <div class="col-sm-3">
-                                        <input type="text" name="date" class="form-control" id="date" readonly>
+                                        <input type="text" name="date" class="form-control" id="date" readonly required>
                                     </div>
                                 </div>
 
@@ -180,14 +180,14 @@ $events = getTrainings($trainerID);
                                 <div class="form-group">
                                     <label for="end" class="col-sm-2 control-label">End Time</label>
                                     <div class="col-sm-3">
-                                        <input type="text" name="endTime" class="form-control" id="endTime" readonly>
+                                        <input type="text" name="endTime" class="form-control" id="endTime" readonly required>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="trainingDesc" class="col-sm-2 control-label">Training Description</label>
                                     <div class="col-sm-10">
-                                        <textarea placeholder="Max characters are 255" maxlength="255" name="description"></textarea>
+                                        <textarea placeholder="Max characters are 255" maxlength="255" name="description" required></textarea>
                                     </div>
                                 </div>
 

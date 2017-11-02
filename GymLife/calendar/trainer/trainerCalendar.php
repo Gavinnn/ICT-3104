@@ -51,7 +51,7 @@ $events = getTrainings($trainerID);
 
         <!-- Timepicker -->
         <link href='../../asset/plugins/fullCalendar/css/jquery.timepicker.css' rel='stylesheet'/>
-
+        
         <script src="../../asset/js/modernizrr.js"></script>
 
         <script>
@@ -79,6 +79,9 @@ $events = getTrainings($trainerID);
             </div>
         </div>
         <!-- End Header Section -->
+
+        <!--Error Message when Trainer intends to create a training on a date that is passed-->
+        <div id='alert'></div>
 
         <div class="container">
             <div class="row">

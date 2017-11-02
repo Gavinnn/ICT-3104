@@ -16,22 +16,35 @@ function initializeTrainerCalendar(trainingSessions){
 
         // to select a period of time (start and end time)
         select: function(start, end) {
-            $('#ModalAdd #date').val(moment(start).format('YYYY-MM-DD'));
-            $('#ModalAdd').modal('show');	// inflate the modal
 
-            // initialize timepicker
-            $('#ModalAdd #startTime').timepicker({
-                disableTextInput: true,
-                orientation: "bl",	
-                timeFormat: "H:i",
-                minTime: '10:00am',
-                maxTime: '9:00pm',
-            });
+            // if date is valid (not a passed date), pop up model
+            if(!isPassedDate(start)){
 
-            // add one hour to the selected time
-            $('#ModalAdd #startTime').on('changeTime', function() {
-                    $('#ModalAdd #endTime').val(moment.utc($(this).val(),'hh:mm').add(1,'hour').format('H:mm'));
-            });
+                $('#ModalAdd #date').val(moment(start).format('YYYY-MM-DD'));
+                $('#ModalAdd').modal('show');	// inflate the modal
+    
+                // initialize timepicker
+                $('#ModalAdd #startTime').timepicker({
+                    disableTextInput: true,
+                    orientation: "bl",	
+                    timeFormat: "H:i",
+                    minTime: '10:00am',
+                    maxTime: '9:00pm',
+                });
+    
+                // add one hour to the selected time
+                $('#ModalAdd #startTime').on('changeTime', function() {
+                        $('#ModalAdd #endTime').val(moment.utc($(this).val(),'hh:mm').add(1,'hour').format('H:mm'));
+                });
+            }
+
+            // if date is not valid
+            else{
+                // display an alert message
+                $('#alert').html("<div class='alert alert-danger' role='alert'>Invalid date: Date has already passed.</div>");
+                $('#alert').show();
+                $("#alert").fadeOut(5000);
+            }
         },
 
         // double click event handler
@@ -72,6 +85,23 @@ function initializeTrainerCalendar(trainingSessions){
     });
 }
 
+
+// desc: ensures that the past dates in FullCalendar are not clickable by the user
+// returns true, if date is in the past. Else, returns false
+// return: (boolean)
+function isPassedDate(start){
+    let startDate = start.format('YYYY-MM-DD');
+    let today = moment().format('YYYY-MM-DD');
+
+    // if date is the past date, returns true
+    if (startDate < today){
+        return true;
+    }
+    // date is valid, returns false
+    else{
+        return false;
+    }
+}
 
 // AJAX call to save the training changes of dates to the DB
 function edit(event){

@@ -99,7 +99,7 @@ $events = getTrainings($trainerID);
             <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form class="form-horizontal" method="POST" action="addTraining.php">
+                        <form class="form-horizontal" method="POST" action="addTraining.php" onsubmit = "return doesTrainingCoincides();">
 
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -282,7 +282,36 @@ $events = getTrainings($trainerID);
         <script src="../../asset/js/styleswitcher.js"></script>
 
         <script>
-            // dynamically add rooms to the dropdown based on the selected gym
+            //---------------------------------------------------------------------------------------
+            // desc: send an AJAX request to check if the training coincides with any of the Trainer's
+            // existing training. If training coincides, shows alert. Else, carry on to add training
+            //---------------------------------------------------------------------------------------
+            function doesTrainingCoincides(){
+
+                var startDate = $('#date').val() + " " + $('#startTime').val() + ":00";
+                var success = false;
+
+                $.ajax({
+                    url: "doesTrainingCoincide.php",
+                    data: {'trainerID' : $('#trainerID').val(), 'startDate': startDate},
+                    type: 'POST',
+                    async: false,
+                    success: function (results) {
+                        if (results == "true") {
+                            alert("You already have a training at the same time slot. Please select another start time!")
+                        }
+                        else{
+                            success = true;
+                        }
+                    }
+                })
+
+                return success;
+            }
+
+            //---------------------------------------------------------------------------------------
+            // desc: dynamically add rooms to the dropdown based on the selected gym
+            //---------------------------------------------------------------------------------------
             function setRoomsValue(){
 
                 $("#roomDropdown").empty();

@@ -38,7 +38,7 @@ function initializeTraineeCalendar(trainingSessions){
                 return {
                     id: oneTraining.sessionID,
                     title: oneTraining.title,
-                    trainerName: oneTraining.trainerName,
+                    trainerName: oneTraining.name,
                     trainingType: oneTraining.trainingType,
                     cost: oneTraining.cost,
                     start: oneTraining.startSession,

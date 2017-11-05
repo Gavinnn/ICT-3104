@@ -4,7 +4,7 @@ require_once('../../session/session.php');
 $trainerID = $_SESSION['id'];
 
 include 'getTrainings.php';
-$events = getTrainings($trainerID);
+$events = getTrainings();
 ?>
 
 <!doctype html>
@@ -202,35 +202,57 @@ $events = getTrainings($trainerID);
                 </div>
             </div>
 
-            <!-- Edit Training Modal -->
+            <!-- Edit  Individual Training Modal -->
             <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <form class="form-horizontal" method="POST" action="editTrainingTitle.php">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Edit Event</h4>
+                                <h4 class="modal-title" id="myModalLabel">Edit Individual Event</h4>
                             </div>
                             <div class="modal-body">
 
-                                <div class="form-group">
+                                   <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Training Title</label>
                                     <div class="col-sm-10">
                                         <input type="text" name="title" class="form-control" id="title" placeholder="Title">
                                     </div>
                                 </div>
 
+
                                 <div class="form-group">
                                     <label for="traineeName" class="col-sm-2 control-label">Trainee Name</label>
-                                    <div class="col-sm-4">
+                                    <div class="dropdown col-sm-6" style="padding-top:10px;">
                                         <input type="text" name="traineeName" class="form-control" id="traineeName" readonly>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="start" class="col-sm-2 control-label">Date</label>
+                                    <label for="gym" class="col-sm-2 control-label">Gym</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" id="gym" name="gym" class="form-control" readonly required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="room" class="col-sm-2 control-label">Room</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" id="room" name="room" class="form-control" readonly required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="startSession" class="col-sm-2 control-label">Start Date</label>
                                     <div class="col-sm-4">
-                                        <input type="text" name="date" class="form-control" id="date" readonly>
+                                        <input type="text" name="startSession" class="form-control" id="startSession" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="endSession" class="col-sm-2 control-label">End Date</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="endSession" class="form-control" id="endSession" readonly>
                                     </div>
                                 </div>
 
@@ -252,6 +274,77 @@ $events = getTrainings($trainerID);
                 </div>
             </div>
         </div>
+        
+        <!-- Edit  GroupTraining Modal -->
+            <div class="modal fade" id="GroupModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form class="form-horizontal" method="POST" action="editTrainingTitle.php">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Edit Group Event</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                   <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Training Title</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+                                    </div>
+                                   </div>
+
+                                <div class="form-group">
+                                    <label for="maxCapacity" class="col-sm-2 control-label">Maximum Capacity</label>
+                                    <div class="dropdown col-sm-6" style="padding-top:10px;">
+                                        <input type="text" name="maxCapacity" class="form-control" id="maxCapacity" readonly>
+                                    </div>
+                                </div>
+                                
+                                   <div class="form-group">
+                                    <label for="numberOfParticipants" class="col-sm-2 control-label">Number of Participants</label>
+                                    <div class="dropdown col-sm-6" style="padding-top:10px;">
+                                        <input type="text" name="numberOfParticipants" class="form-control" id="numberOfParticipants" readonly>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="gym" class="col-sm-2 control-label">Gym</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" id="gym" name="gym" class="form-control" readonly required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="room" class="col-sm-2 control-label">Room</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" id="room" name="room" class="form-control" readonly required>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="startSession" class="col-sm-2 control-label">Start Date</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="startSession" class="form-control" id="startSession" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="endSession" class="col-sm-2 control-label">End Date</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="endSession" class="form-control" id="endSession" readonly>
+                                    </div>
+                                </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
 
         <!-- jQuery Version 1.11.1 -->
         <script src="../../asset/plugins/fullCalendar/js/jquery.js"></script>

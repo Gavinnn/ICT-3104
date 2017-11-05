@@ -50,11 +50,30 @@ function initializeTrainerCalendar(trainingSessions){
         // double click event handler
         eventRender: function(event, element) {
             element.bind('dblclick', function() {
-                $('#ModalEdit #sessionID').val(event.id);	// pump the id into the Edit modal
-                $('#ModalEdit #title').val(event.title);
-                $('#ModalEdit #traineeName').val(event.traineeName === undefined? "None" : event.traineeName);// pump the title into the Edit modal
-                $('#ModalEdit #date').val(event.start._i);	// pump the date into the Edit modal
-                $('#ModalEdit').modal('show'); // inflate the modal
+               if (event.color == "#008000" || event.color == "#FF0000"){
+                    $('#ModalEdit #sessionID').val(event.id);	
+                    $('#ModalEdit #title').val(event.title);
+                    $('#ModalEdit #traineeName').val(event.traineeName === null? "None" : event.traineeName);
+                    $('#ModalEdit #gym').val(event.gym);
+                    $('#ModalEdit #room').val(event.room);
+                    $('#ModalEdit #startSession').val(event.start._i);
+                    $('#ModalEdit #endSession').val(event.end._i);	
+                    $('#ModalEdit').modal('show'); // inflate the modal
+                }
+            
+                // if event is group training, show group training modal
+                else if (event.color == "#0000B2" || event.color == "#FF0001"){
+                    $('#GroupModalEdit #sessionID').val(event.id);	// pump the id into the Edit modal
+                    $('#GroupModalEdit #title').val(event.title);
+                    $('#GroupModalEdit #gym').val(event.gym);
+                    $('#GroupModalEdit #room').val(event.room);
+                    $('#GroupModalEdit #maxCapacity').val(event.maxCapacity);
+                    $('#GroupModalEdit #numberOfParticipants').val(event.numberOfParticipants);
+                    $('#GroupModalEdit #startSession').val(event.start._i);
+                    $('#GroupModalEdit #endSession').val(event.end._i);
+                 
+                    $('#GroupModalEdit').modal('show'); // inflate the modal
+                }
             });
         },
 
@@ -68,19 +87,45 @@ function initializeTrainerCalendar(trainingSessions){
             edit(event);	// update changes to DB
         },
 
-        // display the trainings on the calendar
+          // display the trainings on the calendar
         events: 
 
             trainingSessions.map(function(oneTraining) {
-                
-                return {
-                    id: oneTraining.sessionID,
-                    title: oneTraining.title,
-                    start: oneTraining.startSession,
-                    traineeName: oneTraining.traineeName,
-                    color:oneTraining.color,
-                    end: oneTraining.endSession
+
+                // if individual training
+                if (oneTraining.hasOwnProperty('sessionID')){
+
+                    // transform data as per individual training
+                    return {
+                        id: oneTraining.sessionID,
+                        title: oneTraining.title,
+                        trainerName: oneTraining.trainerName,
+                        traineeName: oneTraining.traineeName,
+                        start: oneTraining.startSession,
+                        end: oneTraining.endSession,
+                        gym: oneTraining.locationName,
+                        room: oneTraining.roomName,
+                        description: oneTraining.description,
+                        color:oneTraining.color
                         }
+                }
+
+                // if group training
+                else if (oneTraining.hasOwnProperty('groupSessionID')){
+
+                    return {
+                        id: oneTraining.groupSessionID,
+                        title: oneTraining.title,
+                        maxCapacity: oneTraining.maxCapacity,
+                        numberOfParticipants: oneTraining.numberOfParticipants,
+                        gym: oneTraining.locationName,
+                        room: oneTraining.roomName,
+                        start: oneTraining.startSession,
+                        end: oneTraining.endSession,
+                        
+                        color:oneTraining.color
+                    }
+                }
             })
     });
 }

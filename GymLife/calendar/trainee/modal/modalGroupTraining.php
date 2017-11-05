@@ -51,6 +51,13 @@
             </div>
 
             <div class="form-group">
+            <label for="gym" class="col-sm-2 control-label">Gym</label>
+            <div class="col-sm-4">
+                <input type="text" name="gym" class="form-control" id="gym" readonly>
+            </div>
+            </div>
+
+            <div class="form-group">
             <label for="room" class="col-sm-2 control-label">Room</label>
             <div class="col-sm-4">
                 <input type="text" name="room" class="form-control" id="room" readonly>

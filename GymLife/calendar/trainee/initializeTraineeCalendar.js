@@ -19,32 +19,33 @@ function initializeTraineeCalendar(trainingSessions){
 
                 // if event is individual training, show individual training modal
                 if (event.color == "#008000" || event.color == "#FF0000"){
-                    $('#ModalIndivConfirm #sessionID').val(event.id);	// pump the id into the Confirm Training modal
-                    $('#ModalIndivConfirm #title').val(event.title);	// pump the title into the Confirm Training modal
-                    $('#ModalIndivConfirm #trainerName').val(event.trainerName);	// pump the trainerName into the Confirm Training modal
-                    $('#ModalIndivConfirm #trainingType').val(event.trainingType);	// pump the trainingName into the Confirm Training modal
-                    $('#ModalIndivConfirm #cost').val(event.cost);	// pump the cost into the Confirm Training modal
-                    $('#ModalIndivConfirm #startTime').val(event.start._i);	// pump the start time into the Confirm Training modal
-                    $('#ModalIndivConfirm #endTime').val(event.end._i);	// pump the end time into the Confir
-                    $('#ModalIndivConfirm #gym').val(event.locationName);	// pump the locationName into the Confirm Training modal
-                    $('#ModalIndivConfirm #room').val(event.room);	// pump the roomName into the Confirm Training modal
-                    $('#ModalIndivConfirm #trainingDesc').val(event.description);	// pump the description into the Confirm Training modal
-                    $('#ModalIndivConfirm #confirmedTraineeID').val(event.traineeID);	// pump the confirmed traineeID into the Confirm Training modal, if any
+                    $('#ModalIndivConfirm #sessionID').val(event.id);	// sessionID
+                    $('#ModalIndivConfirm #title').val(event.title);	// training title
+                    $('#ModalIndivConfirm #trainerName').val(event.trainerName);	// trainer name
+                    $('#ModalIndivConfirm #trainingType').val(event.trainingType);	// training category
+                    $('#ModalIndivConfirm #cost').val(event.cost);	// cost of training
+                    $('#ModalIndivConfirm #startTime').val(event.start._i);	// start datetime
+                    $('#ModalIndivConfirm #endTime').val(event.end._i);	// end datetime
+                    $('#ModalIndivConfirm #gym').val(event.locationName);	// locationName i.e. gym
+                    $('#ModalIndivConfirm #room').val(event.room);	// room name
+                    $('#ModalIndivConfirm #trainingDesc').val(event.description);	// training description
+                    $('#ModalIndivConfirm #confirmedTraineeID').val(event.traineeID);	// traineeID if training is already booked. Else, null
                     $('#ModalIndivConfirm').modal('show'); // inflate the modal
                 }
 
                 // if event is group training, show group training modal
                 else if (event.color == "#0000B2" || event.color == "#FF0001"){
-                    $('#ModalGroupConfirm #sessionID').val(event.id);	// pump the id into the Confirm Training modal
-                    $('#ModalGroupConfirm #title').val(event.title);	// pump the title into the Confirm Training modal
-                    $('#ModalGroupConfirm #trainerName').val(event.trainerName);	// pump the trainerName into the Confirm Training modal
-                    $('#ModalGroupConfirm #trainingType').val(event.trainingType);	// pump the trainingName into the Confirm Training modal
-                    $('#ModalGroupConfirm #cost').val(event.cost);	// pump the cost into the Confirm Training modal
-                    $('#ModalGroupConfirm #startTime').val(event.start._i);	// pump the start time into the Confirm Training modal
-                    $('#ModalGroupConfirm #endTime').val(event.end._i);	// pump the end time into the Confir
-                    $('#ModalGroupConfirm #room').val(event.room);	// pump the roomName into the Confirm Training modal
-                    $('#ModalGroupConfirm #numberOfParticipants').val(event.numberOfParticipants);	// pump the roomName into the Confirm Training modal
-                    $('#ModalGroupConfirm #maxCapacity').val(event.maxCapacity);	// pump the roomName into the Confirm Training modal
+                    $('#ModalGroupConfirm #sessionID').val(event.id);	// sessionID
+                    $('#ModalGroupConfirm #title').val(event.title);	// training title
+                    $('#ModalGroupConfirm #trainerName').val(event.trainerName);	// trainer name
+                    $('#ModalGroupConfirm #trainingType').val(event.trainingType);	// training category
+                    $('#ModalGroupConfirm #cost').val(event.cost);	// cost of training
+                    $('#ModalGroupConfirm #startTime').val(event.start._i);	// start datetime
+                    $('#ModalGroupConfirm #endTime').val(event.end._i);	// end datetime
+                    $('#ModalGroupConfirm #room').val(event.room);	// room name
+                    $('#ModalGroupConfirm #gym').val(event.locationName);	// locationName i.e. gym
+                    $('#ModalGroupConfirm #numberOfParticipants').val(event.numberOfParticipants);	// current number of participants in group training
+                    $('#ModalGroupConfirm #maxCapacity').val(event.maxCapacity);	// max capacity of group training
                     $('#ModalGroupConfirm').modal('show'); // inflate the modal
                 }
             });
@@ -83,6 +84,7 @@ function initializeTraineeCalendar(trainingSessions){
                         trainingType: oneTraining.trainingType,
                         cost: oneTraining.cost,
                         room: oneTraining.roomName,
+                        locationName: oneTraining.locationName,
                         numberOfParticipants: oneTraining.numberOfParticipants,
                         start: oneTraining.startSession,
                         end: oneTraining.endSession,

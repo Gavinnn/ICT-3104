@@ -85,7 +85,7 @@
             <div class="row">
             <div class="col-lg-12 text-center">
             <br>
-            <button type="button" id="viewUserTrainingsBtn" class="btn btn-success" onclick="viewOnlyUserTrainings()">View your trainings only</button>
+            <button type="button" id="viewUserTrainingsBtn" class="btn btn-success" onclick="viewOnlyUserIndivTrainings()">View your individual trainings only</button>
                 <br>
                 <br>
                 <div id="calendar" class="col-centered">
@@ -94,99 +94,12 @@
             </div>
         </div>
 
-                <!-- Confirm Training Modal -->
-                <div class="modal fade" id="ModalConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <form class="form-horizontal" method="POST" action="confirmTraining.php">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Confirm Training</h4>
-                      </div>
-                      <div class="modal-body" id="modal-body">
+        <!-- Confirm Individual Training Modal -->
+        <?php require_once('./modal/modalIndivTraining.php'); ?>
 
-                        <div class="alert alert-warning" role="alert" style="display:none;" id="alert">
-                            You already have a training in this time slot!
-                        </div>
-
-                          <div class="form-group">
-                            <label for="trainingTitle" class="col-sm-2 control-label">Training Title</label>
-                            <div class="col-sm-10">
-                              <input type="text" name="title" class="form-control" id="title" placeholder="Title" readonly>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="trainerName" class="col-sm-2 control-label">Trainer Name</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="trainerName" class="form-control" id="trainerName" readonly>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="trainingType" class="col-sm-2 control-label">Training Category</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="trainingType" class="form-control" id="trainingType" readonly>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="cost" class="col-sm-2 control-label">Cost</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="cost" class="form-control" id="cost" readonly>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="start" class="col-sm-2 control-label">Start Time</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="date" class="form-control" id="startTime" readonly>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="end" class="col-sm-2 control-label">End Time</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="date" class="form-control" id="endTime" readonly>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="gym" class="col-sm-2 control-label">Gym</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="gym" class="form-control" id="gym" readonly>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="room" class="col-sm-2 control-label">Room</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="room" class="form-control" id="room" readonly>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label for="trainingDesc" class="col-sm-2 control-label">Training Description</label>
-                            <div class="col-sm-10">
-                                <textarea placeholder="Max characters are 255" maxlength="255" name="trainingDesc" id="trainingDesc" readonly></textarea>
-                            </div>
-                          </div>
-
-                          <input type="hidden" name="sessionID" class="form-control" id="sessionID">
-                          <input type="hidden" name="traineeID" class="form-control" id="traineeID" value=<?php echo $traineeID ?>>
-
-                          <input type="hidden" name="confirmedTraineeID" class="form-control" id="confirmedTraineeID">
-
-
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" id="closeButton" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button id="confirmButton" type="submit" class="btn btn-success" onClick="doesTrainingClash()">Confirm</button>
-                      </div>
-                    </form>                    
-                    </div>
-                  </div>
-                </div>
+        <!-- Confirm Group Training Modal -->
+        <?php require_once('./modal/modalGroupTraining.php'); ?>
+        
 
     </div>
 
@@ -225,21 +138,21 @@
     <script>
         
         // when modal is opened
-        $('#ModalConfirm').on('shown.bs.modal', function () {
+        $('#ModalIndivConfirm').on('shown.bs.modal', function () {
             doesTrainingClash();
         });
 
         // when modal closes
-        $('#ModalConfirm').on('hidden.bs.modal', function () {
+        $('#ModalIndivConfirm').on('hidden.bs.modal', function () {
 
             // if traiing is already booked, show the confirm button again so it appears in other training modals
-            if ($("#confirmedTraineeID").val() != ""){
-                $("#confirmButton").show();
+            if ($("#ModalIndivConfirm #confirmedTraineeID").val() != ""){
+                $("#ModalIndivConfirm #confirmButton").show();
             }
 
             // if alert is shown, hide it so it won't appear in other training modals
-            if ($("#alert")){
-                $("#alert").hide();
+            if ($("#ModalIndivConfirm #alert")){
+                $("#ModalIndivConfirm #alert").hide();
             }
         });
 
@@ -249,8 +162,8 @@
         //---------------------------------------------------------------------------------------
         function doesTrainingClash(){
 
-            var traineeID = $("#traineeID").val();
-            var startTime = $("#startTime").val();
+            var traineeID = $("#ModalIndivConfirm #traineeID").val();
+            var startTime = $("#ModalIndivConfirm #startTime").val();
 
             // ajax call to determine if there any clashes
             $.ajax({
@@ -264,14 +177,14 @@
                     if (results == "true"){
 
                         // the  training that was booked by the Trainee
-                        if ($("#confirmedTraineeID").val() != ""){
-                            $("#alert").hide();
-                            $("#confirmButton").hide();
+                        if ($("#ModalIndivConfirm #confirmedTraineeID").val() != ""){
+                            $("#ModalIndivConfirm #alert").hide();
+                            $("#ModalIndivConfirm #confirmButton").hide();
                         }
                         // the new training that the Trainee intends to book but clashes with a previos training
                         else{
-                            $("#alert").show();
-                            $("#confirmButton").hide();
+                            $("#ModalIndivConfirm #alert").show();
+                            $("#ModalIndivConfirm #confirmButton").hide();
                         }
                     }
                 }
@@ -279,9 +192,9 @@
         }
 
         //---------------------------------------------------------------------------------------
-        // desc: retrieve trainings that the trainee has only booked and display on calendar
+        // desc: retrieve indiv. trainings that the trainee has only booked and display on calendar
         //---------------------------------------------------------------------------------------
-        function viewOnlyUserTrainings(){
+        function viewOnlyUserIndivTrainings(){
 
             // clear calendar
             $('#calendar').fullCalendar('removeEvents');    

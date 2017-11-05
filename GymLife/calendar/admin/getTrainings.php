@@ -63,8 +63,7 @@
     }
 
     //---------------------------------------------------------------------------------------
-    // desc: based on whether the training is available, the color of the event on the 
-    // calendar is changed. For e.g. if not available, RED. Else, GREEN 
+    // desc: assign color based on individual or group training or completed training
     // returns: $record (array)
     //---------------------------------------------------------------------------------------
     function includeColorsInRecord($record){

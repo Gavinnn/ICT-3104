@@ -3,12 +3,21 @@
     require_once('../../conn.php');
 
     //---------------------------------------------------------------------------------------
-    // desc: retrieve all trainings that are (available AND are equal to or beyond the current date) OR
-    // the trainings that the Trainee has booked.
-    // params: $traineeID (string)
+    // desc: merge individual and group trainings into a single record and returns to 
+    // calendar
     // returns: $record (array)
     //---------------------------------------------------------------------------------------
     function getTrainings($traineeID){
+        return array_merge(getIndividualTrainings($traineeID), getGroupTrainings($traineeID));
+    }
+
+    //---------------------------------------------------------------------------------------
+    // desc: retrieve all INDIVIDUAL trainings that are (available AND are equal to 
+    // or beyond the current date) OR the individual trainings that the Trainee has booked.
+    // params: $traineeID (string)
+    // returns: $record (array)
+    //---------------------------------------------------------------------------------------
+    function getIndividualTrainings($traineeID){
 
         $record = DB::query(
         "SELECT U.name, R.roomName, G.locationName,TR.trainingType, TR.cost, T.* 
@@ -24,7 +33,30 @@
     }
 
     //---------------------------------------------------------------------------------------
-    // desc: retrieve only the trainings that the Trainee has booked and returns them
+    // desc: retrieve all GROUP trainings that are (available AND are equal to 
+    // or beyond the current date) OR the group trainings that the Trainee has booked
+    // returns: $record (array)
+    //---------------------------------------------------------------------------------------
+    function getGroupTrainings($traineeID){
+
+        $record = DB::query(
+        "SELECT U.name AS trainerName, TR.trainingType, TR.cost, R.roomName, U2.name AS traineeName, G.*
+        FROM groupsessions G
+        INNER JOIN USER U ON G.trainerID = U.userID
+        INNER JOIN rooms R ON G.roomID = R.roomID
+        INNER JOIN trainings TR ON G.trainingID = TR.trainingID
+        LEFT JOIN traineegroupsession TGR ON G.groupSessionID = TGR.groupSessionID
+        LEFT JOIN user U2 ON TGR.traineeID = U2.userID
+        WHERE (G.sessionStatus = 2 AND G.startSession >= %s AND G.numberOfParticipants < G.maxCapacity) OR U2.userID = %d
+        GROUP BY G.groupSessionID"
+        , date("Y/m/d"), $traineeID
+        );
+
+        return buildRecord($record);
+    }
+
+    //---------------------------------------------------------------------------------------
+    // desc: retrieve only the individual trainings that the Trainee has booked and returns them
     // params: $traineeID (string)
     // returns: $record (array)
     //---------------------------------------------------------------------------------------
@@ -60,8 +92,7 @@
 
 
     //---------------------------------------------------------------------------------------
-    // desc: based on whether the training is available, the color of the event on the 
-    // calendar is changed. For e.g. if not available, RED. Else, GREEN 
+    // desc: assign color based on individual or group training or completed training
     // returns: $record (array)
     //---------------------------------------------------------------------------------------
     function includeColorsInRecord($record){
@@ -71,15 +102,37 @@
         // iterate through each training
         foreach($record as $training){
 
-            // if training is available, color it GREEN
-            if ($training['traineeID'] == NULL){
-                $training['color'] = '#008000';
+            // check is training individual training
+            if (array_key_exists('sessionID', $training)){
+                
+                // if indiv. training is available, color it GREEN
+                if ($training['traineeID'] == NULL){
+                    $training['color'] = '#008000';
+                }
+
+                // if indiv. training is not available, color it RED
+                else{
+                    $training['color'] = '#FF0000';
+                }
+
+                array_push($newRecord, $training);
             }
-            // if training is not available, color it RED
-            else{
-                $training['color'] = '#FF0000';
+
+            // training is a group training instead
+            else if (array_key_exists('groupSessionID', $training)){
+
+                // if group training is not booked yet by the trainee, color it BLUE
+                if ($training['traineeName'] == NULL){
+                    $training['color'] = '#0000B2';
+                }
+
+                // if group training is booked by the trainee, color it RED
+                else{
+                    $training['color'] = '#FF0001';
+                }
+
+                array_push($newRecord, $training);
             }
-            array_push($newRecord, $training);
         }
 
         return $newRecord;
@@ -92,17 +145,9 @@
     //---------------------------------------------------------------------------------------
     function errorHandlingForRecords($record){
 
-        // error handling
-        if (!$record){
+        if (!$record || $record == null){
             $record = [];  
         }
-        else {
-            // if there are no trainings, return empty array instead of null
-            if ($record == null){
-                $record = [];
-            }
-        }
-
         return $record;
     }
 ?>

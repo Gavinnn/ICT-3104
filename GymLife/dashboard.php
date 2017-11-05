@@ -9,9 +9,6 @@
         <meta charset="utf-8">
         <!-- Responsive Metatag -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <!-- Page Description and Author -->
-        <meta name="description" content="Sulfur - Responsive HTML5 Template">
-        <meta name="author" content="Shahriyar Ahmed">
         <!-- Bootstrap CSS  -->
         <link rel="stylesheet" href="asset/bootstrap/css/bootstrap.min.css" type="text/css">
         <!-- Font Awesome CSS -->
@@ -28,6 +25,16 @@
         <link rel="stylesheet" type="text/css" href="asset/css/style.css">
         <!-- Responsive CSS Style -->
         <link rel="stylesheet" type="text/css" href="asset/css/responsive.css">
+        <!-- jQuery -->
+        <script src="asset/js/jquery-2.1.3.min.js"></script>
+        <!-- Table CSS Style -->
+        <link rel="stylesheet" type="text/css" href="asset/css/table.css">
+        <!--SweetAlert-->
+        <link rel="stylesheet" href="asset/plugins/sweetalert-master/sweet-alert.css">
+		<!--SweetAlert-->
+        <script src="asset/plugins/sweetalert-master/sweet-alert.js"></script>
+
+        <!-- Modernizr JS -->
         <script src="asset/js/modernizrr.js"></script>
     </head>
     <body>
@@ -36,7 +43,7 @@
 		$record = DB::queryFirstRow("SELECT * FROM user WHERE userID=%s", $id);
 		$change = $record["passwordChange"];
 		if($change==1)
-			echo "<script>alert('Password change required');</script>";
+			echo '<script>swal("Welcome to GymLife!", "New user should change password upon first login!", "info");</script>';
 		?>
 		<!--Navigation Section-->
 		<?php require_once('header.php'); ?>
@@ -54,9 +61,7 @@
         </div>
         <!-- End Header Section -->
 		
-
        <!-- Sulfur JS File -->
-        <script src="asset/js/jquery-2.1.3.min.js"></script>
         <script src="asset/js/jquery-migrate-1.2.1.min.js"></script>
         <script src="asset/bootstrap/js/bootstrap.min.js"></script>
         <script src="asset/js/owl.carousel.min.js"></script>
@@ -66,6 +71,5 @@
         <script src="asset/js/lightbox.min.js"></script>
         <script src="asset/js/count-to.js"></script>
         <script src="asset/js/styleswitcher.js"></script>
-        <script src="asset/js/script.js"></script> 
     </body>
 </html>

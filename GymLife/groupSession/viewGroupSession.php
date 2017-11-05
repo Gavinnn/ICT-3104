@@ -110,7 +110,7 @@
                                             echo "<td>" . $location . "</td>";
                                             echo "<td>" . $max . "</td>";
                                             echo "<td>";
-                                            echo "<button class='btn btn-warning' onclick=\"location.href ='viewGroupSessionDetail.php?id=" . $row['trainingID'] . "' \">View</button> &nbsp;";
+                                            //echo "<button class='btn btn-warning' onclick=\"location.href ='viewGroupSessionDetail.php?id=" . $row['trainingID'] . "' \">View</button> &nbsp;";
                                             echo "<button class='btn btn-success' onclick=\"location.href ='approveSession.php?id=" . $row['trainingID'] . "&approve=2' \">Approve</button> &nbsp;";
                                             echo "<button class='btn btn-danger' onclick=\"location.href ='approveSession.php?id=" . $row['trainingID'] . "&approve=3' \">Reject</button>";
                                             echo "</td>";

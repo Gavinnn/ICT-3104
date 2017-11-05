@@ -29,6 +29,10 @@
                     if($_SESSION['role']=="trainee"){
 					?>
                     <li><a href="/<?php echo $path; ?>/calendar/trainee/traineeCalendar.php">Training Calendar</a></li>
+                    <?php } ?> <?php
+                    if($_SESSION['role']=="admin"){
+					?>
+                    <li><a href="/<?php echo $path; ?>/calendar/admin/adminCalendar.php">Training Calendar</a></li>
                     <?php } ?>
 
                     <!--Account Management Section-->

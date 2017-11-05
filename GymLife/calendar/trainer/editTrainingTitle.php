@@ -13,11 +13,6 @@ if (isset($_POST['delete']) && isset($_POST['sessionID'])){
 
 	// DELETE query
 	$status = DB::query("DELETE FROM trainersessions WHERE sessionID = %d", $id);
-	
-	// error handling
-	if (!$status){
-		print_r("Error in query");
-	}
 }
 // UPDATE: ensure all required fields are set
 elseif (isset($_POST['title']) && isset($_POST['sessionID'])){

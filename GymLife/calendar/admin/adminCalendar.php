@@ -85,14 +85,14 @@
                 </div>
             </div>
 
-            <!-- Edit Training Modal -->
+            <!-- Edit Training Modal - Individual-->
             <div class="modal fade" id="ModalEditIndivTraining" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <form class="form-horizontal" method="POST" action="editIndivTraining.php">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Edit Event</h4>
+                                <h4 class="modal-title" id="myModalLabel">Edit Event - Individual Session</h4>
                             </div>
                             <div class="modal-body">
 
@@ -185,6 +185,89 @@
                     </div>
                 </div>
             </div>
+			
+			       <!-- Edit Training Modal - Group -->
+            <div class="modal fade" id="ModalEditGroupTraining" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form class="form-horizontal" method="POST" action="editGroupTraining.php">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Edit Event - Group Session</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Training Title</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="trainerName" class="col-sm-2 control-label">Trainer Name</label>
+                                    <div class="dropdown col-sm-6" style="padding-top:10px;">
+                                        <input type="text" name="trainerName" class="form-control" id="trainerName" readonly>
+                                    </div>
+                                </div>
+
+                               
+
+                               <div class="form-group">
+                                    <label for="numberOfParticipants" class="col-sm-2 control-label">No. of Participants</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" id="numberOfParticipants" name="numberOfParticipants" class="form-control" readonly required>
+                                    </div>
+                                </div>
+
+								 <div class="form-group">
+                                    <label for="traineeName" class="col-sm-2 control-label">Trainee Name</label>
+                                    <div class="dropdown col-sm-6" style="padding-top:10px;">
+                                        <input type="text" name="traineeName" class="form-control" id="traineeName" readonly>
+                                    </div>
+                                </div>
+								
+                                <div class="form-group">
+                                    <label for="trainingCategory" class="col-sm-2 control-label">Training Category</label>
+                                    <div class="dropdown col-sm-6" style="padding-top:10px;">
+                                        <input type="text" name="trainingCategory" class="form-control" id="trainingCategory" readonly>
+                                    </div>
+                                </div>
+                              
+                                <div class="form-group">
+                                    <label for="startSession" class="col-sm-2 control-label">Start Date</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="startSession" class="form-control" id="startSession" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="endSession" class="col-sm-2 control-label">End Date</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="endSession" class="form-control" id="endSession" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div class="checkbox">
+                                            <label class="text-danger"><input type="checkbox"  name="delete"> Delete event</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="groupSessionID" class="form-control" id="groupSessionID">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+     
         </div>
 
 

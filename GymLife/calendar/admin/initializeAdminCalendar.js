@@ -37,6 +37,16 @@ function initializeAdminCalendar(trainingSessions){
                 // if event is group training, show group training modal
                 else if (event.color == "#0000B2" || event.color == "#FF0001"){
                     // TODO: pump data in group training modal and show modal
+					 $('#ModalEditGroupTraining #groupSessionID').val(event.id);	
+                    $('#ModalEditGroupTraining #title').val(event.title);
+                    $('#ModalEditGroupTraining #trainerName').val(event.trainerName);
+                    $('#ModalEditGroupTraining #traineeName').val(event.traineeName === null? "None" : event.traineeName);
+                    $('#ModalEditGroupTraining #trainingCategory').val(event.trainingCategory);
+                    $('#ModalEditGroupTraining #numberOfParticipants').val(event.numberOfParticipants);
+                    $('#ModalEditGroupTraining #room').val(event.room);
+                    $('#ModalEditGroupTraining #startSession').val(event.start._i);
+                    $('#ModalEditGroupTraining #endSession').val(event.end._i);	
+                    $('#ModalEditGroupTraining').modal('show'); // inflate the modal
                 }
             });
         },

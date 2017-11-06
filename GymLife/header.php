@@ -42,18 +42,18 @@
                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Account Management</a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a href="/<?php echo $path; ?>/admin/user.php">View Users</a></li>
-                            <li><a href="/<?php echo $path; ?>/admin/addUser.php">Add User</a></li>
                             <li><a href="/<?php echo $path; ?>/admin/approveUser.php">Approve User</a></li>
                         </ul> 
                     </li>
 					<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Training Management</a>
                         <ul class="dropdown-menu dropdown-menu-right">
 							<li><a href="/<?php echo $path; ?>/groupSession/viewGroupSession.php">View Pending Group Sessions</a></li>
-                            <li><a href="/<?php echo $path; ?>/admin/trainingDetails.php">View All Training Details</a></li>
-                            <li><a href="/<?php echo $path; ?>/admin/addTrainingDetails.php">Add Training Details</a></li>
+                            <li><a href="/<?php echo $path; ?>/admin/trainingDetails.php">View Training Details</a></li>
                         </ul> 
                     </li>
 					
+					<li><a href="/<?php echo $path; ?>/admin/gymlocation.php">Gym Location</a></li>
+                    
 					<?php } ?>
                     <!--Profile Section-->
                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['name']; ?></a>

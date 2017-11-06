@@ -74,7 +74,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Account Management</h1>
+                            <h1>View Users</h1>
                         </div>
                     </div>
                 </div>
@@ -84,11 +84,12 @@
 
         <section id="about-section" class="about-section">
             <div class="container">
-                <div class="row">
+				<div class="row">
+				&nbsp;&nbsp;&nbsp;<button type="button" class="btn" onclick="location.href='addUser.php'"><span class="glyphicon glyphicon-plus"></span>  Add User</button>
+				<br><br>
                     <div class="col-md-12">
                         <div class="panel panel-default panel-table">
                             <div class="panel-heading">
-
                             </div>
                             <div class="panel-body">
                                 <table id="users" class="table table-striped table-bordered table-list" width="100%">

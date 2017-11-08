@@ -222,9 +222,14 @@
 
 								 <div class="form-group">
                                     <label for="traineeName" class="col-sm-2 control-label">Trainee Name</label>
-                                    <div class="dropdown col-sm-6" style="padding-top:10px;">
-                                        <input type="text" name="traineeName" class="form-control" id="traineeName" readonly>
-                                    </div>
+									<?php
+									$record = DB::query("select name from groupsessions gs inner join traineegroupsession tr on gs.groupSessionID = tr.groupSessionID inner join user u on u.userID = tr.traineeID");
+									
+									 foreach ($record as $row) {
+                                            echo "&nbsp; &nbsp; &nbsp;" . $row['name'] . "<br>" ;
+                                        }
+                                     ?>
+									
                                 </div>
 								
                                 <div class="form-group">

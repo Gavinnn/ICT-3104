@@ -6,6 +6,7 @@
     include 'getTrainings.php';
     $events = getTrainings($traineeID);
     $userEvents = getUserTrainings($traineeID);
+    $groupUserEvents = getGroupUserTrainings($traineeID);
 ?>
 
 <!doctype html>
@@ -86,6 +87,8 @@
             <div class="col-lg-12 text-center">
             <br>
             <button type="button" id="viewUserTrainingsBtn" class="btn btn-success" onclick="viewOnlyUserIndivTrainings()">View your individual trainings only</button>
+             <button type="button" id="viewUserGroupTrainingsBtn" class="btn btn-info" onclick="viewOnlyUserGroupTrainings()">View your group trainings only</button>
+                <br>
                 <br>
                 <br>
                 <div id="calendar" class="col-centered">
@@ -93,6 +96,7 @@
                 <br>
             </div>
         </div>
+            
 
         <!-- Confirm Individual Training Modal -->
         <?php require_once('./modal/modalIndivTraining.php'); ?>
@@ -216,10 +220,41 @@
                     description: oneTraining.description,
                     color:oneTraining.color,
                     traineeID: oneTraining.traineeID
-                    }
+                    };
                 })    
             );
         }
+        
+         //---------------------------------------------------------------------------------------
+        // desc: retrieve group. trainings that the trainee has only booked and display on calendar
+        //---------------------------------------------------------------------------------------
+        function viewOnlyUserGroupTrainings(){
+
+            // clear calendar
+            $('#calendar').fullCalendar('removeEvents');    
+
+            // add trainee-only trainings to calendar
+            $('#calendar').fullCalendar('addEventSource',            
+                <?php echo json_encode($groupUserEvents) ?>.map(function(oneTraining) {
+
+                return {
+                        id: oneTraining.groupSessionID,
+                        title: oneTraining.title,
+                        trainerName: oneTraining.trainerName,
+                        trainingType: oneTraining.trainingType,
+                        cost: oneTraining.cost,
+                        room: oneTraining.roomName,
+                        locationName: oneTraining.locationName,
+                        numberOfParticipants: oneTraining.numberOfParticipants,
+                        start: oneTraining.startSession,
+                        end: oneTraining.endSession,
+                        maxCapacity: oneTraining.maxCapacity,
+                        color:oneTraining.color
+                    };
+                })    
+            );
+        }
+        
     </script>
         </body>
 </html>

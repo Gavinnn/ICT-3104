@@ -74,6 +74,28 @@
 
         return buildRecord($record);
     }
+    
+    //---------------------------------------------------------------------------------------
+    // desc: retrieve only the group trainings that the Trainee has booked and returns them
+    // params: $traineeID (string)
+    // returns: $record (array)
+    //---------------------------------------------------------------------------------------
+    function getGroupUserTrainings($traineeID){
+        
+        $record = DB::query(
+        "SELECT U.name AS traineeName,R.roomName,G.locationName,T.trainingType,T.cost,U1.name AS trainerName, GS.* 
+         FROM groupsessions GS
+         INNER JOIN traineegroupsession TG ON GS.groupsessionID = TG.groupsessionID
+         INNER JOIN user U on U.userID = TG.traineeID
+         INNER JOIN rooms R ON GS.roomID = R.roomID
+         INNER JOIN gyms G ON GS.locationID = G.locationID
+         INNER JOIN trainings T ON GS.trainingID = T.trainingID
+         INNER JOIN user U1 on GS.trainerID = U1.userID
+         WHERE traineeID = %s", $traineeID);
+
+        return buildRecord($record);
+    }
+    
 
     //---------------------------------------------------------------------------------------
     // desc: process the trainings in the record so that they are ready to be displayed 

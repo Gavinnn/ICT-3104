@@ -103,7 +103,7 @@ $events = getTrainings();
             <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form class="form-horizontal" method="POST" action="addTraining.php" onsubmit = "return doesTrainingCoincides();">
+                        <form id="indvTrainingForm" class="form-horizontal" method="POST" action="addTraining.php" onsubmit = "return doesTrainingCoincides(this.id);">
 
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -359,9 +359,6 @@ $events = getTrainings();
         <!-- Datepicker JS  -->
         <script src="../../asset/plugins/fullCalendar/js/jquery-ui.js"></script>
 
-        <!-- Add Group Training Modal -->
-        <?php require_once('./modal/addGroupModal.php'); ?>
-
         <!-- FullCalendar -->
         <script src='../../asset/plugins/fullCalendar/js/moment.min.js'></script>
         <script src='../../asset/plugins/fullCalendar/js/fullcalendar.min.js'></script>
@@ -387,16 +384,27 @@ $events = getTrainings();
         <script>
             //---------------------------------------------------------------------------------------
             // desc: send an AJAX request to check if the training coincides with any of the Trainer's
-            // existing training. If training coincides, shows alert. Else, carry on to add training
+            // existing training (group or individual). 
+            // If training coincides, shows alert. Else, carry on to add training
             //---------------------------------------------------------------------------------------
-            function doesTrainingCoincides(){
+            function doesTrainingCoincides(formID){
 
-                var startDate = $('#date').val() + " " + $('#startTime').val() + ":00";
+                var startDate, trainerID;
                 var success = false;
+
+                // determine if added training was from the individual training form or group training form
+                if(formID === "indvTrainingForm"){
+                    startDate = $('#date').val() + " " + $('#startTime').val() + ":00";
+                    trainerID = $('#trainerID').val();
+                }
+                else if (formID === "grpTrainingForm") {
+                    startDate = $('#datepickerAG').val() + " " + $('#startSessionAG').val() + ":00";
+                    trainerID = $('#trainerIdAG').val();
+                }
 
                 $.ajax({
                     url: "doesTrainingCoincide.php",
-                    data: {'trainerID' : $('#trainerID').val(), 'startDate': startDate},
+                    data: {'trainerID' : trainerID, 'startDate': startDate},
                     type: 'POST',
                     async: false,
                     success: function (results) {
@@ -439,6 +447,9 @@ $events = getTrainings();
             }
 
         </script>
+
+        <!-- Add Group Training Modal -->
+        <?php require_once('./modal/addGroupModal.php'); ?>
 
     </body>
 </html>

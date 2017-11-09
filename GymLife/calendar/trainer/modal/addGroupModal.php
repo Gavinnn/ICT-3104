@@ -1,7 +1,7 @@
 <div class="modal fade" id="GroupModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form class="form-horizontal" method="POST" action="addTraining.php">
+            <form id="grpTrainingForm" class="form-horizontal" method="POST" action="addTraining.php" onsubmit = "return doesTrainingCoincides(this.id);">
             
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

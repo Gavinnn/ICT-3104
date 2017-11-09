@@ -9,7 +9,19 @@ require_once('../../conn.php');
 $trainerID = htmlspecialchars(post("trainerID"), ENT_QUOTES);
 $startDate = post("startDate");
 	
-$record = DB::query("SELECT sessionID FROM trainerSessions WHERE startSession = %s AND trainerID = %d", $startDate, $trainerID);
+$record = DB::query("SELECT
+sessionID
+FROM
+trainersessions
+WHERE
+startSession = %s AND trainerID = %d
+UNION
+SELECT
+groupSessionID
+FROM
+groupsessions
+WHERE
+startSession = %s AND trainerID = %d", $startDate, $trainerID, $startDate, $trainerID);
 
 // if traiing coincides, echoes true
 if ($record){

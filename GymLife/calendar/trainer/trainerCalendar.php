@@ -51,7 +51,10 @@ $events = getTrainings();
 
         <!-- Timepicker -->
         <link href='../../asset/plugins/fullCalendar/css/jquery.timepicker.css' rel='stylesheet'/>
-        
+
+        <!-- Datepicker -->
+        <link rel="stylesheet" href="../../asset/plugins/fullCalendar/css/jquery-ui.css">
+
         <script src="../../asset/js/modernizrr.js"></script>
 
         <script>
@@ -85,6 +88,7 @@ $events = getTrainings();
 
         <div class="container">
             <div class="row">
+                <button class="btn btn-success btn-lg" type="button" data-toggle="modal" data-target="#GroupModalAdd">Add Group Training</button>
                 <div class="col-lg-12 text-center">
                     <br>
                     <br>
@@ -133,7 +137,7 @@ $events = getTrainings();
                                 <div class="form-group">
                                     <label for="title" class="col-sm-2 control-label">Cost</label>
                                     <div class="col-sm-3">
-                                        <input type="text" id="cost" class="form-control" id="title" readonly required>
+                                        <input type="text" id="cost" class="form-control" name="cost" readonly required>
                                     </div>
                                 </div>
 
@@ -344,10 +348,19 @@ $events = getTrainings();
                 </div>
             </div>
         </div>
-        
+
 
         <!-- jQuery Version 1.11.1 -->
         <script src="../../asset/plugins/fullCalendar/js/jquery.js"></script>
+
+        <!-- Timepicker JS  -->
+        <script src="../../asset/plugins/fullCalendar/js/jquery.timepicker.js"></script>
+
+        <!-- Datepicker JS  -->
+        <script src="../../asset/plugins/fullCalendar/js/jquery-ui.js"></script>
+
+        <!-- Add Group Training Modal -->
+        <?php require_once('./modal/addGroupModal.php'); ?>
 
         <!-- FullCalendar -->
         <script src='../../asset/plugins/fullCalendar/js/moment.min.js'></script>
@@ -355,9 +368,6 @@ $events = getTrainings();
 
         <script src="initializeTrainerCalendar.js" type="text/javascript"></script>
         <script type="text/javascript">$(document).ready(initializeTrainerCalendar(<?php echo json_encode($events) ?>));</script>
-
-        <!-- Timepicker  -->
-        <script src="../../asset/plugins/fullCalendar/js/jquery.timepicker.js"></script>
 
         <!-- Bootstrap -->
         <script src="../../asset/bootstrap/js/bootstrap.min.js"></script>

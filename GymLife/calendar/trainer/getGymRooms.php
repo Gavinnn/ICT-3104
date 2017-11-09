@@ -14,7 +14,7 @@
     if (!empty($record)){
         $returnVal = '';
         foreach ($record as $room){
-            $returnVal .= "<option value='" . $room['roomID']  . "' data-roomid='" . $room['roomID'] . "'>" . $room['roomName'] . "</option>";
+            $returnVal .= "<option value='" . $room['roomID']  . "' data-roomid='" . $room['roomID'] . "' data-roomcapacity='" . $room['roomCapacity'] . "'>" . $room['roomName'] . "</option>";
         }
         echo $returnVal;
     }

@@ -3,11 +3,12 @@
 	
     include 'getTrainerTrainings.php';
 	
+	$traineeID = $_SESSION['id'];
 	$getids = $_GET['id'];
 	$allids = explode( ',', $getids );
 	$allEvents = []; //Array to hold all events
 	$eventforsingletrainer; //Array to get events of single trainer
-
+	
 	
 	for($i=0; $i<count($allids); $i++){
 	  $eventforsingletrainer = [];

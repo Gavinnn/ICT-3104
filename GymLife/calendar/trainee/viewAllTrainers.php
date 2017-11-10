@@ -129,6 +129,7 @@
 								echo "<td>" . $row['email'] . "</td>";
 								echo "<td>";
 								echo "<button class='btn btn-success' type=\"button\" onclick=\"location.href='getTrainerCalendar.php?id=".$row['userID']."';\"> View Calendar </button>";
+								echo "  <button class='btn ' type=\"button\"';\"> Personal Trainer </button>";
 								echo "</td>";
 								echo "</tr>";
 							}

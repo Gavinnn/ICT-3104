@@ -13,7 +13,7 @@
                     <div class="form-group">
                     <label for="title" class="col-sm-2 control-label">Training Title</label>
                         <div class="col-sm-10">
-                            <input type="text" name="titleAG" class="form-control" id="titleAG" placeholder="Title">
+                            <input type="text" name="titleAG" class="form-control" id="titleAG" placeholder="Title" required>
                         </div>
                     </div>
 
@@ -76,14 +76,14 @@
                     <div class="form-group">
                     <label for="startSession" class="col-sm-2 control-label">Start Time</label>
                         <div class="col-sm-4">
-                            <input type="text" name="startSessionAG" class="form-control timepicker" id="startSessionAG">
+                            <input type="text" name="startSessionAG" class="form-control timepicker" id="startSessionAG" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                     <label for="endSession" class="col-sm-2 control-label">End Time</label>
                         <div class="col-sm-4">
-                            <input type="text" name="endSessionAG" class="form-control" id="endSessionAG" readonly>
+                            <input type="text" name="endSessionAG" class="form-control" id="endSessionAG" readonly required>
                         </div>
                     </div>
 
@@ -91,7 +91,7 @@
                     <div class="form-group">
                     <label for="maxCapacity" class="col-sm-2 control-label">Maximum Capacity</label>
                         <div class="dropdown col-sm-6" style="padding-top:10px;">
-                            <input type="number" name="maxCapacityAG" min="2" class="form-control" id="maxCapacityAG" placeholder="Select a room first" readonly>
+                            <input type="number" name="maxCapacityAG" min="2" class="form-control" id="maxCapacityAG" placeholder="Select a room first" readonly required>
                         </div>
                     </div>
                     

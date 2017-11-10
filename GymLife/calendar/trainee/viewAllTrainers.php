@@ -88,7 +88,7 @@
     <body>
 
         <!--Navigation Section-->
-        <?php //require_once('../../header.php'); ?>
+        <?php require_once('../../header.php'); ?>
 		<!-- Start Header Section -->
         <div class="page-header">
             <div class="overlay">

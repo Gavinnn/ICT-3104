@@ -4,7 +4,7 @@ require_once('../../session/session.php');
 $trainerID = $_SESSION['id'];
 
 include 'getTrainings.php';
-$events = getTrainings();
+$events = getTrainings($trainerID);
 ?>
 
 <!doctype html>

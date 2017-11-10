@@ -5,17 +5,19 @@
     //---------------------------------------------------------------------------------------
     // desc: merge individual and group trainings into a single record and returns to 
     // calendar
+    // params: $trainerID (int)
     // returns: $record (array)
     //---------------------------------------------------------------------------------------
-    function getTrainings(){
-        return array_merge(getIndividualTrainings(), getGroupTrainings());
+    function getTrainings($trainerID){
+        return array_merge(getIndividualTrainings($trainerID), getGroupTrainings($trainerID));
     }
 
     //---------------------------------------------------------------------------------------
     // desc: retrieve all individual trainings in the system
+    // params: $trainerID (int)
     // returns: $record (array)
     //---------------------------------------------------------------------------------------
-    function getIndividualTrainings(){
+    function getIndividualTrainings($trainerID){
 
         $record = DB::query(
         "SELECT U1.name AS trainerName, U2.name AS traineeName, R.roomName, G.locationName,TR.trainingType, TR.cost, T.* 
@@ -24,16 +26,18 @@
         LEFT JOIN user U2 ON T.traineeID = U2.userID
         INNER JOIN rooms R ON T.roomID = R.roomID
         INNER JOIN gyms G ON T.locationID = g.locationID
-        INNER JOIN trainings TR on T.trainingID = TR.trainingID");
+        INNER JOIN trainings TR on T.trainingID = TR.trainingID
+        WHERE T.trainerID = %d", $trainerID);
         
         return buildRecord($record);
     }
 
     //---------------------------------------------------------------------------------------
     // desc: retrieve all group trainings in the system that are approved
+    // params: $trainerID (int)
     // returns: $record (array)
     //---------------------------------------------------------------------------------------
-    function getGroupTrainings(){
+    function getGroupTrainings($trainerID){
 
         $record = DB::query(
         "SELECT U.name, TR.trainingType, R.roomName, G.*
@@ -41,7 +45,8 @@
         INNER JOIN USER U ON G.trainerID = U.userID
         INNER JOIN rooms R ON G.roomID = R.roomID
         INNER JOIN trainings TR ON G.trainingID = TR.trainingID
-        WHERE G.sessionStatus = 2");
+        WHERE G.sessionStatus = 2
+        AND G.trainerID = %d", $trainerID);
 
         return buildRecord($record);
     }

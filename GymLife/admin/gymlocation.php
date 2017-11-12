@@ -43,7 +43,7 @@
         <script src="../asset/js/modernizrr.js"></script>
         <script>
             $(document).ready(function () {
-                $('#trainings').DataTable();
+                $('#locations').DataTable();
             });
             function dlt(id)
             {
@@ -99,7 +99,7 @@
                                             <th class="col-md-2">Location Name</th>
                                             <th class="col-md-6">Rooms</th>
                                             <th class="col-md-2">Room Capacity</th>
-                                            <th class="col-md-2" data-sortable="false"><em class="fa fa-cog"></th>
+                                            <!--<th class="col-md-2" data-sortable="false"><em class="fa fa-cog"></th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -111,8 +111,7 @@
                                             echo "<td>" . $row['locationName'] . "</td>";
                                             echo "<td> todo: plan to retrieve out the rooms </td>";
                                             echo "<td>" . $row['locationCapacity'] . "</td>";
-                                            echo "<td>";
-                                            echo "</td>";
+                                            //echo "<td></td>";
                                             echo "</tr>";
                                         }
                                         ?>

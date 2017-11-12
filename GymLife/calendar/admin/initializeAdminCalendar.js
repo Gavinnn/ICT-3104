@@ -17,7 +17,24 @@ function initializeAdminCalendar(trainingSessions){
         // bind the data from the event into the modal
         eventRender: function(event, element) {
             element.bind('click', function() {
-
+				//check if date is earlier than current date
+				var current = new Date();
+				if(event.start<current.getTime())
+				{
+					//disable edit
+					$('#ModalEditIndivTraining #title').prop('readonly', true);
+					$('#ModalEditIndivTraining #description').prop('readonly', true);
+					$('#ModalEditIndivTraining #save').hide();
+					$('#ModalEditIndivTraining #dlt').hide();
+				}
+				else
+				{
+					//enable edit
+					$('#ModalEditIndivTraining #title').prop('readonly', false);
+					$('#ModalEditIndivTraining #description').prop('readonly', false);
+					$('#ModalEditIndivTraining #save').show();
+					$('#ModalEditIndivTraining #dlt').show();
+				}
                 // if event is individual training, show individual training modal
                 if (event.color == "#008000" || event.color == "#FF0000"){
                     $('#ModalEditIndivTraining #sessionID').val(event.id);	

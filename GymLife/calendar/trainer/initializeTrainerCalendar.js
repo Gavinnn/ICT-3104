@@ -126,7 +126,8 @@ function initializeTrainerCalendar(trainingSessions){
                         color:oneTraining.color
                     }
                 }
-            })
+            }),
+			timezone: 'local'
     });
 }
 

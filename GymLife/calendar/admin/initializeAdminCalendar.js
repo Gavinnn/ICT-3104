@@ -1,3 +1,8 @@
+function DateDiff(date1, date2) {
+    var datediff = date1 - date2; //store the getTime diff - or +
+    return (datediff / (24*60*60*1000) ); //Convert values to -/+ days and return value      
+}
+
 function initializeAdminCalendar(trainingSessions){
 
     // initialize calendar
@@ -19,7 +24,7 @@ function initializeAdminCalendar(trainingSessions){
             element.bind('click', function() {
 				//check if date is earlier than current date
 				var current = new Date();
-				if(event.start<current.getTime())
+				if(DateDiff(event.start,current.getTime())<2)
 				{
 					//disable edit for individual
 					$('#ModalEditIndivTraining #title').prop('readonly', true);
@@ -80,7 +85,6 @@ function initializeAdminCalendar(trainingSessions){
 
         // display the trainings on the calendar
         events: 
-
             trainingSessions.map(function(oneTraining) {
 
                 // if individual training
@@ -119,6 +123,7 @@ function initializeAdminCalendar(trainingSessions){
                         color:oneTraining.color
                     }
                 }
-            })
+            }),
+			timezone: 'local'
     });
 }

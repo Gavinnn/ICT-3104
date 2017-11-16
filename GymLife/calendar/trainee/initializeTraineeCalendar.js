@@ -92,6 +92,7 @@ function initializeTraineeCalendar(trainingSessions){
                         color:oneTraining.color
                     }
                 }
-            })
+            }),
+			timezone: 'local'
     });
 }

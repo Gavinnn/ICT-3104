@@ -31,33 +31,88 @@
         <script src="../asset/plugins/sweetalert-master/sweet-alert.js"></script>
         <!--Custom Javascript-->
         <script src="../asset/js/custom.js"></script>
-        <script>
-            function check() {
+        
+		<script type="text/javascript">
+		var data = [];
+		var capArr = [];
+ 
+        function Add() {
+            var txtName = document.getElementById("txtName");
+			var txtCap = document.getElementById("txtCap");
+            AddRow(txtName.value, txtCap.value);
+            txtName.value = "";
+			txtCap.value = "";
+        };
+ 
+        function Remove(button) {
+            //Determine the reference of the Row using the Button.
+            var row = button.parentNode.parentNode;
+            var name = row.getElementsByTagName("TD")[0].innerHTML;
+            if (confirm("Do you want to delete: " + name)) {
+ 
+                //Get the reference of the Table.
+                var table = document.getElementById("tblRooms");
+				
+                //Delete the Table row using it's Index.
+                table.deleteRow(row.rowIndex);
+				delete data[row.rowIndex];
+            }
+        };
+ 
+        function AddRow(name, country) {
+            //Get the reference of the Table's TBODY element.
+            var tBody = document.getElementById("tblRooms").getElementsByTagName("TBODY")[0];
+ 
+			var name = $("#txtName").val();
+			var cap = $("#txtCap").val();
+			data.push( $("#txtName").val());
+			capArr.push( $("#txtCap").val());
+			
+            //Add Row.
+            row = tBody.insertRow(-1);
+ 
+            //Add Name cell.
+            var cell = row.insertCell(-1);
+            cell.innerHTML = name;
+			
+			//Add Capacity cell.
+            var cell = row.insertCell(-1);
+            cell.innerHTML = cap;
+ 
+            //Add Button cell.
+            cell = row.insertCell(-1);
+            var btnRemove = document.createElement("INPUT");
+            btnRemove.type = "button";
+			btnRemove.className = "btn btn-danger";
+            btnRemove.value = "Remove";
+            btnRemove.setAttribute("onclick", "Remove(this);");
+            cell.appendChild(btnRemove);
+        }
+		
+			 function check() {
                 var check = false;
-                var trainingType = $('#trainingType').val();
-                var description = $('#description').val();
-                var cost = $('#cost').val();
-                if (trainingType == "" || trainingType == null)
-                    displayErrorMsg("Please fill in the \"Training Type\" field.");
-                else if (description == "" || description == null)
-                    displayErrorMsg("Please fill in the \"Description\" field.");
-                else if (cost == "" || cost == null)
-                    displayErrorMsg("Please fill in the \"Cost\" field.");
-
+                var locationName = $('#locationName').val();
+                var capacity = $('#capacity').val();
+                if (locationName == "" || locationName == null)
+                    displayErrorMsg("Please fill in the \"Name of Location\" field.");
+                else if (capacity == "" || capacity == null)
+                    displayErrorMsg("Please fill in the \"Capacity\" field.");
+                else if(data.length == 0)
+					alert("Please enter at least 1 room.");
                 else {
                     $.ajax({
-                        url: "addTrainingDetailsProcess.php",
-                        data: {'trainingType': trainingType, 'description': description, 'cost': cost},
+                        url: "addRoomProcess.php",
+                        data: {'locationName': locationName, 'capacity': capacity, arrData: data, arrCap: capArr},
                         type: 'POST',
                         async: false,
                         success: function (data) {
                             //data refers to message echo from addTrainingDetailsProcess.php
-                            if (data == "trainingType") {
-                                displayErrorMsg("There is an existing training type.");
+                           if (data == "locationName") {
+                                displayErrorMsg("There is an existing locationName.");
                             }
                             if (data == "success") {
                                 check = true;
-                                successModal("Added Successfully", "trainingDetails.php");
+                                successModal("Added Successfully", "gymlocation.php");
                             }
                         }
                     });
@@ -65,12 +120,14 @@
 
                 return check;
             }
-        </script>  
+    </script>
+		
     </head>
     <body>
         <!--Navigation Section-->
-        <?php require_once('../header.php'); ?>
-
+        <?php require_once('../header.php');
+               $locationID = DB::query("SELECT locationID FROM gyms WHERE locationID = (SELECT MAX(locationID) FROM gyms)"); ?>
+		
         <!-- Start Header Section -->
         <div class="page-header">
             <div class="overlay">
@@ -88,7 +145,7 @@
         <section id="about-section" class="about-section">
             <div class="container">
                 <div class="row" style="margin-left:10px">
-                    <form action='addVenueProcess.php' method='post'  enctype='multipart/form-data' name='createreq-form' id='createreq-form'> 
+                    <form action='addRoomProcess.php' method='post'  enctype='multipart/form-data' name='createreq-form' id='createreq-form'> 
                         <div class="form-group">
                             <label class="control-label" for="textinput">Name of Location: </label>
                             <input type="text" id="locationName" name="locationName" class="form-control input-md"/>
@@ -97,16 +154,42 @@
                             <label class="control-label" for="textinput">Total Capacity:</label>
                             <input type="text" id="capacity" name="capacity" class="form-control input-md"/>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label" for="textinput">Rooms: </label>
-                            <input type="email" id="rooms" name="rooms" class="form-control input-md"/>
-                        </div>
-                        <div class="form-group">
-                            <!--Error Message-->
-                            <label id="msg" class="text-danger"></label>
-                        </div>
                 </div>
+				
+				<div class="container">
+				<div class="row col-md-5" style="padding-left: 10px;">
+				<table class="table table-striped table-bordered" id="tblRooms" border="1">
+					<thead>
+						<tr>
+							<th class="col-md-3">Room Name</th>
+							<th class="col-md-1">Room Capacity</th>
+							<th class="col-md-1">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td class="col-md-3"><div class="input-group"><input class="form-control" type="text" id="txtName"/> </div></td>
+							<td class="col-md-1"><div class="input-group"><input class="form-control" type="text" id="txtCap"/> </div></td>
+							<td class="col-md-1"><input type="button" class="btn btn-success" onclick="Add()"  value=" Add " />
+							
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				</div>
+				</div>
+		
+			<div class="row"><div class="form-group">
+                 <!--Error Message-->
+                 <label id="msg" class="text-danger"></label>
+                 </div>	
+			</div>
+                        		
             </div>
+			
+			
             <div class="container">
                 <div class="row" style="margin-left:10px">
                     <input type="button" onclick="history.back()" class="btn btn-default " value="Back"></input>

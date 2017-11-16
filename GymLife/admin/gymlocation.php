@@ -98,19 +98,24 @@
                                         <tr>
                                             <th class="col-md-2">Location Name</th>
                                             <th class="col-md-6">Rooms</th>
-                                            <th class="col-md-2">Room Capacity</th>
+                                            <th class="col-md-2">Location Capacity</th>
                                             <!--<th class="col-md-2" data-sortable="false"><em class="fa fa-cog"></th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $record = DB::query("SELECT * FROM gyms");
+                                        $record = DB::query("SELECT * FROM gyms ORDER BY locationName");
 
-                                        foreach ($record as $row) {
+                                        foreach ($record as $locationRow) {
                                             echo "<tr>";
-                                            echo "<td>" . $row['locationName'] . "</td>";
-                                            echo "<td> todo: plan to retrieve out the rooms </td>";
-                                            echo "<td>" . $row['locationCapacity'] . "</td>";
+                                            echo "<td>" . $locationRow['locationName'] . "</td>";
+											$newRecord = DB::query("SELECT roomName FROM rooms WHERE locationID =%s", $locationRow['locationID']);
+											echo "<td>";
+											foreach ($newRecord as $roomRow) {
+												echo $roomRow['roomName'] ." | "; 
+											}
+											echo "</td>";
+											echo "<td>" . $locationRow['locationCapacity'] . "</td>";
                                             //echo "<td></td>";
                                             echo "</tr>";
                                         }

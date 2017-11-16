@@ -45,6 +45,7 @@
                     displayErrorMsg("Please fill in the \"Cost\" field.");
 
                 else {
+				
                     $.ajax({
                         url: "addTrainingDetailsProcess.php",
                         data: {'trainingType': trainingType, 'description': description, 'cost': cost},

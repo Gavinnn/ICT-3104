@@ -35,7 +35,7 @@ function initializeTraineeCalendar(trainingSessions){
 
                 // if event is group training, show group training modal
                 else if (event.color == "#0000B2" || event.color == "#FF0001"){
-                    $('#ModalGroupConfirm #sessionID').val(event.id);	// sessionID
+                    $('#ModalGroupConfirm #groupSessionID').val(event.id);	// sessionID
                     $('#ModalGroupConfirm #title').val(event.title);	// training title
                     $('#ModalGroupConfirm #trainerName').val(event.trainerName);	// trainer name
                     $('#ModalGroupConfirm #trainingType').val(event.trainingType);	// training category

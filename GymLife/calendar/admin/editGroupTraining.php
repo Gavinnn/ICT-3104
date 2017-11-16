@@ -4,11 +4,17 @@
 
 // connect to DB
 require_once('../../conn.php');
+include 'sendEmail.php';
 
 // DELETE
 // ensure all relevant fields are set
 if (isset($_POST['delete']) && isset($_POST['groupSessionID'])){
     $id = $_POST['groupSessionID'];
+	
+	//Query to select email
+	$record = DB::queryFirstRow("SELECT * FROM `groupsessions` INNER JOIN user ON groupsessions.trainerID = user.userID WHERE groupSessionID=%s", $id);
+	$email = $record["email"];
+    sendDeletionMail($email);
     
     // DELETE query
     $status = DB::query("DELETE FROM groupsessions WHERE groupSessionID = %d", $id);

@@ -1,5 +1,7 @@
 <?php
 
+    // TODO: To be deprecated. Need to ensure no other components is dependent on this before removal
+
     // desc: to check whether the training the Trainee has selected clashes with any of their existing trainings
 
     //Config for database

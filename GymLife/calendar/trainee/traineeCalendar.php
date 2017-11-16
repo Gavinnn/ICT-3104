@@ -58,6 +58,12 @@
         <!-- Timepicker -->
         <link href='../../asset/plugins/fullCalendar/css/jquery.timepicker.css' rel='stylesheet'/>
 
+        <!--SweetAlert-->
+        <link rel="stylesheet" href="../../asset/plugins/sweetalert-master/sweet-alert.css">
+
+		<!--SweetAlert-->
+        <script src="../../asset/plugins/sweetalert-master/sweet-alert.js"></script>
+
         <script src="../../asset/js/modernizrr.js"></script>
 
 
@@ -140,59 +146,120 @@
 
     <!-- Render HTML elements in modal depending on use case -->
     <script>
+
+        initModalHandlers();
+
+        //---------------------------------------------------------------------------------------
+        //  desc: initialize event handlers when modal (indiv/group) is shown or hidden
+        //---------------------------------------------------------------------------------------
+        function initModalHandlers(){
+            indivModalHandler();
+            groupModalHandler();
+        }
+
+        //---------------------------------------------------------------------------------------
+        //  desc: For the INDIVIDUAL modal, depending on whether Trainee has already booked that 
+        // training or when Trainee selects a training that clashes with an existing training,
+        //  pops up alert depending on the scenario mentioned
+        //---------------------------------------------------------------------------------------
+        function indivModalHandler(){
+
+            // event handler when INDIV modal is opened
+            $('#ModalIndivConfirm').on('shown.bs.modal', function () {
+
+                // if Trainee selects an indiv training that is already booked
+                if ($("#ModalIndivConfirm #confirmedTraineeID").val() != ""){
+                    $("#ModalIndivConfirm #confirmButtonIndiv").hide();
+                    swal("Alert", "Training is already booked!", "info");
+                }
+
+                // when Trainee selects an indiv training that clashes with any of their existing training (indiv || group)
+                else if (doesTrainingClash($("#ModalIndivConfirm #startTime").val())) {
+                    $("#ModalIndivConfirm #confirmButtonIndiv").hide();
+                    swal("Alert!", "Training clashes with existing training!", "error");
+                }
+            });
+
+            // event handler when INDIV modal is closed
+            $('#ModalIndivConfirm').on('hidden.bs.modal', function () {
+                $("#ModalIndivConfirm #confirmButtonIndiv").show();
+            }); 
+        }
+
+        //---------------------------------------------------------------------------------------
+        //  desc: For the GROUP modal, depending on whether Trainee has already booked that 
+        // training or when Trainee selects a training that clashes with an existing training,
+        //  pops up alert depending on the scenario mentioned
+        //---------------------------------------------------------------------------------------
+        function groupModalHandler(){
+
+            // event handler when GROUP modal is opened
+            $('#ModalGroupConfirm').on('shown.bs.modal', function (e) {
+
+                // if Trainee selects group training that is already booked
+                if (isGroupTrainingBooked()){
+                    $("#ModalGroupConfirm #confirmButtonGroup").hide();
+                    swal("Alert", "Training is already booked!", "info");
+                }
+
+                // when Trainee selects a group training that clashes with any of their existing training (indiv || group)
+                else if (doesTrainingClash($("#ModalGroupConfirm #startTime").val())) {
+                    $("#ModalGroupConfirm #confirmButtonGroup").hide();
+                    swal("Alert!", "Training clashes with existing training!", "error");
+                }
+            });
+
+            // event handler when group modal is closed
+            $('#ModalGroupConfirm').on('hidden.bs.modal', function () {
+                $("#ModalGroupConfirm #confirmButtonGroup").show();
+            }); 
+        }
+
         
-        // when modal is opened
-        $('#ModalIndivConfirm').on('shown.bs.modal', function () {
-            doesTrainingClash();
-        });
+        //---------------------------------------------------------------------------------------
+        // desc: to check whether the group training the Trainee has selected is already
+        // booked by the Trainee. If it is, return true. Else, return false.
+        // return: (boolean)
+        //---------------------------------------------------------------------------------------
+        function isGroupTrainingBooked(){
+            let groupEvents = <?php echo json_encode($groupUserEvents) ?>;
 
-        // when modal closes
-        $('#ModalIndivConfirm').on('hidden.bs.modal', function () {
+            // if any of the Trainee's group events consists of the groupSessionID, that 
+            // training is already booked by the Trainee
+            let filtered = groupEvents.filter((event) => {
+                return event.groupSessionID === $("#ModalGroupConfirm #groupSessionID").val();
+            });
 
-            // if traiing is already booked, show the confirm button again so it appears in other training modals
-            if ($("#ModalIndivConfirm #confirmedTraineeID").val() != ""){
-                $("#ModalIndivConfirm #confirmButton").show();
+            if (filtered.length === 0){
+                return false;
             }
-
-            // if alert is shown, hide it so it won't appear in other training modals
-            if ($("#ModalIndivConfirm #alert")){
-                $("#ModalIndivConfirm #alert").hide();
+            else{
+                return true;
             }
-        });
+        }
+
 
         //---------------------------------------------------------------------------------------
         // desc: to check whether the training the Trainee has selected clashes with any of 
-        // their existing trainings. If clashes, show alert and remove confirm button
+        // their existing trainings (indiv || grp) . If clashes, show return true. Else, return false
+        // params: startTime (String)
+        // return: (boolean)
         //---------------------------------------------------------------------------------------
-        function doesTrainingClash(){
+        function doesTrainingClash(startTime){
 
-            var traineeID = $("#ModalIndivConfirm #traineeID").val();
-            var startTime = $("#ModalIndivConfirm #startTime").val();
+            let userEvents = <?php echo json_encode($userEvents) ?>;
+            let groupEvents = <?php echo json_encode($groupUserEvents) ?>;
 
-            // ajax call to determine if there any clashes
-            $.ajax({
-                url: "doesTrainingClash.php",
-                data: {'traineeID' : traineeID, 'startTime': startTime},
-                type: 'POST',
-                async: false,
-                success: function (results) {
-
-                    // there is a clash...
-                    if (results == "true"){
-
-                        // the  training that was booked by the Trainee
-                        if ($("#ModalIndivConfirm #confirmedTraineeID").val() != ""){
-                            $("#ModalIndivConfirm #alert").hide();
-                            $("#ModalIndivConfirm #confirmButton").hide();
-                        }
-                        // the new training that the Trainee intends to book but clashes with a previos training
-                        else{
-                            $("#ModalIndivConfirm #alert").show();
-                            $("#ModalIndivConfirm #confirmButton").hide();
-                        }
-                    }
-                }
+            let filtered = userEvents.concat(groupEvents).filter((event) => {
+                return event.startSession === startTime;
             });
+
+            if (filtered.length === 0){
+                return false;
+            }
+            else{
+                return true;
+            }
         }
 
         //---------------------------------------------------------------------------------------

@@ -7,11 +7,6 @@
         <h4 class="modal-title" id="myModalLabel">Confirm Individual Training</h4>
         </div>
         <div class="modal-body" id="modal-body">
-
-        <div class="alert alert-warning" role="alert" style="display:none;" id="alert">
-            You already have a training in this time slot!
-        </div>
-
             <div class="form-group">
             <label for="title" class="col-sm-2 control-label">Training Title</label>
             <div class="col-sm-10">
@@ -84,7 +79,7 @@
         </div>
         <div class="modal-footer">
         <button type="button" id="closeButton" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="confirmButton" type="submit" class="btn btn-success">Confirm</button>
+        <button id="confirmButtonIndiv" type="submit" class="btn btn-success">Confirm</button>
         </div>
     </form>                    
     </div>

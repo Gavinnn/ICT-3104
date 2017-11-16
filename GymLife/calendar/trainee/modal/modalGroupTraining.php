@@ -85,7 +85,7 @@
         </div>
         <div class="modal-footer">
         <button type="button" id="closeButton" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="confirmButton" type="submit" class="btn btn-success">Confirm</button>
+        <button id="confirmButtonGroup" type="submit" class="btn btn-success">Confirm</button>
         </div>
     </form>                    
     </div>

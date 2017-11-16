@@ -112,7 +112,7 @@
                                             echo "<td>" . $row['description'] . "</td>";
                                             echo "<td>" . $row['cost'] . "</td>";
                                             echo "<td>";
-                                            echo "<button class='btn btn-warning' onclick=\"location.href ='editUser.php?id=" . $row['trainingID'] . "' \">Edit</button> &nbsp;";
+                                            echo "<button class='btn btn-warning' onclick=\"location.href ='editTraining.php?id=" . $row['trainingID'] . "' \">Edit</button> &nbsp;";
                                             echo "<button class='btn btn-danger' onclick='dlt(\"" . $row['trainingID'] . "\")'>Delete</button>";
                                             echo "</td>";
                                             echo "</tr>";

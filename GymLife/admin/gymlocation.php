@@ -96,9 +96,10 @@
                                 <table id="locations" class="table table-striped table-bordered table-list" width="100%">
                                     <thead>
                                         <tr>
-                                            <th class="col-md-2">Location Name</th>
-                                            <th class="col-md-6">Rooms</th>
+                                            <th class="col-md-3">Location Name</th>
+                                            <th class="col-md-5">Rooms</th>
                                             <th class="col-md-2">Location Capacity</th>
+											<th class="col-md-2" data-sortable="false"><em class="fa fa-cog"></th>
                                             <!--<th class="col-md-2" data-sortable="false"><em class="fa fa-cog"></th>-->
                                         </tr>
                                     </thead>
@@ -116,7 +117,9 @@
 											}
 											echo "</td>";
 											echo "<td>" . $locationRow['locationCapacity'] . "</td>";
-                                            //echo "<td></td>";
+											echo "<td>";
+											 echo "<button class='btn btn-warning' onclick=\"location.href ='editLocation.php?id=" . $locationRow['locationID'] . "' \">Edit</button> &nbsp;";
+                                           echo "<button class='btn btn-danger' onclick='dlt(\"" . $locationRow['locationID'] . "\")'>Delete</button></td>";
                                             echo "</tr>";
                                         }
                                         ?>

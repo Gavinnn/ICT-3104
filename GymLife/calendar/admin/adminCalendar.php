@@ -252,7 +252,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <div class="checkbox">
-                                            <label class="text-danger"><input type="checkbox"  name="delete"> Delete event</label>
+                                            <label id="dlt" class="text-danger"><input type="checkbox"  name="delete"> Delete event</label>
                                         </div>
                                     </div>
                                 </div>
@@ -262,7 +262,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button id="save" type="submit" class="btn btn-primary">Save changes</button>
                             </div>
                         </form>
                     </div>

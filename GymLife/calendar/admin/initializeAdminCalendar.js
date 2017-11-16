@@ -21,11 +21,16 @@ function initializeAdminCalendar(trainingSessions){
 				var current = new Date();
 				if(event.start<current.getTime())
 				{
-					//disable edit
+					//disable edit for individual
 					$('#ModalEditIndivTraining #title').prop('readonly', true);
 					$('#ModalEditIndivTraining #description').prop('readonly', true);
 					$('#ModalEditIndivTraining #save').hide();
 					$('#ModalEditIndivTraining #dlt').hide();
+					//disable edit for group
+					$('#ModalEditGroupTraining #title').prop('readonly', true);
+					$('#ModalEditGroupTraining #description').prop('readonly', true);
+					$('#ModalEditGroupTraining #save').hide();
+					$('#ModalEditGroupTraining #dlt').hide();
 				}
 				else
 				{
@@ -34,6 +39,11 @@ function initializeAdminCalendar(trainingSessions){
 					$('#ModalEditIndivTraining #description').prop('readonly', false);
 					$('#ModalEditIndivTraining #save').show();
 					$('#ModalEditIndivTraining #dlt').show();
+					//enable edit for group
+					$('#ModalEditGroupTraining #title').prop('readonly', false);
+					$('#ModalEditGroupTraining #description').prop('readonly', false);
+					$('#ModalEditGroupTraining #save').show();
+					$('#ModalEditGroupTraining #dlt').show();
 				}
                 // if event is individual training, show individual training modal
                 if (event.color == "#008000" || event.color == "#FF0000"){

@@ -1,6 +1,5 @@
 <?php
 require_once('../../session/session.php');
-// HARDCODED USER DATA
 $trainerID = $_SESSION['id'];
 
 include 'getTrainings.php';
@@ -11,9 +10,7 @@ $events = getTrainings($trainerID);
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><html lang="en" class="no-js"> <![endif]-->
 <html lang="en">
-
     <head>
-
         <!-- Basic -->
         <title>GymLife | Trainer Calendar</title>
 
@@ -224,7 +221,6 @@ $events = getTrainings($trainerID);
                                     </div>
                                 </div>
 
-
                                 <div class="form-group">
                                     <label for="traineeName" class="col-sm-2 control-label">Trainee Name</label>
                                     <div class="dropdown col-sm-6" style="padding-top:10px;">
@@ -263,7 +259,7 @@ $events = getTrainings($trainerID);
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
                                         <div class="checkbox">
-                                            <label class="text-danger"><input type="checkbox"  name="delete"> Delete event</label>
+                                            <label id="dlt" class="text-danger"><input type="checkbox"  name="delete"> Delete event</label>
                                         </div>
                                     </div>
                                 </div>
@@ -271,7 +267,7 @@ $events = getTrainings($trainerID);
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button id="save" type="submit" class="btn btn-primary">Save changes</button>
                             </div>
                         </form>
                     </div>

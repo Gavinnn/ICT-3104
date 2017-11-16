@@ -1,6 +1,10 @@
-function initializeTrainerCalendar(trainingSessions){
+function DateDiff(date1, date2) {
+    var datediff = date1 - date2; //store the getTime diff - or +
+    return (datediff / (24*60*60*1000) ); //Convert values to -/+ days and return value      
+}
 
-    
+
+function initializeTrainerCalendar(trainingSessions){
     // initialize calendar
     $('#calendar').fullCalendar({
         // define buttons at the header
@@ -49,7 +53,25 @@ function initializeTrainerCalendar(trainingSessions){
 
         // double click event handler
         eventRender: function(event, element) {
-            element.bind('dblclick', function() {
+            element.bind('click', function() {
+				//check if date is earlier than current date
+				var current = new Date();
+				if(DateDiff(event.start,current.getTime())<2)
+				{
+					//disable edit for individual
+					$('#ModalEdit #title').prop('readonly', true);
+					$('#ModalEdit #description').prop('readonly', true);
+					$('#ModalEdit #save').hide();
+					$('#ModalEdit #dlt').hide();
+				}
+				else
+				{
+					//enable edit
+					$('#ModalEdit #title').prop('readonly', false);
+					$('#ModalEdit #description').prop('readonly', false);
+					$('#ModalEdit #save').show();
+					$('#ModalEdit #dlt').show();
+				}
                if (event.color == "#008000" || event.color == "#FF0000"){
                     $('#ModalEdit #sessionID').val(event.id);	
                     $('#ModalEdit #title').val(event.title);

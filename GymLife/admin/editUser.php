@@ -57,7 +57,7 @@ $status = $record["status"];
             function check() {
                 var check = false;
                 var userid = $('#account').val();
-                var username = $('#username').val();
+                var username = $('#userName').val();
                 var name = $('#name').val();
                 var email = $('#email').val();
                 var contact = $('#contactNumber').val();
@@ -79,7 +79,7 @@ $status = $record["status"];
                         success: function (data) {
                             if (data == "success") {
                                 check = true;
-                                successModal("Updated Successfully", "editUser.php");
+                                successModal("Updated Successfully", "editUser.php?id=" + userid);
                             } else if (data == "email") {
                                 displayErrorMsg("The email has been used.");
                                 check = false;
@@ -155,7 +155,7 @@ $status = $record["status"];
 
                                 foreach ($record as $row) {
                                     echo "<option value = \"" . $row['statusID'] . "\"";
-                                    if ($role == $row['statusID']) {
+                                    if ($status == $row['statusID']) {
                                         echo "selected=\"selected\"";
                                     }
                                     echo ">" . $row['statusName'] . "</option>";
@@ -183,7 +183,7 @@ $status = $record["status"];
             <div class="row">
                 <div class="col-md-7">
                     <div class="copyright">
-                        Copyright © 2017. ICT3104 Software Management - Gym Booking System</a>
+                        Copyright ï¿½ 2017. ICT3104 Software Management - Gym Booking System</a>
                     </div>
                 </div>
             </div><!--/.row -->

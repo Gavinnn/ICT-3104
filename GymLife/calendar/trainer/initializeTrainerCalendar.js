@@ -16,7 +16,7 @@ function initializeTrainerCalendar(trainingSessions){
         defaultDate: new Date(),	// default date shown when calendar first loads
         eventLimit: true, // only show events that are constrained by the calendar day height
         selectable: true,	// user can create events
-        editable: true,	// user can drag and drop events to a different date
+        editable: false,	// user can drag and drop events to a different date
 
         // to select a period of time (start and end time)
         select: function(start, end) {

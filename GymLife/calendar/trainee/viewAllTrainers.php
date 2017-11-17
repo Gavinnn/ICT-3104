@@ -83,10 +83,17 @@
 			 }
 		</script>
 
+		<?php 
+			$traineeID = $_SESSION['id'];
+			$record = DB::query("SELECT * FROM user WHERE userID=%d",$traineeID);
+			foreach ($record as $row) {
+				$pTrainerID = $row['personalTrainerID'];
+			}
+		?>
+
     </head>
 
     <body>
-
         <!--Navigation Section-->
         <?php require_once('../../header.php'); ?>
 		<!-- Start Header Section -->
@@ -113,7 +120,7 @@
 					<table id="users" class="table table-striped table-bordered table-list" width="100%">
 						<thead>
 							<tr>
-								<th></th>
+								<th><td><input type="checkbox"><br></th>
 								<th>Name</th>
 								<th>Email</th>
 								<th data-sortable="false"><em class="fa fa-cog"></em></th>
@@ -121,17 +128,45 @@
 						</thead>
 						<tbody>
 							<?php
-							$record = DB::query("SELECT * FROM user WHERE status=%i AND roleID=%i",2,2);
-							foreach ($record as $row) {
-								echo "<tr>";
-								echo "<td><input type=\"checkbox\"  data-uid=\"" . $row['userID']. "\"><br></td>";
-								echo "<td>" . $row['name'] . "</td>";
-								echo "<td>" . $row['email'] . "</td>";
-								echo "<td>";
-								echo "<button class='btn btn-success' type=\"button\" onclick=\"location.href='getTrainerCalendar.php?id=".$row['userID']."';\"> View Calendar </button>";
-								echo "  <button class='btn ' type=\"button\"';\"> Personal Trainer </button>";
-								echo "</td>";
-								echo "</tr>";
+							if($pTrainerID == '0' ){
+								$record = DB::query("SELECT * FROM user WHERE status=%i AND roleID=%i",2,2);
+								foreach ($record as $row) {
+									echo "<tr>";
+									echo "<td><input type=\"checkbox\"  data-uid=\"" . $row['userID']. "\"><br></td>";
+									echo "<td>" . $row['name'] . "</td>";
+									echo "<td>" . $row['email'] . "</td>";
+									echo "<td>";
+									echo "<button class='btn btn-success' type=\"button\" onclick=\"location.href='getTrainerCalendar.php?id=".$row['userID']."';\"> View Calendar </button>";
+									echo "<button class='btn' type=\"button\" onclick=\"location.href='setPersonalTrainer.php?id=".$row['userID']."';\">Add Personal Trainer </button>";
+									echo "</td>";
+									echo "</tr>";
+								}
+							}else{
+								$record = DB::query("SELECT * FROM user WHERE userID=%d",$pTrainerID);
+								foreach ($record as $row) {
+									echo "<tr>";
+									echo "<td></td>";
+									echo "<td>" . $row['name'] . "</td>";
+									echo "<td>" . $row['email'] . "</td>";
+									echo "<td>";
+									echo "<button class='btn btn-success' type=\"button\" onclick=\"location.href='getTrainerCalendar.php?id=".$row['userID']."';\"> View Calendar </button>";
+									echo "<button class='btn' type=\"button\" onclick=\"location.href='removePersonalTrainer.php';\">Remove Personal Trainer </button>";
+									echo "</td>";
+									echo "</tr>";
+								}
+
+								$record = DB::query("SELECT * FROM user WHERE status=%i AND roleID=%i AND userID!=%d",2,2,$pTrainerID);
+								foreach ($record as $row) {
+									echo "<tr>";
+									echo "<td></td>";
+									echo "<td>" . $row['name'] . "</td>";
+									echo "<td>" . $row['email'] . "</td>";
+									echo "<td>";
+									echo "<button class='btn btn-success' type=\"button\" onclick=\"location.href='getTrainerCalendar.php?id=".$row['userID']."';\"> View Calendar </button>";
+									echo "</td>";
+									echo "</tr>";
+								}
+
 							}
 							?>
 						</tbody>

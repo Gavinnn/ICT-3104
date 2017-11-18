@@ -9,6 +9,12 @@ function sendDeletionMail($email) {
 	sendEmail($email, $emailContents->getDeleteEmailSubject(), $emailContents->getDeleteEmailBody());
 }
 
+function sendTraineeMail($email) {
+    $emailContents = new EmailContents();
+	sendEmail($email, $emailContents->getDeleteTraineeEmailSubject(), $emailContents->getDeleteTraineeEmailBody());
+}
+
+
 //----------------------------------------------------------------------------------------------------------------------
 // @desc: builds the PHPMailer configurations and send the email
 // @params: $email - email of user to be sent (String)
@@ -16,7 +22,7 @@ function sendDeletionMail($email) {
 //          $body - body contents of email (String)
 //----------------------------------------------------------------------------------------------------------------------
 function sendEmail($email, $subject, $body) {
-    require '../../asset/plugins/PHPMailer/PHPMailerAutoload.php';
+    require_once '../../asset/plugins/PHPMailer/PHPMailerAutoload.php';
     $mail = new PHPMailer;
 
 // SMTP configurations
@@ -48,12 +54,21 @@ function sendEmail($email, $subject, $body) {
 //----------------------------------------------------------------------------------------------------------------------
 class EmailContents {
 
-    // Group Training Deletion
+    // Group Training Deletion for Trainer
     public function getDeleteEmailSubject() {
         return 'GymLife Group Training Deletion';
     }
 
     public function getDeleteEmailBody() {
+        return 'Unfortunately, your group training session has been removed. Please contact us if you have any queries.';
+    }
+	
+	// Group Training Deletion for Trainee
+    public function getDeleteTraineeEmailSubject() {
+        return 'GymLife Group Training Removal';
+    }
+
+    public function getDeleteTraineeEmailBody() {
         return 'Unfortunately, your group training session has been removed. Please contact us if you have any queries.';
     }
 }

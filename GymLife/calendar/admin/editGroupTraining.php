@@ -11,10 +11,17 @@ include 'sendEmail.php';
 if (isset($_POST['delete']) && isset($_POST['groupSessionID'])){
     $id = $_POST['groupSessionID'];
 	
-	//Query to select email
+	//Query to select email to send to trainer
 	$record = DB::queryFirstRow("SELECT * FROM `groupsessions` INNER JOIN user ON groupsessions.trainerID = user.userID WHERE groupSessionID=%s", $id);
 	$email = $record["email"];
     sendDeletionMail($email);
+	
+	$record = DB::query("SELECT * FROM `traineegroupsession` INNER JOIN user ON traineegroupsession.traineeID = user.userID WHERE groupSessionID=%s", $id);
+	
+	foreach ($record as $row) {
+		$email = $row["email"];
+		sendTraineeMail($email);
+	}
     
     // DELETE query
     $status = DB::query("DELETE FROM groupsessions WHERE groupSessionID = %d", $id);

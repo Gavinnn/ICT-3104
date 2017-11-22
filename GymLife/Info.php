@@ -1,4 +1,3 @@
-<?php require_once('conn.php'); ?>
 <?php require_once('session/session.php'); ?>
 <!doctype html>
 <html lang="en">
@@ -38,28 +37,39 @@
         <script src="asset/js/modernizrr.js"></script>
     </head>
     <body>
-		<?php
-		$id = $_SESSION["id"];
-		$record = DB::queryFirstRow("SELECT * FROM user WHERE userID=%s", $id);
-		$change = $record["passwordChange"];
-		if($change==1)
-			echo '<script>swal("Welcome to GymLife!", "New user should change password upon first login!", "info");</script>';
-		?>
-		<!--Navigation Section-->
-		<?php require_once('header.php'); ?>
+        
+         <!--Navigation Section-->
+        <?php require_once('header.php'); ?>
+
         <!-- Start Header Section -->
-        <div class="banner">
+        <div class="page-header">
             <div class="overlay">
                 <div class="container">
-                    <div class="intro-text">
-                        <h1>Welcome To <span>GYM LIFE</span></h1>
-                        <p>Push beyond your limits to discover your true capabilities.</p>
-                        <a href="info.php" class="page-scroll btn btn-primary">Find Out More</a>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>View information</h1>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- End Header Section -->
+        
+          <!-- Start About Us Section -->
+        <section id="about-section" class="about-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title text-center wow fadeInDown" data-wow-duration="2s" data-wow-delay="50ms">
+                            <h2>About Us</h2>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        
+     
 		
        <!-- Sulfur JS File -->
         <script src="asset/js/jquery-migrate-1.2.1.min.js"></script>

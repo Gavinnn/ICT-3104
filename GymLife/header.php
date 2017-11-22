@@ -61,6 +61,19 @@
 					<li><a href="/<?php echo $path; ?>/admin/gymlocation.php">Gym Location</a></li>
                     
 					<?php } ?>
+                                        
+                                        <!--Content Management Section-->
+                                        <?php
+                                        if ($_SESSION['role'] == "admin") {
+                                            ?>
+                                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Content Management</a>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="/<?php echo $path; ?>/admin/content.php">View Content</a></li>
+                                                </ul> 
+                                            </li>
+                                        <?php } ?>
+
+                                        
                     <!--Profile Section-->
                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['name']; ?></a>
                         <ul class="dropdown-menu dropdown-menu-right">

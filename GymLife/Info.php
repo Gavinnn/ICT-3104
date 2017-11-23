@@ -1,3 +1,4 @@
+<?php require_once('conn.php'); ?>
 <?php require_once('session/session.php'); ?>
 <!doctype html>
 <html lang="en">
@@ -65,8 +66,52 @@
                         </div>                        
                     </div>
                 </div>
+                <div class="row">
+                    <?php
+                    $id = $_SESSION["id"];
+                    $record = DB::queryFirstRow("SELECT description FROM info");
+                    $description = $record["description"];
+                    echo "<p>$description</p>";
+                    ?>
+                </div>
             </div>
         </section>
+          
+             <!-- Start Service Section -->
+        <section id="service-section">
+            <div class="container">
+                <div class="col-md-3">
+                    <div class="services-post">
+                        <a href="#"><i class="fa fa-skyatlas"></i></a>
+                        <h2>Personal Training</h2>
+                        <p>Lose fat and keep it off for good. Specifically designed to tone up your entire body, boost your health and confidence.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="services-post">
+                        <a href="#"><i class="fa fa-magic"></i></a>
+                        <h2>Yoga Classes</h2>
+                        <p>Helps in detoxify, de-stress and boost one's energy for good health and vitality.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="services-post">
+                        <a href="#"><i class="fa fa-gift"></i></a>
+                        <h2>Group Training</h2>
+                        <p>Train with other members to build both a healthy lifestyle and relationships.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="services-post">
+                        <a href="#"><i class="fa fa-foursquare"></i></a>
+                        <h2>Crossfit Training</h2>
+                        <p>Varied high intensity functional movements to improve physical well-being and cardiovascular fitness.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start Service Section -->
         
         
      

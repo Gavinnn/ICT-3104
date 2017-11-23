@@ -3,13 +3,14 @@
 <?php
 //Query to select userid
 $id = $_GET['id'];
-$record = DB::queryFirstRow("SELECT * FROM gyms WHERE locationID=%s", $id);
+$record = DB::queryFirstRow("SELECT * FROM rooms WHERE roomID=%s", $id);
 
 if (!$record) {
     header('Location: index.php');
 }
-$locationName = $record["locationName"];
-$locationCapacity = $record["locationCapacity"];
+$roomName = $record["roomName"];
+$roomCapacity = $record["roomCapacity"];
+$roomID = $record["roomID"];
 
 ?>
 <!doctype html>
@@ -45,37 +46,20 @@ $locationCapacity = $record["locationCapacity"];
         <script src="../asset/js/custom.js"></script>
         <script>
 		var data = [];
-		var capArr = [];
-		
-		  function Remove(button) {
-            //Determine the reference of the Row using the Button.
-            var row = button.parentNode.parentNode;
-            var name = row.getElementsByTagName("TD")[0].innerHTML;
-            if (confirm("Do you want to delete: " + name)) {
- 
-                //Get the reference of the Table.
-                var table = document.getElementById("tblRooms");
-				
-                //Delete the Table row using it's Index.
-                table.deleteRow(row.rowIndex);
-				delete data[row.rowIndex];
-            }
-			}
-		
 		
             function check() {
                 var check = false;
-                var locationName = $('#locationName').val();
-                var locationCapacity = $('#locationCapacity').val();
-				var locationID = $('#account').val();
-                if (locationName == "" || locationName == null)
-                    displayErrorMsg("Please fill in the \"location name\" field.");
-                else if (locationCapacity == "" || locationCapacity == null)
-                    displayErrorMsg("Please fill in the \"capacity\" field.");
+                var roomName = $('#roomName').val();
+                var roomCapacity = $('#roomCapacity').val();
+				var roomID = $('#roomID').val();
+                if (roomName == "" || roomName == null)
+                    displayErrorMsg("Please fill in the \"room name\" field.");
+                else if (roomCapacity == "" || roomCapacity == null)
+                    displayErrorMsg("Please fill in the \"room capacity\" field.");
                 else {
                     $.ajax({
-                        url: "editLocationProcess.php",
-                        data: {'locationID': locationID, 'locationName': locationName, 'locationCapacity': locationCapacity},
+                        url: "editRoomProcess.php",
+                        data: {'roomID': roomID, 'roomName': roomName, 'roomCapacity': roomCapacity},
                         type: 'POST',
                         async: false,
                         success: function (data) {
@@ -83,10 +67,7 @@ $locationCapacity = $record["locationCapacity"];
                                 check = true;
                                 successModal("Updated Successfully", "gymlocation.php");
                             } 
-                        },
-						error: function (a,b,c) {
-							console.log(c);
-							}
+                        }
                     });
                 }//end else
 
@@ -104,7 +85,7 @@ $locationCapacity = $record["locationCapacity"];
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Edit Location Details</h1>
+                            <h1>Edit Room</h1>
                         </div>
                     </div>
                 </div>
@@ -115,15 +96,15 @@ $locationCapacity = $record["locationCapacity"];
         <section id="about-section" class="about-section">
            <div class="container">
                 <div class="row" style="margin-left:10px">
-                    <form action='editLocationProcess.php' method='post'  enctype='multipart/form-data' name='createreq-form' id='createreq-form'>
-						<input type="hidden" id="account" name="account" value="<?php print $id; ?>"/>					
+				<input type="hidden" id="roomID" name="roomID" value="<?php print $roomID; ?>"/>		
+                    <form action='editRoomProcess.php' method='post'  enctype='multipart/form-data' name='createreq-form' id='createreq-form'> 
                         <div class="form-group">
-                            <label class="control-label" for="textinput">Name of Location: </label>
-                            <input type="text" id="locationName" name="locationName" class="form-control input-md" value="<?php echo $locationName; ?>"/>
+                            <label class="control-label" for="textinput">Name of Room: </label>
+                            <input type="text" id="roomName" name="roomName" class="form-control input-md" value="<?php echo $roomName; ?>"/>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="textinput">Total Capacity:</label>
-                            <input type="text" id="locationCapacity" name="locationCapacity" class="form-control input-md" value="<?php echo $locationCapacity; ?>"/>
+                            <label class="control-label" for="textinput">Room Capacity:</label>
+                            <input type="text" id="roomCapacity" name="roomCapacity" class="form-control input-md" value="<?php echo $roomCapacity; ?>"/>
                         </div>
                 </div>
 				
@@ -138,9 +119,7 @@ $locationCapacity = $record["locationCapacity"];
             <div class="container">
                 <div class="row" style="margin-left:10px">
                     <input type="button" onclick="history.back()" class="btn btn-default " value="Back"></input>
-                    <button onClick="check();" type="button" class="btn btn-default">Save Changes</button></form>
-					 <?php echo "<button class='btn btn-warning' onclick=\"location.href ='viewRooms.php?id=" . $id . "' \">View Rooms</button> &nbsp;";?>
-					 
+                    <button onClick="check();" type="button" class="btn btn-default">Save</button></form>
                 </div>
             </div>
         </section>

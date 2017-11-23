@@ -1,16 +1,8 @@
 <?php require_once('../conn.php'); ?>
-<?php require_once('../session/adminSession.php'); ?>
-<?php
-//Query to select userid
+<?php require_once('../session/AdminSession.php'); 
+
 $id = $_GET['id'];
-$record = DB::queryFirstRow("SELECT * FROM gyms WHERE locationID=%s", $id);
-
-if (!$record) {
-    header('Location: index.php');
-}
-$locationName = $record["locationName"];
-$locationCapacity = $record["locationCapacity"];
-
+$locationID = DB::query("SELECT locationID FROM gyms WHERE locationID = (SELECT MAX(locationID) FROM gyms)"); 
 ?>
 <!doctype html>
 <html lang="en">
@@ -43,11 +35,20 @@ $locationCapacity = $record["locationCapacity"];
         <script src="../asset/plugins/sweetalert-master/sweet-alert.js"></script>
         <!--Custom Javascript-->
         <script src="../asset/js/custom.js"></script>
-        <script>
+        
+		<script type="text/javascript">
 		var data = [];
 		var capArr = [];
-		
-		  function Remove(button) {
+ 
+        function Add() {
+            var txtName = document.getElementById("txtName");
+			var txtCap = document.getElementById("txtCap");
+            AddRow(txtName.value, txtCap.value);
+            txtName.value = "";
+			txtCap.value = "";
+        };
+ 
+        function Remove(button) {
             //Determine the reference of the Row using the Button.
             var row = button.parentNode.parentNode;
             var name = row.getElementsByTagName("TD")[0].innerHTML;
@@ -60,51 +61,74 @@ $locationCapacity = $record["locationCapacity"];
                 table.deleteRow(row.rowIndex);
 				delete data[row.rowIndex];
             }
-			}
+        };
+ 
+        function AddRow(name, country) {
+            //Get the reference of the Table's TBODY element.
+            var tBody = document.getElementById("tblRooms").getElementsByTagName("TBODY")[0];
+ 
+			var name = $("#txtName").val();
+			var cap = $("#txtCap").val();
+			data.push( $("#txtName").val());
+			capArr.push( $("#txtCap").val());
+			
+            //Add Row.
+            row = tBody.insertRow(-1);
+ 
+            //Add Name cell.
+            var cell = row.insertCell(-1);
+            cell.innerHTML = name;
+			
+			//Add Capacity cell.
+            var cell = row.insertCell(-1);
+            cell.innerHTML = cap;
+ 
+            //Add Button cell.
+            cell = row.insertCell(-1);
+            var btnRemove = document.createElement("INPUT");
+            btnRemove.type = "button";
+			btnRemove.className = "btn btn-danger";
+            btnRemove.value = "Remove";
+            btnRemove.setAttribute("onclick", "Remove(this);");
+            cell.appendChild(btnRemove);
+        }
 		
-		
-            function check() {
+			 function check() {
                 var check = false;
-                var locationName = $('#locationName').val();
-                var locationCapacity = $('#locationCapacity').val();
-				var locationID = $('#account').val();
-                if (locationName == "" || locationName == null)
-                    displayErrorMsg("Please fill in the \"location name\" field.");
-                else if (locationCapacity == "" || locationCapacity == null)
-                    displayErrorMsg("Please fill in the \"capacity\" field.");
+				var locationID =  $('#locationID').val();
+                if (data.length == 0)
+					alert("Please enter at least 1 room.");
                 else {
                     $.ajax({
-                        url: "editLocationProcess.php",
-                        data: {'locationID': locationID, 'locationName': locationName, 'locationCapacity': locationCapacity},
+                        url: "addNewRoomProcess.php",
+                        data: {'locationID': locationID, arrData: data, arrCap: capArr},
                         type: 'POST',
                         async: false,
                         success: function (data) {
                             if (data == "success") {
                                 check = true;
-                                successModal("Updated Successfully", "gymlocation.php");
-                            } 
-                        },
-						error: function (a,b,c) {
-							console.log(c);
-							}
+                                successModal("Added Successfully", "gymlocation.php");
+                            }
+                        }
                     });
                 }//end else
 
                 return check;
             }
-        </script>  
+    </script>
+		
     </head>
     <body>
         <!--Navigation Section-->
-        <?php require_once('../header.php'); ?>
-
+        <?php require_once('../header.php');?>
+		
         <!-- Start Header Section -->
         <div class="page-header">
             <div class="overlay">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Edit Location Details</h1>
+                            <h1>Add Rooms</h1>
                         </div>
                     </div>
                 </div>
@@ -113,20 +137,36 @@ $locationCapacity = $record["locationCapacity"];
         <!-- End Header Section -->
         <!-- Start About Us Section -->
         <section id="about-section" class="about-section">
-           <div class="container">
+            <div class="container">
                 <div class="row" style="margin-left:10px">
-                    <form action='editLocationProcess.php' method='post'  enctype='multipart/form-data' name='createreq-form' id='createreq-form'>
-						<input type="hidden" id="account" name="account" value="<?php print $id; ?>"/>					
-                        <div class="form-group">
-                            <label class="control-label" for="textinput">Name of Location: </label>
-                            <input type="text" id="locationName" name="locationName" class="form-control input-md" value="<?php echo $locationName; ?>"/>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="textinput">Total Capacity:</label>
-                            <input type="text" id="locationCapacity" name="locationCapacity" class="form-control input-md" value="<?php echo $locationCapacity; ?>"/>
-                        </div>
+				<input type="hidden" id="locationID" name="locationID" value="<?php print $id; ?>"/>	
+                    <form action='addNewRoomProcess.php' method='post'  enctype='multipart/form-data' name='createreq-form' id='createreq-form'>
                 </div>
 				
+				<div class="container">
+				<div class="row col-md-5" style="padding-left: 10px;">
+				<table class="table table-striped table-bordered" id="tblRooms" border="1">
+					<thead>
+						<tr>
+							<th class="col-md-3">Room Name</th>
+							<th class="col-md-1">Room Capacity</th>
+							<th class="col-md-1">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td class="col-md-3"><div class="input-group"><input class="form-control" type="text" id="txtName"/> </div></td>
+							<td class="col-md-1"><div class="input-group"><input class="form-control" type="text" id="txtCap"/> </div></td>
+							<td class="col-md-1"><input type="button" class="btn btn-success" onclick="Add()"  value=" Add " />
+							
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				</div>
+				</div>
 		
 			<div class="row"><div class="form-group">
                  <!--Error Message-->
@@ -135,23 +175,23 @@ $locationCapacity = $record["locationCapacity"];
 			</div>
                         		
             </div>
+			
+			
             <div class="container">
                 <div class="row" style="margin-left:10px">
                     <input type="button" onclick="history.back()" class="btn btn-default " value="Back"></input>
-                    <button onClick="check();" type="button" class="btn btn-default">Save Changes</button></form>
-					 <?php echo "<button class='btn btn-warning' onclick=\"location.href ='viewRooms.php?id=" . $id . "' \">View Rooms</button> &nbsp;";?>
-					 
+                    <button onClick="check();" type="button" class="btn btn-default">Save</button>
                 </div>
             </div>
         </section>
-    
+    </form>
     <!-- Start Copyright Section -->
     <div id="copyright-section" class="copyright-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
                     <div class="copyright">
-                        Copyright © 2017. ICT3104 Software Management - Gym Booking System</a>
+                        Copyright Â© 2017. ICT3104 Software Management - Gym Booking System</a>
                     </div>
                 </div>
             </div><!--/.row -->

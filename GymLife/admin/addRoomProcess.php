@@ -7,7 +7,6 @@ $locationName = post("locationName");
 $capacity = post("capacity");
 $arrData = $_POST['arrData'];
 $arrCap = $_POST['arrCap'];
-var_dump($arrCap);
 
 //Query to select training type
 $record = DB::queryFirstRow("SELECT locationName FROM gyms WHERE locationName=%s", $locationName);
@@ -20,11 +19,11 @@ if ($record)
     echo "locationName";
 else {
     //add the record into db
-    /*$record = DB::insert('gyms', array(
+    $record = DB::insert('gyms', array(
                 'locationName' => $locationName,
                 'locationCapacity' => $capacity
     ));
-	*/
+	
 	//foreach($arrData as $d){
 		//foreach($arrCap as $e){
 		foreach (array_combine($arrData, $arrCap) as $data => $cap) {

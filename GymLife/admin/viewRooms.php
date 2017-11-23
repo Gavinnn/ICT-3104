@@ -1,4 +1,14 @@
-<?php include '../conn.php'; require_once('../session/adminSession.php');?>
+<?php include '../conn.php'; ?>
+<?php require_once('../session/adminSession.php'); ?>
+<?php
+//Query to select userid
+$id = $_GET['id'];
+$record = DB::queryFirstRow("SELECT * FROM rooms WHERE locationID=%s", $id);
+
+$roomID = $record["roomID"];
+$locationName = $record["roomName"];
+$capacity = $record["roomCapacity"];
+?>
 
 
 <!doctype html>
@@ -43,7 +53,7 @@
         <script src="../asset/js/modernizrr.js"></script>
         <script>
             $(document).ready(function () {
-                $('#locations').DataTable();
+                $('#rooms').DataTable();
             });
             function dlt(id)
             {
@@ -74,7 +84,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>View Gym Location</h1>
+                            <h1>View Rooms</h1>
                         </div>
                     </div>
                 </div>
@@ -85,8 +95,10 @@
         <section id="about-section" class="about-section">
             <div class="container">
                 <div class="row">
-				&nbsp;&nbsp;&nbsp;<button type="button" class="btn" onclick="location.href='addLocation.php'"><span class="glyphicon glyphicon-plus"></span>  Add Location</button>
-				<br><br>				   
+				<?php echo "&nbsp;&nbsp;&nbsp;<button class='btn' onclick=\"location.href ='addRoom.php?id=" . $id . "' \"> <span class='glyphicon glyphicon-plus'></span> Add Rooms</button> &nbsp;";
+				?>
+								
+								<br><br>					
 				<div class="col-md-12">
                         <div class="panel panel-default panel-table">
                             <div class="panel-heading">
@@ -96,30 +108,23 @@
                                 <table id="locations" class="table table-striped table-bordered table-list" width="100%">
                                     <thead>
                                         <tr>
-                                            <th class="col-md-3">Location Name</th>
-                                            <th class="col-md-5">Rooms</th>
-                                            <th class="col-md-2">Location Capacity</th>
+                                            <th class="col-md-3">Room Name</th>
+                                            <th class="col-md-2">Room Capacity</th>
 											<th class="col-md-2" data-sortable="false"><em class="fa fa-cog"></th>
-                                            <!--<th class="col-md-2" data-sortable="false"><em class="fa fa-cog"></th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $record = DB::query("SELECT * FROM gyms ORDER BY locationName");
+										$record = DB::query("SELECT * FROM rooms WHERE locationID = %s", $id);
 
-                                        foreach ($record as $locationRow) {
+                                        foreach ($record as $roomRow) {
                                             echo "<tr>";
-                                            echo "<td>" . $locationRow['locationName'] . "</td>";
-											$newRecord = DB::query("SELECT roomName FROM rooms WHERE locationID =%s", $locationRow['locationID']);
+                                            echo "<td>" . $roomRow['roomName'] . "</td>";
+											echo "<td>" . $roomRow['roomCapacity'] . "</td>";
 											echo "<td>";
-											foreach ($newRecord as $roomRow) {
-												echo $roomRow['roomName'] ." | "; 
-											}
-											echo "</td>";
-											echo "<td>" . $locationRow['locationCapacity'] . "</td>";
-											echo "<td>";
-											 echo "<button class='btn btn-warning' onclick=\"location.href ='editLocation.php?id=" . $locationRow['locationID'] . "' \">Edit</button> &nbsp;";
-                                            echo "</tr>";
+											echo "<button class='btn btn-warning' onclick=\"location.href ='editRoom.php?id=" . $roomID . "' \">Edit</button> &nbsp;";
+											echo "</td";
+											echo "</tr>";
                                         }
                                         ?>
                                     </tbody>

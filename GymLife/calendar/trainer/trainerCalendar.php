@@ -52,6 +52,12 @@ $events = getTrainings($trainerID);
         <!-- Datepicker -->
         <link rel="stylesheet" href="../../asset/plugins/fullCalendar/css/jquery-ui.css">
 
+        <!--SweetAlert-->
+        <link rel="stylesheet" href="../../asset/plugins/sweetalert-master/sweet-alert.css">
+
+		<!--SweetAlert-->
+        <script src="../../asset/plugins/sweetalert-master/sweet-alert.js"></script>
+
         <script src="../../asset/js/modernizrr.js"></script>
 
         <script>
@@ -100,7 +106,7 @@ $events = getTrainings($trainerID);
             <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form id="indvTrainingForm" class="form-horizontal" method="POST" action="addTraining.php" onsubmit = "return doesTrainingCoincides(this.id);">
+                        <form id="indvTrainingForm" class="form-horizontal" method="POST" action="addTraining.php" onsubmit = "return validateDateTime(this.id);">
 
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -378,41 +384,87 @@ $events = getTrainings($trainerID);
         <script src="../../asset/js/styleswitcher.js"></script>
 
         <script>
-            //---------------------------------------------------------------------------------------
-            // desc: send an AJAX request to check if the training coincides with any of the Trainer's
-            // existing training (group or individual). 
-            // If training coincides, shows alert. Else, carry on to add training
-            //---------------------------------------------------------------------------------------
-            function doesTrainingCoincides(formID){
 
-                var startDate, trainerID;
+            //---------------------------------------------------------------------------------------
+            // desc: to check whether the training the Trainer has decided to create clashes with any of 
+            // their existing trainings (indiv || grp) . If clashes, return true. Else, return false
+            // params: startDateTime (String)
+            // return: (boolean)
+            //---------------------------------------------------------------------------------------
+            function doesTrainingClash(startDateTime){
+
+                let trainerEvents = <?php echo json_encode($events) ?>;
+
+                let filtered = trainerEvents.filter((event) => {
+                    return event.startSession === startDateTime;
+                });
+
+                if (filtered.length === 0){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }
+
+            //---------------------------------------------------------------------------------------
+            // desc: For a given dateTimeString, determine its dateTime 30 mins before and after 
+            // and returns all three dateTime Strings in an array
+            // params: dateTimeString (string)
+            // returns: dateTimeStringArray (Array of Strings)
+            //---------------------------------------------------------------------------------------
+            function getTimingsToBeTested(dateTimeString){
+
+                // convert dateTimeString to Moment DateTime object 
+                let dateTimeObject = moment(dateTimeString, "YYYY-MM-DD HH:mm:ss");
+
+                // add and subtract 30 mins from the original time
+                let dateTimeObject30MinsBefore = moment(dateTimeObject).subtract(30, 'm').toDate();
+                let dateTimeObject30MinsAfter = moment(dateTimeObject).add(30, 'm').toDate();
+
+                // convert the before and after time into strings
+                var dateTimeBeforeString = moment(dateTimeObject30MinsBefore).format("YYYY-MM-DD HH:mm:ss");
+                var dateTimeAfterString = moment(dateTimeObject30MinsAfter).format("YYYY-MM-DD HH:mm:ss");
+
+                // place the times into an array
+                let dateTimeStringArray = [dateTimeBeforeString, dateTimeString, dateTimeAfterString]
+
+                return dateTimeStringArray;
+
+            }
+
+            //---------------------------------------------------------------------------------------
+            // desc: When Trainer submits an individual or group training, it retrieves the datetime
+            // and validate that datetime to ensure that the training does not clash with any
+            // of the Trainer's existing training
+            // params: formID (String)
+            // returns: success (boolean)
+            //---------------------------------------------------------------------------------------
+            function validateDateTime(formID){
+
+                var startDate;
                 var success = false;
 
                 // determine if added training was from the individual training form or group training form
+                // process the start time in a proper datetime string format
                 if(formID === "indvTrainingForm"){
                     startDate = $('#date').val() + " " + $('#startTime').val() + ":00";
-                    trainerID = $('#trainerID').val();
                 }
                 else if (formID === "grpTrainingForm") {
                     startDate = $('#datepickerAG').val() + " " + $('#startSessionAG').val() + ":00";
-                    trainerID = $('#trainerIdAG').val();
                 }
 
-                $.ajax({
-                    url: "doesTrainingCoincide.php",
-                    data: {'trainerID' : trainerID, 'startDate': startDate},
-                    type: 'POST',
-                    async: false,
-                    success: function (results) {
-                        if (results == "true") {
-                            alert("You already have a training at the same time slot. Please select another start time!")
-                        }
-                        else{
-                            success = true;
-                        }
-                    }
-                })
+                // retrieve the datetimes before and after 30 mins of the original date...
+                let dateTimeStringArray = getTimingsToBeTested(startDate);
 
+                // ensure that the current training does not clash with any of the Trainer's existing training
+                // check 30 mins before, original time, 30 mins after
+                if (!doesTrainingClash(dateTimeStringArray[0]) && !doesTrainingClash(dateTimeStringArray[1]) && !doesTrainingClash(dateTimeStringArray[2])){
+                    success = true;
+                }
+                else{
+                    swal("Alert!", "Training clashes with existing training!", "error");
+                }
                 return success;
             }
 

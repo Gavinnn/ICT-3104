@@ -12,7 +12,10 @@ if (isset($_POST['sessionID']) && isset($_POST['traineeID'])){
     $traineeID = $_POST['traineeID'];
     
 	// UPDATE query
-	$status = DB::query("UPDATE trainersessions SET  traineeID = %s WHERE sessionID = %d", $traineeID, $sessionID);
+    $status = DB::query("UPDATE trainersessions SET  traineeID = %s WHERE sessionID = %d", $traineeID, $sessionID);
+    
+    //Redirect to traineeCalendar page
+    header('Location: traineeCalendar.php');
 }
 
 // Confirm GROUP trainings
@@ -54,7 +57,4 @@ else if (isset($_POST['groupSessionID']) && isset($_POST['traineeID'])){
         }
        
     }
-
-//Redirect to traineeCalendar page
-// header('Location: traineeCalendar.php');
 ?>

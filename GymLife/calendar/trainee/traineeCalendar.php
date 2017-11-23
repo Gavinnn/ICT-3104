@@ -167,6 +167,9 @@
             // event handler when INDIV modal is opened
             $('#ModalIndivConfirm').on('shown.bs.modal', function () {
 
+                // retrieve the datetimes before and after 30 mins of the original date...
+                let dateTimeStringArray = getTimingsToBeTested($("#ModalIndivConfirm #startTime").val());
+
                 // if Trainee selects an indiv training that is already booked
                 if ($("#ModalIndivConfirm #confirmedTraineeID").val() != ""){
                     $("#ModalIndivConfirm #confirmButtonIndiv").hide();
@@ -174,7 +177,7 @@
                 }
 
                 // when Trainee selects an indiv training that clashes with any of their existing training (indiv || group)
-                else if (doesTrainingClash($("#ModalIndivConfirm #startTime").val())) {
+                else if (doesTrainingClash(dateTimeStringArray[0]) || doesTrainingClash(dateTimeStringArray[1]) || doesTrainingClash(dateTimeStringArray[2])) {
                     $("#ModalIndivConfirm #confirmButtonIndiv").hide();
                     swal("Alert!", "Training clashes with existing training!", "error");
                 }
@@ -196,6 +199,9 @@
             // event handler when GROUP modal is opened
             $('#ModalGroupConfirm').on('shown.bs.modal', function (e) {
 
+                // retrieve the datetimes before and after 30 mins of the original date...
+                let dateTimeStringArray = getTimingsToBeTested($("#ModalGroupConfirm #startTime").val());
+
                 // if Trainee selects group training that is already booked
                 if (isGroupTrainingBooked()){
                     $("#ModalGroupConfirm #confirmButtonGroup").hide();
@@ -203,7 +209,7 @@
                 }
 
                 // when Trainee selects a group training that clashes with any of their existing training (indiv || group)
-                else if (doesTrainingClash($("#ModalGroupConfirm #startTime").val())) {
+                else if (doesTrainingClash(dateTimeStringArray[0]) || doesTrainingClash(dateTimeStringArray[1]) || doesTrainingClash(dateTimeStringArray[2])) {
                     $("#ModalGroupConfirm #confirmButtonGroup").hide();
                     swal("Alert!", "Training clashes with existing training!", "error");
                 }
@@ -213,6 +219,32 @@
             $('#ModalGroupConfirm').on('hidden.bs.modal', function () {
                 $("#ModalGroupConfirm #confirmButtonGroup").show();
             }); 
+        }
+
+        //---------------------------------------------------------------------------------------
+        // desc: For a given dateTimeString, determine its dateTime 30 mins before and after 
+        // and returns all three dateTime Strings in an array
+        // params: dateTimeString (string)
+        // returns: dateTimeStringArray (Array of Strings)
+        //---------------------------------------------------------------------------------------
+        function getTimingsToBeTested(dateTimeString){
+
+            // convert dateTimeString to Moment DateTime object 
+            let dateTimeObject = moment(dateTimeString, "YYYY-MM-DD HH:mm:ss");
+
+            // add and subtract 30 mins from the original time
+            let dateTimeObject30MinsBefore = moment(dateTimeObject).subtract(30, 'm').toDate();
+            let dateTimeObject30MinsAfter = moment(dateTimeObject).add(30, 'm').toDate();
+
+            // convert the before and after time into strings
+            var dateTimeBeforeString = moment(dateTimeObject30MinsBefore).format("YYYY-MM-DD HH:mm:ss");
+            var dateTimeAfterString = moment(dateTimeObject30MinsAfter).format("YYYY-MM-DD HH:mm:ss");
+
+            // place the times into an array
+            let dateTimeStringArray = [dateTimeBeforeString, dateTimeString, dateTimeAfterString]
+
+            return dateTimeStringArray;
+
         }
 
         

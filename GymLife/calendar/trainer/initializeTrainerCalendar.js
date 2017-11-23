@@ -76,7 +76,7 @@ function initializeTrainerCalendar(trainingSessions){
                     $('#ModalEdit #sessionID').val(event.id);	
                     $('#ModalEdit #title').val(event.title);
                     $('#ModalEdit #traineeName').val(event.traineeName === null? "None" : event.traineeName);
-                    $('#ModalEdit #gym').val(event.locationName);
+                    $('#ModalEdit #gym').val(event.gym);
                     $('#ModalEdit #room').val(event.room);
                     $('#ModalEdit #startSession').val(event.start._i);
                     $('#ModalEdit #endSession').val(event.end._i);	
@@ -87,7 +87,7 @@ function initializeTrainerCalendar(trainingSessions){
                 else if (event.color == "#0000B2" || event.color == "#FF0001"){
                     $('#GroupModalEdit #sessionID').val(event.id);	// pump the id into the Edit modal
                     $('#GroupModalEdit #title').val(event.title);
-                    $('#GroupModalEdit #gym').val(event.locationName);
+                    $('#GroupModalEdit #gym').val(event.gym);
                     $('#GroupModalEdit #room').val(event.room);
                     $('#GroupModalEdit #maxCapacity').val(event.maxCapacity);
                     $('#GroupModalEdit #numberOfParticipants').val(event.numberOfParticipants);

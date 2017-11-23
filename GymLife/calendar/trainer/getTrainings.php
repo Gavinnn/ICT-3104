@@ -40,11 +40,12 @@
     function getGroupTrainings($trainerID){
 
         $record = DB::query(
-        "SELECT U.name, TR.trainingType, R.roomName, G.*
+        "SELECT U.name, TR.trainingType, R.roomName, GY.locationName, G.*
         FROM groupsessions G
         INNER JOIN USER U ON G.trainerID = U.userID
         INNER JOIN rooms R ON G.roomID = R.roomID
         INNER JOIN trainings TR ON G.trainingID = TR.trainingID
+        INNER JOIN gyms GY ON G.locationID = GY.locationID
         WHERE G.sessionStatus = 2
         AND G.trainerID = %d", $trainerID);
 

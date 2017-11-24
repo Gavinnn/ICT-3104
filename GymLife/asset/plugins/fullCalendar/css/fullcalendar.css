@@ -1126,3 +1126,24 @@ be a descendant of the grid when it is being dragged.
 .fc-past {
     background-color: lightgrey;
 }
+
+/*  calendar legend */
+.legend_item{    
+	border:5px solid white;
+}
+.indivTraining{
+	background-color:#008000;
+}
+.groupTraining{
+	background-color:#0000B2;
+}
+.traineeTraining{
+	background-color:#FF0000;
+}
+.tableLegend{
+	width: 50%;
+	max-width: 50%;
+}
+.tdLegend{
+	width: 5%;
+}

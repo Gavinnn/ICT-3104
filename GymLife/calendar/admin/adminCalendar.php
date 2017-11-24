@@ -69,8 +69,23 @@
             </div>
         </div>
         <!-- End Header Section -->
-        
+
         <div class="container">
+
+            <!-- Legend Calendar -->
+            <div class="row">
+                <h2>Calendar Legend</h2>
+                    <table class="tableLegend">
+                        <tbody>
+                        <tr>
+                        <td class="legend_item indivTraining tdLegend"></td><td>Individual Training</td>
+                        <td class="legend_item groupTraining tdLegend"></td><td>Group Training</td>
+                        <td class="legend_item traineeTraining tdLegend"></td><td>Full Trainings</td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+
             <div class="row">
                 <div class="col-lg-12 text-center">
                 <br>

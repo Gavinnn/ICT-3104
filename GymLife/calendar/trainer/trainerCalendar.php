@@ -90,11 +90,25 @@ $events = getTrainings($trainerID);
         <div id='alert'></div>
 
         <div class="container">
+
+            <!-- Legend Calendar -->
+            <div class="row">
+                <h2>Calendar Legend</h2>
+                    <table class="tableLegend">
+                        <tbody>
+                        <tr>
+                        <td class="legend_item indivTraining tdLegend"></td><td>Individual Training</td>
+                        <td class="legend_item groupTraining tdLegend"></td><td>Group Training</td>
+                        <td class="legend_item traineeTraining tdLegend"></td><td>Full Trainings</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+            </div>
+
             <div class="row">
                 <button class="btn btn-success btn-lg" type="button" data-toggle="modal" data-target="#GroupModalAdd">Add Group Training</button>
                 <div class="col-lg-12 text-center">
-                    <br>
-                    <br>
                     <br>
                     <div id="calendar" class="col-centered">
                     </div>

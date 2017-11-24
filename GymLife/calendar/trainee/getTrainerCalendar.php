@@ -4,11 +4,22 @@
     include 'getTrainerTrainings.php';
 	
 	$traineeID = $_SESSION['id'];
+	$record = DB::query("SELECT * FROM user WHERE userID=%d",$traineeID);
+	foreach ($record as $row) {
+		$pTrainerID = $row['personalTrainerID'];
+	}
+
 	$getids = $_GET['id'];
 	$allids = explode( ',', $getids );
 	$allEvents = []; //Array to hold all events
 	$eventforsingletrainer; //Array to get events of single trainer
-	
+	$pTrainerBool = true;
+
+	if(count($allids)==1){
+		if($pTrainerID != $allids[0]){
+			$pTrainerBool = false;
+		}
+	}
 	
 	for($i=0; $i<count($allids); $i++){
 	  $eventforsingletrainer = [];
@@ -106,11 +117,14 @@
 
     </div>
 
-	 <!-- Confirm Individual Training Modal -->
-        <?php require_once('./modal/modalIndivTraining.php'); ?>
-
-        <!-- Confirm Group Training Modal -->
-        <?php require_once('./modal/modalGroupTraining.php'); ?>
+    <?php 
+		if($pTrainerBool == true){
+			//Confirm Group Training Modal
+			require_once('./modal/modalGroupTraining.php');
+			//Confirm Individual Training Modal
+			require_once('./modal/modalIndivTraining.php');
+		}
+	?>
 
         <!-- jQuery Version 1.11.1 -->
     <script src="../../asset/plugins/fullCalendar/js/jquery.js"></script>

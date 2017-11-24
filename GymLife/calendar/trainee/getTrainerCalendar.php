@@ -14,9 +14,10 @@
 	  $eventforsingletrainer = [];
 	  $eventforsingletrainer = getTrainings($allids[$i]);
 	  $allEvents = array_merge($allEvents,$eventforsingletrainer);
-	}
-	
-
+    }
+    
+    // REMOVE ANY DUPLICATE TRAININGS IF ANY
+    $allEvents = array_unique($allEvents, SORT_REGULAR);
 ?>
 <!doctype html>
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
@@ -197,67 +198,6 @@
                 }
             });
         }
-
-        //---------------------------------------------------------------------------------------
-        // desc: retrieve indiv. trainings that the trainee has only booked and display on calendar
-        //---------------------------------------------------------------------------------------
-        function viewOnlyUserIndivTrainings(){
-
-            // clear calendar
-            $('#calendar').fullCalendar('removeEvents');    
-
-            // add trainee-only trainings to calendar
-            $('#calendar').fullCalendar('addEventSource',            
-                <?php echo json_encode($userEvents) ?>.map(function(oneTraining) {
-
-                return {
-                    id: oneTraining.sessionID,
-                    title: oneTraining.title,
-                    trainerName: oneTraining.trainerName,
-                    trainingType: oneTraining.trainingType,
-                    cost: oneTraining.cost,
-                    start: oneTraining.startSession,
-                    end: oneTraining.endSession,
-                    locationName: oneTraining.locationName,
-                    roomName: oneTraining.roomName,
-                    description: oneTraining.description,
-                    color:oneTraining.color,
-                    traineeID: oneTraining.traineeID
-                    };
-                })    
-            );
-        }
-        
-         //---------------------------------------------------------------------------------------
-        // desc: retrieve group. trainings that the trainee has only booked and display on calendar
-        //---------------------------------------------------------------------------------------
-        function viewOnlyUserGroupTrainings(){
-
-            // clear calendar
-            $('#calendar').fullCalendar('removeEvents');    
-
-            // add trainee-only trainings to calendar
-            $('#calendar').fullCalendar('addEventSource',            
-                <?php echo json_encode($groupUserEvents) ?>.map(function(oneTraining) {
-
-                return {
-                        id: oneTraining.groupSessionID,
-                        title: oneTraining.title,
-                        trainerName: oneTraining.trainerName,
-                        trainingType: oneTraining.trainingType,
-                        cost: oneTraining.cost,
-                        room: oneTraining.roomName,
-                        locationName: oneTraining.locationName,
-                        numberOfParticipants: oneTraining.numberOfParticipants,
-                        start: oneTraining.startSession,
-                        end: oneTraining.endSession,
-                        maxCapacity: oneTraining.maxCapacity,
-                        color:oneTraining.color
-                    };
-                })    
-            );
-        }
-        
     </script>
         </body>
 </html>

@@ -120,7 +120,7 @@
 					<table id="users" class="table table-striped table-bordered table-list" width="100%">
 						<thead>
 							<tr>
-								<th><input type="checkbox"></th>
+								<th>Select</th>
 								<th>Name</th>
 								<th>Email</th>
 								<th>Actions</th>

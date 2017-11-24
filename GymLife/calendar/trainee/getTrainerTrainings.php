@@ -33,10 +33,10 @@
     }
 
     //---------------------------------------------------------------------------------------
-    // desc: retrieve all GROUP trainings that are (available AND are equal to 
-    // or beyond the current date) OR the group trainings that the Trainer has requested
+    // desc: retrieve all the Trainer's GROUP trainings that are (available AND are equal to 
+    // or beyond the current date) 
     // returns: $record (array)
-    //---------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------
     function getGroupTrainings($trainerID){
 	
         $record = DB::query(
@@ -48,8 +48,8 @@
         INNER JOIN trainings TR ON G.trainingID = TR.trainingID
         LEFT JOIN traineegroupsession TGR ON G.groupSessionID = TGR.groupSessionID
         LEFT JOIN user U2 ON TGR.traineeID = U2.userID
-        WHERE G.trainerID = %d
-		GROUP BY G.groupSessionID", $trainerID
+        WHERE (G.trainerID = %d AND G.startSession >= %s AND G.numberOfParticipants < G.maxCapacity)
+		GROUP BY G.groupSessionID", $trainerID, date("Y/m/d")
         );
         return buildRecord($record);
     }

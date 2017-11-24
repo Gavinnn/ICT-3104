@@ -75,6 +75,7 @@ function initializeAdminCalendar(trainingSessions){
                     $('#ModalEditGroupTraining #traineeName').val(event.traineeName === null? "None" : event.traineeName);
                     $('#ModalEditGroupTraining #trainingCategory').val(event.trainingCategory);
                     $('#ModalEditGroupTraining #numberOfParticipants').val(event.numberOfParticipants);
+                    $('#ModalEditGroupTraining #maxCapacity').val(event.maxCapacity);
                     $('#ModalEditGroupTraining #room').val(event.room);
                     $('#ModalEditGroupTraining #startSession').val(event.start._i);
                     $('#ModalEditGroupTraining #endSession').val(event.end._i);	

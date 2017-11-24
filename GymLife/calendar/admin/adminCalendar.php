@@ -216,16 +216,11 @@
                                     </div>
                                 </div>
 
-								 <div class="form-group">
-                                    <label for="traineeName" class="col-sm-2 control-label">Trainee Name</label>
-									<?php
-									$record = DB::query("select name from groupsessions gs inner join traineegroupsession tr on gs.groupSessionID = tr.groupSessionID inner join user u on u.userID = tr.traineeID");
-									
-									 foreach ($record as $row) {
-                                            echo "&nbsp; &nbsp; &nbsp;" . $row['name'] . "<br>" ;
-                                        }
-                                     ?>
-									
+                                <div class="form-group">
+                                    <label for="maxCapacity" class="col-sm-2 control-label">Max Capacity</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" id="maxCapacity" name="maxCapacity" class="form-control" readonly required>
+                                    </div>
                                 </div>
 								
                                 <div class="form-group">

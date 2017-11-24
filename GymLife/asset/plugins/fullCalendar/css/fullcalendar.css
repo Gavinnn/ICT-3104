@@ -4,7 +4,6 @@
  * (c) 2015 Adam Shaw
  */
 
-
 .fc {
 	direction: ltr;
 	text-align: left;
@@ -1121,4 +1120,9 @@ be a descendant of the grid when it is being dragged.
 	border-width: 5px 6px 5px 0;
 	border-top-color: transparent;
 	border-bottom-color: transparent;
+}
+
+/* Grey out past dates */
+.fc-past {
+    background-color: lightgrey;
 }

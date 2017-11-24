@@ -120,10 +120,10 @@
 					<table id="users" class="table table-striped table-bordered table-list" width="100%">
 						<thead>
 							<tr>
-								<th><td><input type="checkbox"><br></th>
+								<th><input type="checkbox"></th>
 								<th>Name</th>
 								<th>Email</th>
-								<th data-sortable="false"><em class="fa fa-cog"></em></th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -187,7 +187,7 @@
                 <div class="row">
                     <div class="col-md-7">
                         <div class="copyright">
-                            Copyright © 2017. ICT3104 Software Management - Gym Booking System</a>
+                            Copyright ï¿½ 2017. ICT3104 Software Management - Gym Booking System</a>
                         </div>
                     </div>
                 </div><!--/.row -->

@@ -7,6 +7,11 @@
     $events = getTrainings($traineeID);
     $userEvents = getUserTrainings($traineeID);
     $groupUserEvents = getGroupUserTrainings($traineeID);
+
+    // get personalTrainerID
+    require_once('../../conn.php');
+    $result = DB::query("SELECT personalTrainerID FROM user WHERE userID = %d", $traineeID);
+    $personalTrainerID = $result[0]["personalTrainerID"];
 ?>
 
 <!doctype html>
@@ -167,6 +172,8 @@
             // event handler when INDIV modal is opened
             $('#ModalIndivConfirm').on('shown.bs.modal', function () {
 
+                let personalTrainerID = <?php echo $personalTrainerID  ?>;
+
                 // retrieve the datetimes before and after 30 mins of the original date...
                 let dateTimeStringArray = getTimingsToBeTested($("#ModalIndivConfirm #startTime").val());
 
@@ -180,6 +187,16 @@
                 else if (doesTrainingClash(dateTimeStringArray[0]) || doesTrainingClash(dateTimeStringArray[1]) || doesTrainingClash(dateTimeStringArray[2])) {
                     $("#ModalIndivConfirm #confirmButtonIndiv").hide();
                     swal("Alert!", "Training clashes with existing training!", "error");
+                }
+
+                // if Trainee has a personal Trainer
+                else if (personalTrainerID != "0"){
+
+                    // if the selected training is not from the Trainee's personal Trainer
+                    if (!isTrainingByThePersonalTrainer("indiv", $("#ModalIndivConfirm #sessionID").val(), personalTrainerID)){
+                        $("#ModalIndivConfirm #confirmButtonIndiv").hide();
+                        swal("Alert!", "This training is not from your personal trainer!", "error");
+                    }
                 }
             });
 
@@ -199,6 +216,8 @@
             // event handler when GROUP modal is opened
             $('#ModalGroupConfirm').on('shown.bs.modal', function (e) {
 
+                let personalTrainerID = <?php echo $personalTrainerID  ?>;
+
                 // retrieve the datetimes before and after 30 mins of the original date...
                 let dateTimeStringArray = getTimingsToBeTested($("#ModalGroupConfirm #startTime").val());
 
@@ -212,6 +231,17 @@
                 else if (doesTrainingClash(dateTimeStringArray[0]) || doesTrainingClash(dateTimeStringArray[1]) || doesTrainingClash(dateTimeStringArray[2])) {
                     $("#ModalGroupConfirm #confirmButtonGroup").hide();
                     swal("Alert!", "Training clashes with existing training!", "error");
+                }
+
+                
+                // if Trainee has a personal Trainer
+                else if (personalTrainerID != "0"){
+
+                    // if the selected training is not from the Trainee's personal Trainer
+                    if (!isTrainingByThePersonalTrainer("grp", $("#ModalGroupConfirm #groupSessionID").val(), personalTrainerID)){
+                        $("#ModalGroupConfirm #confirmButtonGroup").hide();
+                        swal("Alert!", "This training is not from your personal trainer!", "error");
+                    }
                 }
             });
 
@@ -247,6 +277,41 @@
 
         }
 
+        //---------------------------------------------------------------------------------------
+        // desc: Determine if the selected is training is from the Trainee's personal Trainer
+        // params: training (string), trainingID (String), personalTrainerID (int)
+        // returns: boolean 
+        //---------------------------------------------------------------------------------------
+        function isTrainingByThePersonalTrainer(training, trainingID ,personalTrainerID){
+
+            let events = <?php echo json_encode($events) ?>;
+
+            // retrieve the training based on its trainingID
+            let filtered = events.filter((event) => {
+                // determine if training is indiv or group training
+                if (training === "indiv"){
+                    return event.sessionID === trainingID
+                }
+                else if (training === "grp"){
+                    return event.groupSessionID === trainingID;
+                }  
+            });
+
+            if (filtered.length > 0){
+                // since the Training is from the personal Trainer, return true
+                if (filtered[0].trainerID == personalTrainerID){
+                    return true;
+                }
+
+                // since the Training is not from the personal Trainer, return false
+                else {
+                    return false;
+                }
+            }
+
+            // return false if training can't be found
+            return false;
+        }
         
         //---------------------------------------------------------------------------------------
         // desc: to check whether the group training the Trainee has selected is already

@@ -4,7 +4,7 @@
 
 //Retrieve the info
 $locationName = post("locationName");
-$capacity = post("capacity");
+$locationAddress = post("locationAddress");
 $arrData = $_POST['arrData'];
 $arrCap = $_POST['arrCap'];
 
@@ -21,7 +21,7 @@ else {
     //add the record into db
     $record = DB::insert('gyms', array(
                 'locationName' => $locationName,
-                'locationCapacity' => $capacity
+                'locationAddress' => $locationAddress
     ));
 	
 	//foreach($arrData as $d){

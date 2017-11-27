@@ -9,7 +9,7 @@ if (!$record) {
     header('Location: index.php');
 }
 $locationName = $record["locationName"];
-$locationCapacity = $record["locationCapacity"];
+$locationAddress = $record["locationAddress"];
 
 ?>
 <!doctype html>
@@ -122,8 +122,8 @@ $locationCapacity = $record["locationCapacity"];
                             <input type="text" id="locationName" name="locationName" class="form-control input-md" value="<?php echo $locationName; ?>"/>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="textinput">Total Capacity:</label>
-                            <input type="text" id="locationCapacity" name="locationCapacity" class="form-control input-md" value="<?php echo $locationCapacity; ?>"/>
+                            <label class="control-label" for="textinput">Address of Gym:</label>
+                            <input type="text" id="locationCapacity" name="locationCapacity" class="form-control input-md" value="<?php echo $locationAddress; ?>"/>
                         </div>
                 </div>
 				

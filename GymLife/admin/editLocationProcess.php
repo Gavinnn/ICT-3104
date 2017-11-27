@@ -15,7 +15,7 @@ $record = DB::queryFirstRow("SELECT locationName FROM gyms WHERE locationID=%s",
 if ($record) {
     $record = DB::update('gyms', array(
                 'locationName' => $locationName,
-                'locationCapacity' => $locationCapacity
+                'locationAddress' => $locationCapacity
                     ), "locationID=%s", $locationID);
 					
 	echo "success";		

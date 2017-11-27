@@ -97,9 +97,9 @@
                                     <thead>
                                         <tr>
                                             <th class="col-md-3">Location Name</th>
-                                            <th class="col-md-5">Rooms</th>
-                                            <th class="col-md-2">Location Capacity</th>
-											<th class="col-md-2" data-sortable="false"><em class="fa fa-cog"></th>
+                                            <th class="col-md-4">Rooms</th>
+                                            <th class="col-md-4">Address</th>
+											<th class="col-md-1" data-sortable="false"><em class="fa fa-cog"></th>
                                             <!--<th class="col-md-2" data-sortable="false"><em class="fa fa-cog"></th>-->
                                         </tr>
                                     </thead>
@@ -116,7 +116,7 @@
 												echo $roomRow['roomName'] ." | "; 
 											}
 											echo "</td>";
-											echo "<td>" . $locationRow['locationCapacity'] . "</td>";
+											echo "<td>" . $locationRow['locationAddress'] . "</td>";
 											echo "<td>";
 											 echo "<button class='btn btn-warning' onclick=\"location.href ='editLocation.php?id=" . $locationRow['locationID'] . "' \">Edit</button> &nbsp;";
                                             echo "</tr>";

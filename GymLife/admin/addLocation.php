@@ -92,17 +92,17 @@
 			 function check() {
                 var check = false;
                 var locationName = $('#locationName').val();
-                var capacity = $('#capacity').val();
+                var locationAddress = $('#locationAddress').val();
                 if (locationName == "" || locationName == null)
                     displayErrorMsg("Please fill in the \"Name of Location\" field.");
-                else if (capacity == "" || capacity == null)
-                    displayErrorMsg("Please fill in the \"Capacity\" field.");
+                else if (locationAddress == "" || locationAddress == null)
+                    displayErrorMsg("Please fill in the \"address\" field.");
                 else if(data.length == 0)
 					alert("Please enter at least 1 room.");
                 else {
                     $.ajax({
                         url: "addRoomProcess.php",
-                        data: {'locationName': locationName, 'capacity': capacity, arrData: data, arrCap: capArr},
+                        data: {'locationName': locationName, 'locationAddress': locationAddress, arrData: data, arrCap: capArr},
                         type: 'POST',
                         async: false,
                         success: function (data) {
@@ -151,8 +151,8 @@
                             <input type="text" id="locationName" name="locationName" class="form-control input-md"/>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="textinput">Total Capacity:</label>
-                            <input type="text" id="capacity" name="capacity" class="form-control input-md"/>
+                            <label class="control-label" for="textinput">Address of Gym:</label>
+                            <input type="text" id="locationAddress" name="locationAddress" class="form-control input-md"/>
                         </div>
                 </div>
 				

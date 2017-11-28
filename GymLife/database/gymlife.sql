@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2017 at 09:19 AM
--- Server version: 5.6.20
--- PHP Version: 5.5.15
+-- Generation Time: Nov 28, 2017 at 04:53 PM
+-- Server version: 5.6.21
+-- PHP Version: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `groupsessions` (
   `maxCapacity` int(11) NOT NULL,
   `sessionStatus` int(11) NOT NULL,
   `locationID` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `groupsessions`
@@ -57,7 +57,7 @@ INSERT INTO `groupsessions` (`groupSessionID`, `trainerID`, `trainingID`, `title
 CREATE TABLE IF NOT EXISTS `groupsessionstatus` (
 `statusID` int(11) NOT NULL,
   `statusName` varchar(255) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `groupsessionstatus`
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `gyms` (
   `locationName` varchar(255) NOT NULL,
   `locationCapacity` int(11) NOT NULL,
   `locationAddress` varchar(255) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `gyms`
@@ -95,13 +95,31 @@ INSERT INTO `gyms` (`locationID`, `locationName`, `locationCapacity`, `locationA
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `info`
+--
+
+CREATE TABLE IF NOT EXISTS `info` (
+`info_ID` int(11) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `info`
+--
+
+INSERT INTO `info` (`info_ID`, `description`) VALUES
+(1, 'This is our website');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roles`
 --
 
 CREATE TABLE IF NOT EXISTS `roles` (
 `roleID` int(11) NOT NULL,
   `roleName` varchar(255) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `roles`
@@ -123,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `locationID` int(11) NOT NULL,
   `roomName` varchar(255) NOT NULL,
   `roomCapacity` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rooms`
@@ -153,7 +171,7 @@ INSERT INTO `rooms` (`roomID`, `locationID`, `roomName`, `roomCapacity`) VALUES
 CREATE TABLE IF NOT EXISTS `status` (
 `statusID` int(11) NOT NULL,
   `statusName` varchar(255) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `status`
@@ -201,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `trainersessions` (
   `roomID` int(11) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `trainingID` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `trainersessions`
@@ -226,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `trainings` (
   `trainingType` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `cost` double NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `trainings`
@@ -252,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) NOT NULL,
   `status` int(11) NOT NULL,
   `passwordChange` bit(1) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -286,6 +304,12 @@ ALTER TABLE `groupsessionstatus`
 --
 ALTER TABLE `gyms`
  ADD PRIMARY KEY (`locationID`);
+
+--
+-- Indexes for table `info`
+--
+ALTER TABLE `info`
+ ADD PRIMARY KEY (`info_ID`);
 
 --
 -- Indexes for table `roles`
@@ -348,6 +372,11 @@ MODIFY `statusID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 ALTER TABLE `gyms`
 MODIFY `locationID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `info`
+--
+ALTER TABLE `info`
+MODIFY `info_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `roles`
 --

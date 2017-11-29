@@ -71,49 +71,165 @@
                     $id = $_SESSION["id"];
                     $record = DB::queryFirstRow("SELECT description FROM info");
                     $description = $record["description"];
-                    echo "<p>$description</p>";
+                    echo "<h3>$description</h3>";
                     ?>
                 </div>
+                
+                        <div class="about-list">
+                            <h4>What do we provide?</h4>
+                            <ul>
+                                <li><i class="fa fa-check-square"></i>Top notch trainers.</li> 
+                                <li><i class="fa fa-check-square"></i>Training services variety.</li>
+                                 <li><i class="fa fa-check-square"></i>Accessible gym locations.</li>
+                                <li><i class="fa fa-check-square"></i>Helpful training tips.</li>
+                            </ul>
+                        </div>
             </div>
         </section>
           
-             <!-- Start Service Section -->
+             <!-- Start Trainers bio Section -->
         <section id="service-section">
             <div class="container">
-                <div class="col-md-3">
-                    <div class="services-post">
-                        <a href="#"><i class="fa fa-skyatlas"></i></a>
-                        <h2>Personal Training</h2>
-                        <p>Lose fat and keep it off for good. Specifically designed to tone up your entire body, boost your health and confidence.</p>
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title text-center wow fadeInDown" data-wow-duration="2s" data-wow-delay="50ms">
+                            <h2>Our Trainers</h2>
+                        </div>                        
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="services-post">
-                        <a href="#"><i class="fa fa-magic"></i></a>
-                        <h2>Yoga Classes</h2>
-                        <p>Helps in detoxify, de-stress and boost one's energy for good health and vitality.</p>
+                  <?php
+                $record = DB::query("SELECT name FROM user WHERE roleID = 2");
+                foreach ($record as $locationRow) {
+                    echo ' <div class="col-md-3">';
+                    echo ' <div class="services-post">';
+                    echo '<a><i class="fa fa-user"></i></a>';
+                    echo "<h2>" . $locationRow['name'] . "</h2>";
+                    echo '</div>';
+                    echo '</div>';
+                }
+                ?>
+            </div>
+    </section>
+    <!-- End Trainers bio  Section -->
+    
+                 <!-- Start Service Section -->
+        <section id="service-section">
+            <div class="container">
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title text-center wow fadeInDown" data-wow-duration="2s" data-wow-delay="50ms">
+                            <h2>Our Services</h2>
+                        </div>                        
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="services-post">
-                        <a href="#"><i class="fa fa-gift"></i></a>
-                        <h2>Group Training</h2>
-                        <p>Train with other members to build both a healthy lifestyle and relationships.</p>
+                <?php
+                $record = DB::query("SELECT * FROM trainings ORDER BY trainingID");
+                foreach ($record as $locationRow) {
+                    echo ' <div class="col-md-3">';
+                    echo ' <div class="services-post">';
+                    echo '<a><i class="fa fa-skyatlas"></i></a>';
+                    echo "<h2>Training Type: " . $locationRow['trainingType'] . "</h2>";
+                    echo "<p>Description: " . $locationRow['description'] . "</p>";
+                    echo "<p>Cost: " . $locationRow['cost'] . "</p>";
+                    echo '</div>';
+                    echo '</div>';
+                }
+                ?>
+            </div>
+    </section>
+    <!-- End Service Section -->
+    
+     <!-- Start Gym Section -->
+        <section id="service-section">
+            <div class="container">
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title text-center wow fadeInDown" data-wow-duration="2s" data-wow-delay="50ms">
+                            <h2>Our Gyms</h2>
+                        </div>                        
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="services-post">
-                        <a href="#"><i class="fa fa-foursquare"></i></a>
-                        <h2>Crossfit Training</h2>
-                        <p>Varied high intensity functional movements to improve physical well-being and cardiovascular fitness.</p>
-                    </div>
-                </div>
+                <?php
+                $record = DB::query("SELECT locationName,locationAddress FROM gyms ORDER BY locationName");
+                foreach ($record as $locationRow) {
+                    echo ' <div class="col-md-3">';
+                    echo ' <div class="services-post">';
+                    echo '<a><i class="fa fa-subway"></i></a>';
+                    echo "<h2> " . $locationRow['locationName'] . "</h2>";
+                    echo "<p>" . $locationRow['locationAddress'] . "</p>";
+                    echo '</div>';
+                    echo '</div>';
+                }
+                ?>
+            </div>
+    </section>
+    <!-- End Gym Section -->
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title text-center wow fadeInDown" data-wow-duration="2s" data-wow-delay="50ms">
+                    <h2>Training Tips</h2>
+                </div>                        
             </div>
         </div>
-    </section>
-    <!-- Start Service Section -->
+        <div class="col-md-6">
+                <h2>Cardio Tips:</h2>
+                <ul>
+                    <li><i class="fa fa-circle"></i>For fat loss, cardio should be done on an empty stomach.</li>
+                    <li><i class="fa fa-circle"></i>Start small with cardio, and increase gradually (weekly).</li>
+                    <li><i class="fa fa-circle"></i>Know your target heart rate(THR).</li>
+                </ul>
+        </div>
+        <div class="col-md-6">
+                 <h2>Crossfit Tips:</h2>
+                <ul>
+                    <li><i class="fa fa-circle"></i>Do not overdo the training! Ask your trainer if you're able to do more sets</li>
+                    <li><i class="fa fa-circle"></i>Shorter the workout, the lonegr your warm ups should be.</li>
+                    <li><i class="fa fa-circle"></i>Breakfast is important!</li>
+                </ul>
+        </div>
+    </div>
+    
+     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-title text-center wow fadeInDown" data-wow-duration="2s" data-wow-delay="50ms">
+                    <h2>Promotions</h2>
+                </div>
+                <div class="col-md-6">
+                <h2>Group trainings:</h2>
+                <ul>
+                    <li><i class="fa fa-circle"></i>Fabulous Fridays: 10% off for any group trainings!</li>
+                    <li><i class="fa fa-circle"></i>OT Mondays: 5% off any group trainings!</li>
+                    <li><i class="fa fa-circle"></i>2 for 1 weekends: Any group trainings for the price of 1!<li>
+                </ul>
+        </div>
+        <div class="col-md-6">
+                 <h2>Individual trainings:</h2>
+                <ul>
+                    <li><i class="fa fa-circle"></i>New found partner: 5% off for the first month!</li>
+                    <li><i class="fa fa-circle"></i>Loyalty over royalty: 10% off for members over a year! </li>
+                    <li><i class="fa fa-circle"></i>2 for 1 weekends: Any group trainings for the price of 1!</li>
+                </ul>
+        </div>
+            </div>
+        </div>
+     </div>
         
-        
+    <!-- Start Copyright Section -->
+    <div id="copyright-section" class="copyright-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="copyright">
+                        Copyright © 2017. ICT3104 Software Management - Gym Booking System</a>
+                    </div>
+                </div>
+            </div><!--/.row -->
+        </div><!-- /.container -->
+    </div>
+    <!-- End Copyright Section -->
      
 		
        <!-- Sulfur JS File -->

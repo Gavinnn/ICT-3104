@@ -26,8 +26,8 @@
         INNER JOIN rooms R ON T.roomID = R.roomID
         INNER JOIN gyms G ON T.locationID = g.locationID
         INNER JOIN trainings TR on T.trainingID = TR.trainingID
-        WHERE trainerID = %s" 
-        ,$trainerID);
+        WHERE trainerID = %s AND startSession >= %s" 
+        ,$trainerID,  date("Y/m/d"));
         
         return buildRecord($record);
     }
@@ -55,11 +55,11 @@
     }
 
     //---------------------------------------------------------------------------------------
-    // desc: retrieve only the individual trainings that the Trainer has requested and returns them
-    // params: $trainerID (string)
+    // desc: retrieve only the trainee's individual trainings
+    // params: $traineeID (string)
     // returns: $record (array)
     //---------------------------------------------------------------------------------------
-    function getUserTrainings($trainerID){
+    function getUserTrainings($traineeID){
         
         $record = DB::query(
         "SELECT U.name, R.roomName, G.locationName,TR.trainingType, TR.cost, T.*  
@@ -74,7 +74,7 @@
     }
     
     //---------------------------------------------------------------------------------------
-    // desc: retrieve only the group trainings that the Trainee has booked and returns them
+    // desc: retrieve only the Trainee's group trainings
     // params: $traineeID (string)
     // returns: $record (array)
     //---------------------------------------------------------------------------------------

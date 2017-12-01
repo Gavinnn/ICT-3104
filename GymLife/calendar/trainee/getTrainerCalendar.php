@@ -13,22 +13,28 @@
 	$allids = explode( ',', $getids );
 	$allEvents = []; //Array to hold all events
 	$eventforsingletrainer; //Array to get events of single trainer
-	$pTrainerBool = true;
 
-	if(count($allids)==1){
-		if($pTrainerID != $allids[0]){
-			$pTrainerBool = false;
-		}
-	}
+    $trainerName = "Trainer";
+    
+    // get selected Trainer name
+    if(count($allids)==1){
+        $record = DB::query("SELECT name FROM user WHERE userID=%d", $allids[0]);
+        $trainerName = $record[0]["name"];
+    }
 	
 	for($i=0; $i<count($allids); $i++){
 	  $eventforsingletrainer = [];
-	  $eventforsingletrainer = getTrainings($allids[$i]);
+	  $eventforsingletrainer = getIndividualTrainings($allids[$i]);
 	  $allEvents = array_merge($allEvents,$eventforsingletrainer);
     }
+
+
     
     // REMOVE ANY DUPLICATE TRAININGS IF ANY
     $allEvents = array_unique($allEvents, SORT_REGULAR);
+
+    $userEvents = getUserTrainings($traineeID);
+    $groupUserEvents = getGroupUserTrainings($traineeID);
 ?>
 <!doctype html>
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
@@ -38,7 +44,7 @@
     <head>
 
         <!-- Basic -->
-        <title>GymLife | Trainer Calendar</title>
+        <title>GymLife | <?php echo $trainerName ?>'s Training Calendar</title>
 
         <!-- Define Charset -->
         <meta charset="utf-8">
@@ -79,6 +85,12 @@
         <!-- Timepicker -->
         <link href='../../asset/plugins/fullCalendar/css/jquery.timepicker.css' rel='stylesheet'/>
 
+        <!--SweetAlert-->
+        <link rel="stylesheet" href="../../asset/plugins/sweetalert-master/sweet-alert.css">
+
+		<!--SweetAlert-->
+        <script src="../../asset/plugins/sweetalert-master/sweet-alert.js"></script>
+
         <script src="../../asset/js/modernizrr.js"></script>
 
 
@@ -95,7 +107,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Training Calendar</h1>
+                            <h1><?php echo $trainerName?>'s Training Calendar</h1>
                         </div>
                     </div>
                 </div>
@@ -118,12 +130,11 @@
     </div>
 
     <?php 
-		if($pTrainerBool == true){
+
 			//Confirm Group Training Modal
 			require_once('./modal/modalGroupTraining.php');
 			//Confirm Individual Training Modal
 			require_once('./modal/modalIndivTraining.php');
-		}
 	?>
 
         <!-- jQuery Version 1.11.1 -->
@@ -157,61 +168,140 @@
     <script src="../../asset/js/styleswitcher.js"></script>
 
     <!-- Render HTML elements in modal depending on use case -->
-   <script>
-        
-        // when modal is opened
-        $('#ModalIndivConfirm').on('shown.bs.modal', function () {
-            doesTrainingClash();
-        });
+    <script>
 
-        // when modal closes
-        $('#ModalIndivConfirm').on('hidden.bs.modal', function () {
-
-            // if traiing is already booked, show the confirm button again so it appears in other training modals
-            if ($("#ModalIndivConfirm #confirmedTraineeID").val() != ""){
-                $("#ModalIndivConfirm #confirmButton").show();
-            }
-
-            // if alert is shown, hide it so it won't appear in other training modals
-            if ($("#ModalIndivConfirm #alert")){
-                $("#ModalIndivConfirm #alert").hide();
-            }
-        });
+        indivModalHandler();
 
         //---------------------------------------------------------------------------------------
-        // desc: to check whether the training the Trainee has selected clashes with any of 
-        // their existing trainings. If clashes, show alert and remove confirm button
+        //  desc: For the INDIVIDUAL modal, depending on whether Trainee has already booked that 
+        // training or when Trainee selects a training that clashes with an existing training,
+        //  pops up alert depending on the scenario mentioned
         //---------------------------------------------------------------------------------------
-        function doesTrainingClash(){
+        function indivModalHandler(){
 
-            var traineeID = $("#ModalIndivConfirm #traineeID").val();
-            var startTime = $("#ModalIndivConfirm #startTime").val();
+            // event handler when INDIV modal is opened
+            $('#ModalIndivConfirm').on('shown.bs.modal', function () {
 
-            // ajax call to determine if there any clashes
-            $.ajax({
-                url: "doesTrainingClash.php",
-                data: {'traineeID' : traineeID, 'startTime': startTime},
-                type: 'POST',
-                async: false,
-                success: function (results) {
+                let personalTrainerID = <?php echo $pTrainerID  ?>;
 
-                    // there is a clash...
-                    if (results == "true"){
+                // retrieve the datetimes before and after 30 mins of the original date...
+                let dateTimeStringArray = getTimingsToBeTested($("#ModalIndivConfirm #startTime").val());
 
-                        // the  training that was booked by the Trainee
-                        if ($("#ModalIndivConfirm #confirmedTraineeID").val() != ""){
-                            $("#ModalIndivConfirm #alert").hide();
-                            $("#ModalIndivConfirm #confirmButton").hide();
-                        }
-                        // the new training that the Trainee intends to book but clashes with a previos training
-                        else{
-                            $("#ModalIndivConfirm #alert").show();
-                            $("#ModalIndivConfirm #confirmButton").hide();
-                        }
+                // if Trainee selects an indiv training that is already booked
+                if ($("#ModalIndivConfirm #confirmedTraineeID").val() != ""){
+                    $("#ModalIndivConfirm #confirmButtonIndiv").hide();
+                    swal("Alert", "Training is already booked!", "info");
+                }
+
+                // when Trainee selects an indiv training that clashes with any of their existing training (indiv || group)
+                else if (doesTrainingClash(dateTimeStringArray[0]) || doesTrainingClash(dateTimeStringArray[1]) || doesTrainingClash(dateTimeStringArray[2])) {
+                    $("#ModalIndivConfirm #confirmButtonIndiv").hide();
+                    swal("Alert!", "Training clashes with existing training!", "error");
+                }
+
+                // if Trainee has a personal Trainer
+                else if (personalTrainerID != "0"){
+
+                    // if the selected training is not from the Trainee's personal Trainer
+                    if (!isTrainingByThePersonalTrainer("indiv", $("#ModalIndivConfirm #sessionID").val(), personalTrainerID)){
+                        $("#ModalIndivConfirm #confirmButtonIndiv").hide();
+                        swal("Alert!", "This training is not from your personal trainer!", "error");
                     }
                 }
             });
+
+            // event handler when INDIV modal is closed
+            $('#ModalIndivConfirm').on('hidden.bs.modal', function () {
+                $("#ModalIndivConfirm #confirmButtonIndiv").show();
+            }); 
         }
+
+        //---------------------------------------------------------------------------------------
+        // desc: For a given dateTimeString, determine its dateTime 30 mins before and after 
+        // and returns all three dateTime Strings in an array
+        // params: dateTimeString (string)
+        // returns: dateTimeStringArray (Array of Strings)
+        //---------------------------------------------------------------------------------------
+        function getTimingsToBeTested(dateTimeString){
+
+            // convert dateTimeString to Moment DateTime object 
+            let dateTimeObject = moment(dateTimeString, "YYYY-MM-DD HH:mm:ss");
+
+            // add and subtract 30 mins from the original time
+            let dateTimeObject30MinsBefore = moment(dateTimeObject).subtract(30, 'm').toDate();
+            let dateTimeObject30MinsAfter = moment(dateTimeObject).add(30, 'm').toDate();
+
+            // convert the before and after time into strings
+            var dateTimeBeforeString = moment(dateTimeObject30MinsBefore).format("YYYY-MM-DD HH:mm:ss");
+            var dateTimeAfterString = moment(dateTimeObject30MinsAfter).format("YYYY-MM-DD HH:mm:ss");
+
+            // place the times into an array
+            let dateTimeStringArray = [dateTimeBeforeString, dateTimeString, dateTimeAfterString]
+
+            return dateTimeStringArray;
+
+        }
+
+        //---------------------------------------------------------------------------------------
+        // desc: Determine if the selected is training is from the Trainee's personal Trainer
+        // params: training (string), trainingID (String), personalTrainerID (int)
+        // returns: boolean 
+        //---------------------------------------------------------------------------------------
+        function isTrainingByThePersonalTrainer(training, trainingID ,personalTrainerID){
+
+            let events = <?php echo json_encode($allEvents) ?>;
+
+            // retrieve the training based on its trainingID
+            let filtered = events.filter((event) => {
+                // determine if training is indiv or group training
+                if (training === "indiv"){
+                    return event.sessionID === trainingID;
+                }
+                else if (training === "grp"){
+                    return event.groupSessionID === trainingID;
+                }  
+            });
+
+            if (filtered.length > 0){
+                // since the Training is from the personal Trainer, return true
+                if (filtered[0].trainerID == personalTrainerID){
+                    return true;
+                }
+
+                // since the Training is not from the personal Trainer, return false
+                else {
+                    return false;
+                }
+            }
+
+            // return false if training can't be found
+            return false;
+        }
+
+
+        //---------------------------------------------------------------------------------------
+        // desc: to check whether the training the Trainee has selected clashes with any of 
+        // their existing trainings (indiv || grp) . If clashes, show return true. Else, return false
+        // params: startTime (String)
+        // return: (boolean)
+        //---------------------------------------------------------------------------------------
+        function doesTrainingClash(startTime){
+
+            let userEvents = <?php echo json_encode($userEvents) ?>;
+            let groupEvents = <?php echo json_encode($groupUserEvents) ?>;
+
+            let filtered = userEvents.concat(groupEvents).filter((event) => {
+                return event.startSession === startTime;
+            });
+
+            if (filtered.length === 0){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        
     </script>
         </body>
 </html>

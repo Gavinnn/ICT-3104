@@ -30,7 +30,7 @@
 					?>
 					<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Training</a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="/<?php echo $path; ?>/calendar/trainee/traineeCalendar.php">Training Calendar</a></li>
+                            <li><a href="/<?php echo $path; ?>/calendar/trainee/traineeCalendar.php">My Training Calendar</a></li>
                             <li><a href="/<?php echo $path; ?>/calendar/trainee/viewAllTrainers.php">View Trainers</a></li>
                         </ul> 
                     </li>

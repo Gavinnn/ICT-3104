@@ -96,6 +96,47 @@
         return buildRecord($record);
     }
     
+        //---------------------------------------------------------------------------------------
+    // desc: get all approved group trainings that are after the current date
+    // returns: $record (array)
+    //---------------------------------------------------------------------------------------
+    function getAllGroupTrainings(){
+        $record = DB::query(
+            "SELECT U.name AS trainerName, TR.trainingType, TR.cost, R.roomName, GY.locationName, G.*
+            FROM groupsessions G
+            INNER JOIN USER U ON G.trainerID = U.userID
+            INNER JOIN rooms R ON G.roomID = R.roomID
+            INNER JOIN gyms GY ON G.locationID = GY.locationID
+            INNER JOIN trainings TR ON G.trainingID = TR.trainingID
+            WHERE (G.sessionStatus = 2 AND G.startSession >= %s)
+            GROUP BY G.groupSessionID"
+            , date("Y/m/d")
+            );
+
+        return buildRecord($record);
+    }
+
+    //---------------------------------------------------------------------------------------
+    // desc: if training is full, color it red
+    // params: $record (array), $userID (int)
+    // returns: $newRecord (array)
+    //---------------------------------------------------------------------------------------
+    function colorFullTraining($record, $userID){
+        
+                $newRecord = [];
+        
+                foreach ($record as $training){
+        
+                    // if group training is full, color it RED
+                    if ((int) $training['numberOfParticipants'] == (int) $training['maxCapacity']){
+                        $training['color'] = '#FF0001';
+                    }
+        
+                    array_push($newRecord, $training);
+                }
+        
+                return $newRecord;
+            }
 
     //---------------------------------------------------------------------------------------
     // desc: process the trainings in the record so that they are ready to be displayed 

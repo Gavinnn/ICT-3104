@@ -24,6 +24,7 @@
                     if($_SESSION['role']=="trainer"){
 					?>
                     <li><a href="/<?php echo $path; ?>/calendar/trainer/trainerCalendar.php">My Training Calendar</a></li>
+                    <li><a href="/<?php echo $path; ?>/calendar/trainer/groupCalendar.php">Group Training Calendar</a></li>
                     <?php } ?>
                     <?php
                     if($_SESSION['role']=="trainee"){
@@ -34,6 +35,7 @@
                             <li><a href="/<?php echo $path; ?>/calendar/trainee/viewAllTrainers.php">View Trainers</a></li>
                         </ul> 
                     </li>
+                    <li><a href="/<?php echo $path; ?>/calendar/trainee/groupCalendar.php">Group Training Calendar</a></li>
                     
                     <?php } ?> <?php
                     if($_SESSION['role']=="admin"){

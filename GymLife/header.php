@@ -23,7 +23,7 @@
                     <?php
                     if($_SESSION['role']=="trainer"){
 					?>
-                    <li><a href="/<?php echo $path; ?>/calendar/trainer/trainerCalendar.php">Training Calendar</a></li>
+                    <li><a href="/<?php echo $path; ?>/calendar/trainer/trainerCalendar.php">My Training Calendar</a></li>
                     <?php } ?>
                     <?php
                     if($_SESSION['role']=="trainee"){

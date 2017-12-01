@@ -12,7 +12,7 @@ $events = getTrainings($trainerID);
 <html lang="en">
     <head>
         <!-- Basic -->
-        <title>GymLife | Trainer Calendar</title>
+        <title>GymLife | My Trainer Calendar</title>
 
         <!-- Define Charset -->
         <meta charset="utf-8">
@@ -78,7 +78,7 @@ $events = getTrainings($trainerID);
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Training Calendar</h1>
+                            <h1>My Training Calendar</h1>
                         </div>
                     </div>
                 </div>

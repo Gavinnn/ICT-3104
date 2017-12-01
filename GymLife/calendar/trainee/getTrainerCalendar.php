@@ -32,6 +32,7 @@
     
     // REMOVE ANY DUPLICATE TRAININGS IF ANY
     $allEvents = array_unique($allEvents, SORT_REGULAR);
+    $allEvents = colorUserTraining($allEvents, $traineeID);
 
     $userEvents = getUserTrainings($traineeID);
     $groupUserEvents = getGroupUserTrainings($traineeID);
@@ -114,8 +115,23 @@
             </div>
         </div>
         <!-- End Header Section -->
-        
+
         <div class="container">
+
+            <!-- Legend Calendar -->
+            <div class="row">
+                <h2>Calendar Legend</h2>
+                    <table class="tableLegend">
+                        <tbody>
+                        <tr>
+                        <td class="legend_item yourTraining tdLegend"></td><td>Your Trainings</td>
+                        <td class="legend_item indivTraining tdLegend"></td><td>Available Individual Training</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+            </div>
+
             <div class="row">
             <div class="col-lg-12 text-center">
             <br>

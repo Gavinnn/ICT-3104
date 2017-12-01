@@ -112,6 +112,27 @@
         return $record;
     }
 
+    //---------------------------------------------------------------------------------------
+    // desc: colors all user's own training orange
+    // params: $record (array), $userID (int)
+    // returns: $newRecord (array)
+    //---------------------------------------------------------------------------------------
+    function colorUserTraining($record, $userID){
+        
+                $newRecord = [];
+        
+                foreach ($record as $training){
+        
+                    // if training is own user's training, color it orange
+                    if($training["traineeID"] == $userID){
+                        $training['color'] = '#FF7F50';
+                    }
+        
+                    array_push($newRecord, $training);
+                }
+        
+                return $newRecord;
+            }
 
     //---------------------------------------------------------------------------------------
     // desc: assign color based on individual or group training or completed training

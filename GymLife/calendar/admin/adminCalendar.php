@@ -2,7 +2,7 @@
     require_once('../../session/session.php');
 
     include 'getTrainings.php';
-    $events = getTrainings();
+    $events = getGroupTrainings();
 ?>
 
 <!doctype html>
@@ -62,7 +62,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Training Calendar</h1>
+                            <h1>Group Training Calendar</h1>
                         </div>
                     </div>
                 </div>
@@ -74,11 +74,10 @@
 
             <!-- Legend Calendar -->
             <div class="row">
-                <h2>Calendar Legend</h2>
+                <h2>Group Calendar Legend</h2>
                     <table class="tableLegend">
                         <tbody>
                         <tr>
-                        <td class="legend_item indivTraining tdLegend"></td><td>Individual Training</td>
                         <td class="legend_item groupTraining tdLegend"></td><td>Group Training</td>
                         <td class="legend_item traineeTraining tdLegend"></td><td>Full Trainings</td>
                         </tr>

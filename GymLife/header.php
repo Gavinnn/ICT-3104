@@ -38,7 +38,7 @@
                     <?php } ?> <?php
                     if($_SESSION['role']=="admin"){
 					?>
-                    <li><a href="/<?php echo $path; ?>/calendar/admin/adminCalendar.php">Training Calendar</a></li>
+                    <li><a href="/<?php echo $path; ?>/calendar/admin/adminCalendar.php">Group Training Calendar</a></li>
                     <?php } ?>
 
                     <!--Account Management Section-->

@@ -1140,6 +1140,9 @@ be a descendant of the grid when it is being dragged.
 .traineeTraining{
 	background-color:#FF0000;
 }
+.yourTraining{
+	background-color: #FF7F50;
+}
 .tableLegend{
 	width: 50%;
 	max-width: 50%;

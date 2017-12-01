@@ -53,6 +53,53 @@
     }
 
     //---------------------------------------------------------------------------------------
+    // desc: get all approved group trainings that are after the current date
+    // returns: $record (array)
+    //---------------------------------------------------------------------------------------
+    function getAllGroupTrainings(){
+        $record = DB::query(
+            "SELECT U.name AS trainerName, TR.trainingType, TR.cost, R.roomName, GY.locationName, G.*
+            FROM groupsessions G
+            INNER JOIN USER U ON G.trainerID = U.userID
+            INNER JOIN rooms R ON G.roomID = R.roomID
+            INNER JOIN gyms GY ON G.locationID = GY.locationID
+            INNER JOIN trainings TR ON G.trainingID = TR.trainingID
+            WHERE (G.sessionStatus = 2 AND G.startSession >= %s)
+            GROUP BY G.groupSessionID"
+            , date("Y/m/d")
+            );
+
+        return buildRecord($record);
+    }
+
+    //---------------------------------------------------------------------------------------
+    // desc: colors all user's own training gree
+    // params: $record (array), $userID (int)
+    // returns: $newRecord (array)
+    //---------------------------------------------------------------------------------------
+    function colorUserTraining($record, $userID){
+
+        $newRecord = [];
+
+        foreach ($record as $training){
+
+            // if training is own user's training, color it orange
+            if($training["trainerID"] == $userID){
+                $training['color'] = '#FF7F50';
+            }
+
+            // if group training is full, color it RED
+            else if ((int) $training['numberOfParticipants'] == (int) $training['maxCapacity']){
+                $training['color'] = '#FF0001';
+            }
+
+            array_push($newRecord, $training);
+        }
+
+        return $newRecord;
+    }
+
+    //---------------------------------------------------------------------------------------
     // desc: process the trainings in the record so that they are ready to be displayed 
     // in calendar
     // params: $record (array)

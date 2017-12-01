@@ -84,7 +84,7 @@ function initializeTrainerCalendar(trainingSessions){
                 }
             
                 // if event is group training, show group training modal
-                else if (event.color == "#0000B2" || event.color == "#FF0001"){
+                else if (event.color == "#0000B2" || event.color == "#FF0001" || event.color == "#FF7F50"){
                     $('#GroupModalEdit #sessionID').val(event.id);	// pump the id into the Edit modal
                     $('#GroupModalEdit #title').val(event.title);
                     $('#GroupModalEdit #gym').val(event.gym);

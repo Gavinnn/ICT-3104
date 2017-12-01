@@ -88,7 +88,7 @@ $contact = $record["contactNumber"];
                     </div
                     <div class="form-group">
                         <label class="control-label" for="textinput">Contact Number: </label>
-                        <label><?php echo $contact; ?></label>
+                        <label><?php if ($contact != 0) echo $contact; ?></label>
                     </div>
                 </div>
 

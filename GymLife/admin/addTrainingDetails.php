@@ -100,7 +100,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="textinput">Cost of Training: </label>
-                            <input type="email" id="cost" name="cost" class="form-control input-md"/>
+                            <input type="number" id="cost" name="cost" class="form-control input-md"/>
                         </div>
                         <div class="form-group">
                             <!--Error Message-->

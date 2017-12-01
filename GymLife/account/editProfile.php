@@ -121,7 +121,7 @@ if ($record) {
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="textinput">Contact Number: </label>
-                            <input type="text" id="contactNumber" name="contactNumber" class="form-control input-md" value="<?php echo $contact; ?>" />
+                            <input type="text" id="contactNumber" name="contactNumber" class="form-control input-md" value="<?php if ($contact != 0) echo $contact; ?>" />
                         </div>
                         <div class="form-group">
                             <!--Error Message-->

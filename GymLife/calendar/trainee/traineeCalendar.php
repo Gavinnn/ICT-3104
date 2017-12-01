@@ -22,7 +22,7 @@
     <head>
 
         <!-- Basic -->
-        <title>GymLife | Trainer Calendar</title>
+        <title>GymLife | My Trainer Calendar</title>
 
         <!-- Define Charset -->
         <meta charset="utf-8">
@@ -85,7 +85,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1>Training Calendar</h1>
+                            <h1>My Training Calendar</h1>
                         </div>
                     </div>
                 </div>
@@ -101,9 +101,8 @@
                     <table class="tableLegend">
                         <tbody>
                         <tr>
-                        <td class="legend_item indivTraining tdLegend"></td><td>Individual Training</td>
-                        <td class="legend_item groupTraining tdLegend"></td><td>Group Training</td>
-                        <td class="legend_item traineeTraining tdLegend"></td><td>Your Trainings</td>
+                        <td class="legend_item indivTraining tdLegend"></td><td>Your Individual Training</td>
+                        <td class="legend_item groupTraining tdLegend"></td><td>Your Group Trainings</td>
                         </tr>
                         </tbody>
                     </table>
@@ -144,7 +143,7 @@
 
         <script src="initializeTraineeCalendar.js" type="text/javascript"></script>
         <script type="text/javascript">
-            $(document).ready(initializeTraineeCalendar(<?php echo json_encode($events) ?> ));
+            $(document).ready(initializeTraineeCalendar(<?php echo json_encode(array_merge($userEvents, $groupUserEvents)) ?> ));
         </script>
 
         <!-- Timepicker  -->
@@ -196,7 +195,7 @@
                 // if Trainee selects an indiv training that is already booked
                 if ($("#ModalIndivConfirm #confirmedTraineeID").val() != ""){
                     $("#ModalIndivConfirm #confirmButtonIndiv").hide();
-                    swal("Alert", "Training is already booked!", "info");
+                    swal("Reminder", "You have already booked this training!", "info");
                 }
 
                 // when Trainee selects an indiv training that clashes with any of their existing training (indiv || group)

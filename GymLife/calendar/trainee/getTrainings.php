@@ -128,15 +128,8 @@
             // check is training individual training
             if (array_key_exists('sessionID', $training)){
                 
-                // if indiv. training is available, color it GREEN
-                if ($training['traineeID'] == NULL){
-                    $training['color'] = '#008000';
-                }
-
-                // if indiv. training is not available, color it RED
-                else{
-                    $training['color'] = '#FF0000';
-                }
+                // if indiv. training, color it GREEN
+                $training['color'] = '#008000';
 
                 array_push($newRecord, $training);
             }
@@ -144,15 +137,8 @@
             // training is a group training instead
             else if (array_key_exists('groupSessionID', $training)){
 
-                // if group training is not booked yet by the trainee, color it BLUE
-                if ($training['traineeName'] == NULL){
+                // if group training, color it BLUE
                     $training['color'] = '#0000B2';
-                }
-
-                // if group training is booked by the trainee, color it RED
-                else{
-                    $training['color'] = '#FF0001';
-                }
 
                 array_push($newRecord, $training);
             }
